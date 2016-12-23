@@ -23,21 +23,19 @@ public class ContactImplTest {
     }
 
     @Test
-    @Ignore
     public void getName() throws Exception {
-        assertEquals();
+        assertEquals("Paul", testContact.getName());
 
     }
 
     @Test
-    @Ignore
     public void getNotes() throws Exception {
-
+        assertEquals("myNotes", testContact.getNotes());
     }
 
     @Test
-    @Ignore
     public void addNotes() throws Exception {
+
 
     }
 
