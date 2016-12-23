@@ -30,7 +30,7 @@ public class ContactImpl implements Contact {
         return notes;
     }
 
-    public void addNotes(String note){
-        this.notes += "\n" + notes;
+    public void addNotes(String noteToAdd){
+        this.notes += "\n" + noteToAdd;
     }
 }

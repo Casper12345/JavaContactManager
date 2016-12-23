@@ -35,7 +35,15 @@ public class ContactImplTest {
 
     @Test
     public void addNotes() throws Exception {
-
+        StringBuilder toCompare = new StringBuilder(testContact.getNotes());
+        // testing string builder
+        assertEquals(testContact.getNotes(), toCompare.toString());
+        // adding notes
+        testContact.addNotes("moreNotes");
+        // adding notes stringbuilder
+        toCompare.append("\n"+"moreNotes");
+        // testing again
+        assertEquals(testContact.getNotes(), toCompare.toString());
 
     }
 
