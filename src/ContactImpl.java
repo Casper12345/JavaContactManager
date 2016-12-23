@@ -7,13 +7,24 @@ public class ContactImpl implements Contact {
     private String name;
     private String notes;
 
-    public ContactImpl(int id, String name, String notes){
+    public ContactImpl(int id, String name, String notes) throws IllegalArgumentException, NullPointerException {
+
+        if(id < 0){
+            throw new IllegalArgumentException();
+        }
+        if(name == null || notes == null){
+            throw new NullPointerException();
+        }
         this.id = id;
         this.name = name;
         this.notes = notes;
     }
 
     public ContactImpl(int id, String name){
+        if(id < 0){
+            throw new IllegalArgumentException();
+        }
+
         this.id = id;
         this.name = name;
     }
