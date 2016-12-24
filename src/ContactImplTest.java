@@ -5,7 +5,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * Created by Casper on 22/12/2016.
+ * Tests used to create Contact ImplTest
  */
 public class ContactImplTest {
 
@@ -112,6 +112,21 @@ public class ContactImplTest {
         }
         assertTrue(Thrown);
 
+    }
+
+    @Test
+    public void testConstructorTwoSecond(){
+        Contact testContactTwo;
+        boolean Thrown = false;
+
+        try {
+            testContactTwo = new ContactImpl(10,null);
+        } catch (IllegalArgumentException ex){
+            ex.printStackTrace();
+        } catch (NullPointerException ex){
+            Thrown = true;
+        }
+        assertTrue(Thrown);
     }
 
 

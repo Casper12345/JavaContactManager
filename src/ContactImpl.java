@@ -1,5 +1,5 @@
 /**
- * Created by Casper on 22/12/2016.
+ * Implements interface Contact. Is written with TDD.
  */
 public class ContactImpl implements Contact {
 
@@ -24,7 +24,9 @@ public class ContactImpl implements Contact {
         if(id < 0){
             throw new IllegalArgumentException();
         }
-
+        if(name == null){
+            throw new NullPointerException();
+        }
         this.id = id;
         this.name = name;
     }
