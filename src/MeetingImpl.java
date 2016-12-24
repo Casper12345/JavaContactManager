@@ -10,7 +10,7 @@ public abstract class MeetingImpl {
     private Date date;
     private Set contacts;
 
-    public MeetingImpl(int id, Date date, Set contacts) throws IllegalArgumentException{
+    public MeetingImpl(int id, Date date, Set contacts) throws IllegalArgumentException, NullPointerException{
         this.id = id;
         this.date = date;
         this.contacts = contacts;
@@ -22,8 +22,20 @@ public abstract class MeetingImpl {
         if(contacts.isEmpty()){
             throw new IllegalArgumentException();
         }
+        // I only throw if date is null, as null instance of set automatically throws a NullPointException
+        if(date == null){
+            throw new NullPointerException();
+        }
+
     }
 
+    public int getId(){
+        return id;
+    }
+
+    public Date getDate(){
+        return date;
+    }
 
 }
 

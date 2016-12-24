@@ -11,8 +11,13 @@ import static org.junit.Assert.*;
  */
 public class MeetingImplTest {
 
+    private MeetingImpl testMeetingTwo;
+
     @Before
     public void setUpTest() {
+        ArrayListSet<Contact> myContacts = new ArrayListSet<>();
+        myContacts.add(new ContactImpl(1,"George","myImportantNotes"));
+        testMeetingTwo = new MeetingMockClass(1, new Date(22122016), myContacts);
 
     }
 
@@ -80,11 +85,41 @@ public class MeetingImplTest {
         contacts.add(new ContactImpl(1,"George","myImportantNotes"));
 
         try{
-            testMeeting = new MeetingMockClass(1, null, null);
+            testMeeting = new MeetingMockClass(1, null, contacts);
 
         }catch(NullPointerException ex){
             Throw = true;
         }
 
+        assertTrue(Throw);
+        // set Throw back to false
+        Throw = false;
+
+        try{
+            testMeeting = new MeetingMockClass(1, new Date(22122016), contacts);
+
+        }catch(NullPointerException ex){
+            Throw = true;
+        }
+
+        assertFalse(Throw);
+
     }
+
+    @Test
+    public void getId(){
+
+        assertEquals(1,testMeetingTwo.getId());
+        assertNotEquals(2,testMeetingTwo.getId());
+
+    }
+
+    @Test
+    public void getDate() {
+
+        assertEquals(new Date(22122016),testMeetingTwo.getDate());
+        assertNotEquals(new Date(10122010),testMeetingTwo.getDate());
+
+    }
+
 }

@@ -2,7 +2,7 @@ import java.util.Date;
 import java.util.Set;
 
 /**
- * Created by Casper on 24/12/2016.
+ * MockUp class for MeetingImpl
  */
 public class MeetingMockClass extends MeetingImpl {
 
