@@ -17,7 +17,7 @@ public class MeetingImplTest {
     }
 
     @Test
-    public void constructorTest(){
+    public void constructorTestPartOne(){
         MeetingImpl testMeeting;
         boolean Throw = false;
 
@@ -28,6 +28,63 @@ public class MeetingImplTest {
         }
 
         assertTrue(Throw);
+        // set Throw back to false
+        Throw = false;
+        // creating contact set
+        ArrayListSet<Contact> contacts = new ArrayListSet<>();
+        contacts.add(new ContactImpl(1,"George","myImportantNotes"));
+
+        try{
+            testMeeting = new MeetingMockClass(1, new Date(22122016), contacts);
+        }catch(IllegalArgumentException ex){
+            Throw = true;
+        }
+
+        assertFalse(Throw);
+
     }
 
+    @Test
+    public void constructorTestPartTwo(){
+        MeetingImpl testMeeting;
+        boolean Throw = false;
+        ArrayListSet<Contact> contacts = new ArrayListSet<>();
+        contacts.add(new ContactImpl(1,"George","myImportantNotes"));
+
+        try{
+            testMeeting = new MeetingMockClass(-1, new Date(22122016), contacts);
+
+        }catch(IllegalArgumentException ex){
+            Throw = true;
+        }
+        assertTrue(Throw);
+
+        // set Throw back to false
+        Throw = false;
+
+        try{
+            testMeeting = new MeetingMockClass(1, new Date(22122016), contacts);
+
+        }catch(IllegalArgumentException ex){
+            Throw = true;
+        }
+
+        assertFalse(Throw);
+    }
+
+    @Test
+    public void constructorTestPartThree(){
+        MeetingImpl testMeeting;
+        boolean Throw = false;
+        ArrayListSet<Contact> contacts = new ArrayListSet<>();
+        contacts.add(new ContactImpl(1,"George","myImportantNotes"));
+
+        try{
+            testMeeting = new MeetingMockClass(1, null, null);
+
+        }catch(NullPointerException ex){
+            Throw = true;
+        }
+
+    }
 }
