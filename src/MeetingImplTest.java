@@ -18,9 +18,16 @@ public class MeetingImplTest {
 
     @Test
     public void constructorTest(){
-        MeetingImpl testMeeting = new MeetingMockClass(1, new Date(22122016), new ArrayListSet());
+        MeetingImpl testMeeting;
+        boolean Throw = false;
 
+        try{
+            testMeeting = new MeetingMockClass(1, new Date(22122016), new ArrayListSet());
+        }catch(IllegalArgumentException ex){
+            Throw = true;
+        }
 
+        assertTrue(Throw);
     }
 
 }
