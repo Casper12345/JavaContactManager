@@ -1,4 +1,4 @@
-import java.util.Date;
+import java.util.Calendar;
 import java.util.Set;
 
 /**
@@ -7,10 +7,10 @@ import java.util.Set;
 public abstract class MeetingImpl {
 
     private int id;
-    private Date date;
+    private Calendar date;
     private Set contacts;
 
-    public MeetingImpl(int id, Date date, Set contacts) throws IllegalArgumentException, NullPointerException{
+    public MeetingImpl(int id, Calendar date, Set contacts) throws IllegalArgumentException, NullPointerException{
         this.id = id;
         this.date = date;
         this.contacts = contacts;
@@ -33,7 +33,7 @@ public abstract class MeetingImpl {
         return id;
     }
 
-    public Date getDate(){
+    Calendar getDate(){
         return date;
     }
 

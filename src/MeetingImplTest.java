@@ -2,7 +2,8 @@ import com.intellij.util.containers.ArrayListSet;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Date;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import static org.junit.Assert.*;
 
@@ -17,7 +18,7 @@ public class MeetingImplTest {
     public void setUpTest() {
         ArrayListSet<Contact> myContacts = new ArrayListSet<>();
         myContacts.add(new ContactImpl(1,"George","myImportantNotes"));
-        testMeetingTwo = new MeetingMockClass(1, new Date(22122016), myContacts);
+        testMeetingTwo = new MeetingMockClass(1, new GregorianCalendar(2016,Calendar.DECEMBER,24,13,12), myContacts);
 
     }
 
@@ -27,7 +28,7 @@ public class MeetingImplTest {
         boolean Throw = false;
 
         try{
-            testMeeting = new MeetingMockClass(1, new Date(22122016), new ArrayListSet());
+            testMeeting = new MeetingMockClass(1, new GregorianCalendar(2016,Calendar.DECEMBER,24,13,12), new ArrayListSet());
         }catch(IllegalArgumentException ex){
             Throw = true;
         }
@@ -40,7 +41,7 @@ public class MeetingImplTest {
         contacts.add(new ContactImpl(1,"George","myImportantNotes"));
 
         try{
-            testMeeting = new MeetingMockClass(1, new Date(22122016), contacts);
+            testMeeting = new MeetingMockClass(1, new GregorianCalendar(2016,Calendar.DECEMBER,24,13,12), contacts);
         }catch(IllegalArgumentException ex){
             Throw = true;
         }
@@ -57,7 +58,7 @@ public class MeetingImplTest {
         contacts.add(new ContactImpl(1,"George","myImportantNotes"));
 
         try{
-            testMeeting = new MeetingMockClass(-1, new Date(22122016), contacts);
+            testMeeting = new MeetingMockClass(-1, new GregorianCalendar(2016,Calendar.DECEMBER,24,13,12), contacts);
 
         }catch(IllegalArgumentException ex){
             Throw = true;
@@ -68,7 +69,7 @@ public class MeetingImplTest {
         Throw = false;
 
         try{
-            testMeeting = new MeetingMockClass(1, new Date(22122016), contacts);
+            testMeeting = new MeetingMockClass(1, new GregorianCalendar(2016,Calendar.DECEMBER,24,13,12), contacts);
 
         }catch(IllegalArgumentException ex){
             Throw = true;
@@ -96,7 +97,7 @@ public class MeetingImplTest {
         Throw = false;
 
         try{
-            testMeeting = new MeetingMockClass(1, new Date(22122016), contacts);
+            testMeeting = new MeetingMockClass(1, new GregorianCalendar(2016,Calendar.DECEMBER,24,13,12), contacts);
 
         }catch(NullPointerException ex){
             Throw = true;
@@ -117,8 +118,8 @@ public class MeetingImplTest {
     @Test
     public void getDate() {
 
-        assertEquals(new Date(22122016),testMeetingTwo.getDate());
-        assertNotEquals(new Date(10122010),testMeetingTwo.getDate());
+        assertEquals(new GregorianCalendar(2016,Calendar.DECEMBER,24,13,12),testMeetingTwo.getDate());
+        assertNotEquals(new GregorianCalendar(2019,Calendar.DECEMBER,28,23,30),testMeetingTwo.getDate());
 
     }
 

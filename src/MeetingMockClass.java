@@ -1,4 +1,4 @@
-import java.util.Date;
+import java.util.Calendar;
 import java.util.Set;
 
 /**
@@ -6,7 +6,8 @@ import java.util.Set;
  */
 public class MeetingMockClass extends MeetingImpl {
 
-    public MeetingMockClass(int id, Date date, Set contacts){
+    public MeetingMockClass(int id, Calendar date, Set contacts){
+
         super(id, date, contacts);
     }
 
