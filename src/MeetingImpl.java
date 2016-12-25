@@ -1,3 +1,5 @@
+import com.intellij.util.containers.ArrayListSet;
+
 import java.util.Calendar;
 import java.util.Set;
 
@@ -33,8 +35,12 @@ public abstract class MeetingImpl {
         return id;
     }
 
-    Calendar getDate(){
+    public Calendar getDate(){
         return date;
+    }
+
+    public Set<Contact> getContacts(){
+        return contacts;
     }
 
 }

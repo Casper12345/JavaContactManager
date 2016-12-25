@@ -123,4 +123,15 @@ public class MeetingImplTest {
 
     }
 
+    @Test
+    public void getContacts(){
+        ArrayListSet<Contact> contacts = new ArrayListSet<>();
+        contacts.add(new ContactImpl(1,"George","myImportantNotes"));
+        for(Contact i: contacts){
+            for(Contact j : testMeetingTwo.getContacts()){
+                assertEquals(i.getId(), j.getId());
+            }
+        }
+    }
+
 }
