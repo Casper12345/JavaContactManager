@@ -16,7 +16,7 @@ public class IdGeneratorImplTest {
         Contact testContactTwo = new ContactImpl(1, "Eric", "badNotes");
         int testIdTwo = testGenerator.genId(testContactTwo);
 
-        assertEquals(testContactOne,testContactTwo);
+        assertNotEquals(testIdOne,testIdTwo);
 
 
 

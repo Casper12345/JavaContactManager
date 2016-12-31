@@ -3,7 +3,7 @@
  */
 public class IdGeneratorImpl implements IdGenerator {
     public int genId(Object toGenerate){
-        return 3;
+        return Math.abs(toGenerate.hashCode());
 
     }
 }
