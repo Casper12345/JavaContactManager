@@ -5,7 +5,7 @@ import org.hamcrest.*;
 import static org.junit.Assert.*;
 
 /**
- * Created by Casper on 22/12/2016.
+ * JUnit test fo ContactManagerImpl
  */
 public class ContactManagerImplTest {
     @Before
