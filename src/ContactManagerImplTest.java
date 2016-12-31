@@ -10,10 +10,12 @@ import static org.junit.Assert.*;
 public class ContactManagerImplTest {
     @Before
     public void setUp() throws Exception {
+        //ContactManager managerTest = new ContactManagerImpl();
 
     }
     @Test
     public void addFutureMeeting() throws Exception {
+
 
     }
 
