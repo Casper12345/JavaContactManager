@@ -25,6 +25,27 @@ public class IdGeneratorImplTest {
     }
 
     @Test
+    public void checkIfZero(){
+        boolean isZero = false;
+
+        for (int i=0; i < 2000000; i++){
+            IdGeneratorImplTest n = new IdGeneratorImplTest();
+            Contact testContactOne =
+                    new ContactImpl(1,
+                            n.randomStringGenerator(),
+                            n.randomStringGenerator());
+
+            int testIdOne = testGenerator.genId(testContactOne);
+            if (testIdOne == 0){
+                isZero = true;
+            }
+
+        }
+        assertFalse(isZero);
+    }
+
+
+    @Test
     public void stressTestIdGenerator(){
         IdGeneratorImplTest n = new IdGeneratorImplTest();
 

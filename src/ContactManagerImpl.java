@@ -7,10 +7,13 @@ import java.util.*;
  */
 public class ContactManagerImpl implements ContactManager {
 
+
     public int addFutureMeeting(Set<Contact> contacts, Calendar date){
 
         return 5;
     }
+
+
 
     public PastMeeting getPastMeeting(int id){
        return new PastMeetingImpl(2, new GregorianCalendar(2010,12,18,11,11), new ArrayListSet<>(),"");

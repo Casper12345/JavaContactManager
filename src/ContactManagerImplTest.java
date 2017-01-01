@@ -14,6 +14,7 @@ public class ContactManagerImplTest {
 
     }
 
+
     @Test
     public void addFutureMeeting() throws Exception {
         Calendar testCalendarOne = Calendar.getInstance();
