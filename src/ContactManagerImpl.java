@@ -1,5 +1,4 @@
 import com.intellij.util.containers.ArrayListSet;
-
 import java.util.*;
 
 /**
@@ -7,8 +6,17 @@ import java.util.*;
  */
 public class ContactManagerImpl implements ContactManager {
 
+    private Set<Contact> contactSet = new ArrayListSet<>();
+    private Set<FutureMeeting> futureMeetingSet = new ArrayListSet<>();
 
-    public int addFutureMeeting(Set<Contact> contacts, Calendar date){
+
+    public int addFutureMeeting(Set<Contact> contacts, Calendar date) throws IllegalArgumentException{
+
+        Calendar presentDate = Calendar.getInstance();
+
+        if (date.before(presentDate)){
+            throw new IllegalArgumentException();
+        }
 
         return 5;
     }

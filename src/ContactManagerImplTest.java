@@ -1,7 +1,9 @@
+import com.intellij.util.containers.ArrayListSet;
 import org.junit.Before;
 import org.junit.Test;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Set;
 
 import static org.junit.Assert.*;
 
@@ -9,6 +11,9 @@ import static org.junit.Assert.*;
  * JUnit test for ContactManagerImpl
  */
 public class ContactManagerImplTest {
+
+    private ContactManager testContactManager = new ContactManagerImpl();
+
     @Before
     public void setUp() throws Exception {
 
@@ -16,12 +21,22 @@ public class ContactManagerImplTest {
 
 
     @Test
-    public void addFutureMeeting() throws Exception {
-        Calendar testCalendarOne = Calendar.getInstance();
-        System.out.println(testCalendarOne.getTime());
-        Calendar testCalendarTwo = new GregorianCalendar(2016,12,28,11,11);
-        assertTrue(testCalendarOne.before(testCalendarTwo));
+    public void addFutureMeetingOne() throws Exception {
+        boolean Throw = false;
+        Contact contact = new ContactImpl(1,"Peter", "myNotes");
+        Contact contact1 = new ContactImpl(2,"John", "moreNotes");
+        Set<Contact> contacts = new ArrayListSet<>();
+        contacts.add(contact);
+        contacts.add(contact1);
+        Calendar calendar = new GregorianCalendar(2010,1,22,12,12);
 
+        try{
+            testContactManager.addFutureMeeting(contacts,calendar);
+        }catch (IllegalArgumentException ex){
+            Throw = true;
+        }
+
+        assertTrue(Throw);
 
 
     }

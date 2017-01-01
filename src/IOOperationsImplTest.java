@@ -3,7 +3,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * Created by Casper on 01/01/2017.
+ * JUnit test for IOOperations.
  */
 public class IOOperationsImplTest {
     @Test
