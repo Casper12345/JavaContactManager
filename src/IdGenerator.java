@@ -3,5 +3,5 @@
  */
 public interface IdGenerator {
 
-    abstract int genId(Object toGenerate);
+    int genId(Object toGenerate);
 }
