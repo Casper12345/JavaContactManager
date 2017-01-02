@@ -10,6 +10,7 @@ public class ContactManagerImpl implements ContactManager {
     private Set<Contact> contactSet = new ArrayListSet<>();
     private Set<FutureMeeting> futureMeetingSet = new ArrayListSet<>();
     private Set<PastMeeting> pastMeetingSet = new ArrayListSet<>();
+    private Calendar presentDate = Calendar.getInstance();
 
     /**
      * This method is used to access contactSet for testing purposes
@@ -43,8 +44,6 @@ public class ContactManagerImpl implements ContactManager {
     public int addFutureMeeting(Set<Contact> contacts, Calendar date)
             throws IllegalArgumentException, NullPointerException{
 
-        Calendar presentDate = Calendar.getInstance();
-
         if (date.before(presentDate)){
             throw new IllegalArgumentException();
         }
@@ -70,7 +69,7 @@ public class ContactManagerImpl implements ContactManager {
         return generatedId;
     }
 
-    public PastMeeting getPastMeeting(int id){
+    public PastMeeting getPastMeeting(int id) throws IllegalStateException{
 
         PastMeeting pastMeetingToReturn = null;
 
@@ -80,12 +79,26 @@ public class ContactManagerImpl implements ContactManager {
             }
         }
 
+        if(pastMeetingToReturn != null && pastMeetingToReturn.getDate().after(presentDate)){
+            throw new IllegalStateException();
+        }
+
         return pastMeetingToReturn;
     }
 
 
     public FutureMeeting getFutureMeeting(int id){
-        return new FutureMeetingImpl(1,new GregorianCalendar(2010,12,18,11,11), new ArrayListSet<>()) ;
+
+        FutureMeeting futureMeetingToReturn = null;
+
+        for(FutureMeeting i: futureMeetingSet){
+            if(i.getId() == id){
+                futureMeetingToReturn = i;
+            }
+        }
+
+
+        return futureMeetingToReturn ;
     }
 
     public Meeting getMeeting(int id){

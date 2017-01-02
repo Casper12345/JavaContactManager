@@ -142,7 +142,7 @@ public class ContactManagerImplTest {
     // getPastMeeting
 
     @Test
-    public void ReturnsPastMeetingFromId() throws Exception {
+    public void returnsPastMeetingFromId() throws Exception {
 
         Calendar pastCalendar = new GregorianCalendar(2011,10,12,12,12);
 
@@ -161,6 +161,71 @@ public class ContactManagerImplTest {
         assertEquals(testMeetingTwo, pastMeetingReturnedTwo);
 
     }
+
+    @Test
+    public void returnsNullWhenNotFound(){
+        Calendar pastCalendar = new GregorianCalendar(2011,10,12,12,12);
+
+        PastMeeting testMeetingOne = new PastMeetingImpl(45, pastCalendar, contacts, "Notes");
+        PastMeeting testMeetingTwo = new PastMeetingImpl(34, pastCalendar, contacts, "MoreNotes");
+        Set<PastMeeting> testPastMeetingsSet = new ArrayListSet<>();
+        testPastMeetingsSet.add(testMeetingOne);
+        testPastMeetingsSet.add(testMeetingTwo);
+
+        testContactManager.setPastMeetingSetMeetingSet(testPastMeetingsSet);
+
+        PastMeeting pastMeetingReturned = testContactManager.getPastMeeting(700);
+        assertNull(pastMeetingReturned);
+
+
+    }
+
+    @Test
+    public void meetingFromTheFuture(){
+
+        try {
+
+            Calendar pastCalendar = new GregorianCalendar(2020, 10, 12, 12, 12);
+
+            PastMeeting testMeetingOne = new PastMeetingImpl(45, pastCalendar, contacts, "Notes");
+            Set<PastMeeting> testPastMeetingsSet = new ArrayListSet<>();
+            testPastMeetingsSet.add(testMeetingOne);
+
+            testContactManager.setPastMeetingSetMeetingSet(testPastMeetingsSet);
+
+            PastMeeting pastMeetingReturned = testContactManager.getPastMeeting(45);
+
+        }catch (IllegalStateException ex){
+            Throw = true;
+        }
+
+        assertTrue(Throw);
+
+    }
+
+    // getFutureMeeting
+
+    @Test
+    public void returnsFutureMeetingFromId() throws Exception {
+
+        Calendar pastCalendar = new GregorianCalendar(2018,10,12,12,12);
+
+        FutureMeeting testMeetingOne = new FutureMeetingImpl(45, pastCalendar, contacts);
+        FutureMeeting testMeetingTwo = new FutureMeetingImpl(34, pastCalendar, contacts);
+        Set<FutureMeeting> testFutureMeetingsSet = new ArrayListSet<>();
+        testFutureMeetingsSet.add(testMeetingOne);
+        testFutureMeetingsSet.add(testMeetingTwo);
+
+
+        testContactManager.setFutureMeetingSet(testFutureMeetingsSet);
+
+        FutureMeeting futureMeetingReturned = testContactManager.getFutureMeeting(45);
+        assertEquals(testMeetingOne.getId(), futureMeetingReturned.getId());
+        FutureMeeting futureMeetingReturnedTwo = testContactManager.getFutureMeeting(34);
+        assertEquals(testMeetingTwo, futureMeetingReturnedTwo);
+
+    }
+
 
     @Test
     public void getFutureMeeting() throws Exception {
