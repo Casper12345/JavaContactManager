@@ -1,5 +1,6 @@
 import com.intellij.util.containers.ArrayListSet;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Implements interface ContactManager
@@ -9,12 +10,39 @@ public class ContactManagerImpl implements ContactManager {
     private Set<Contact> contactSet = new ArrayListSet<>();
     private Set<FutureMeeting> futureMeetingSet = new ArrayListSet<>();
 
+    /**
+     * This method is used to access contactSet for testing purposes
+     * @param contactSet
+     */
+    public void setContactSet(Set<Contact> contactSet){
+        this.contactSet = contactSet;
+    }
 
-    public int addFutureMeeting(Set<Contact> contacts, Calendar date) throws IllegalArgumentException{
+    /**
+     * This method is used to access futureMeetingSet for testing purposes
+     * @param futureMeetingSet
+     */
+    public void setFutureMeetingSet(Set<FutureMeeting> futureMeetingSet){
+        this.futureMeetingSet = futureMeetingSet;
+    }
+
+
+
+    public int addFutureMeeting(Set<Contact> contacts, Calendar date)
+            throws IllegalArgumentException, NullPointerException{
 
         Calendar presentDate = Calendar.getInstance();
 
         if (date.before(presentDate)){
+            throw new IllegalArgumentException();
+        }
+
+        // using streams and containsAll to check contact match by id
+        boolean isInContactSet = contactSet.stream().map(Contact::getId)
+                .collect(Collectors.toList()).containsAll(contacts.stream()
+                        .map(Contact::getId).collect(Collectors.toList()));
+
+        if(!isInContactSet) {
             throw new IllegalArgumentException();
         }
 
@@ -71,4 +99,18 @@ public class ContactManagerImpl implements ContactManager {
     public void flush(){
 
     }
+
+    // Utility functions for ContactManagerImpl
+    private boolean isInContactSet(Set<Contact> contacts) {
+        boolean found = false;
+        for (Contact i : contacts) {
+            for (Contact j : contactSet) {
+                if (j.getId() == i.getId()) {
+                    found = true;
+                }
+            }
+        }
+        return found;
+    }
+
 }
