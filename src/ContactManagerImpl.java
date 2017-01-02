@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 public class ContactManagerImpl implements ContactManager {
 
     private Set<Contact> contactSet = new ArrayListSet<>();
-    private Set<FutureMeeting> futureMeetingSet = new ArrayListSet<>();
+    private Set<Meeting> meetingSet = new ArrayListSet<>();
 
     /**
      * This method is used to access contactSet for testing purposes
@@ -19,11 +19,12 @@ public class ContactManagerImpl implements ContactManager {
     }
 
     /**
-     * This method is used to access futureMeetingSet for testing purposes
-     * @param futureMeetingSet
+     * This method is used to access meetingSet for testing purposes
+     * @param meetingSet
      */
-    public void setFutureMeetingSet(Set<FutureMeeting> futureMeetingSet){
-        this.futureMeetingSet = futureMeetingSet;
+    public void setMeetingSet(Set<Meeting> meetingSet){
+
+        this.meetingSet = meetingSet;
     }
 
 
@@ -46,13 +47,34 @@ public class ContactManagerImpl implements ContactManager {
             throw new IllegalArgumentException();
         }
 
-        return 5;
+        // create meeting and add it to set
+        Meeting futureMeetingToGenerateId = new FutureMeetingImpl(1,date,contacts);
+        // generate unique id
+        int generatedId = new IdGeneratorImpl().genId(futureMeetingToGenerateId);
+
+        FutureMeeting futureMeetingToSet = new FutureMeetingImpl(generatedId, date, contacts);
+
+        meetingSet.add(futureMeetingToSet);
+
+        return generatedId;
     }
 
-
-
     public PastMeeting getPastMeeting(int id){
-       return new PastMeetingImpl(2, new GregorianCalendar(2010,12,18,11,11), new ArrayListSet<>(),"");
+
+        PastMeeting pastMeetingToReturn = null;
+
+        List<PastMeeting> pastMeetings = meetingSet.stream().filter(a -> a instanceof PastMeeting)
+                .map(a -> (PastMeeting) a).collect(Collectors.toList());
+
+        for(PastMeeting i: pastMeetings){
+            if(i.getId() == id){
+                pastMeetingToReturn = i;
+            }else{
+                pastMeetingToReturn = null;
+            }
+        }
+
+        return pastMeetingToReturn;
     }
 
 

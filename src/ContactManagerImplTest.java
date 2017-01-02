@@ -40,6 +40,7 @@ public class ContactManagerImplTest {
         calendar = new GregorianCalendar(2018,1,22,12,12);
     }
 
+    // addFutureMeeting
 
     @Test
     public void addFutureMeetingOne() throws Exception {
@@ -138,27 +139,28 @@ public class ContactManagerImplTest {
         assertTrue(Throw);
     }
 
-    /**
-     *
-     * check if meeting is null
-     */
+    // getPastMeeting
+
     @Test
     @Ignore
-    public void addFutureMeetingFour(){
+    public void ReturnsPastMeetingFromId() throws Exception {
 
-        try{
-            testContactManager.addFutureMeeting(contacts,calendar);
-        }catch (NullPointerException ex){
-            Throw = true;
-        }
+        Calendar pastCalendar = new GregorianCalendar(2011,10,12,12,12);
 
-        assertTrue(Throw);
+        Meeting testMeetingOne = new PastMeetingImpl(45, pastCalendar, contacts, "Notes");
+        Meeting testMeetingTwo = new PastMeetingImpl(34, pastCalendar, contacts, "MoreNotes");
 
-    }
+        testContactManager.setMeetingSet();
+
+        int id = testContactManager.addFutureMeeting(contacts,calendar);
+
+        PastMeeting meetingReturned = testContactManager.getPastMeeting(id);
+
+        assertEquals(meetingReturned.getId(), id);
+        assertEquals(meetingReturned.getDate(), calendar);
 
 
-    @Test
-    public void getPastMeeting() throws Exception {
+
 
     }
 
