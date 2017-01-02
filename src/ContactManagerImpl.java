@@ -87,7 +87,7 @@ public class ContactManagerImpl implements ContactManager {
     }
 
 
-    public FutureMeeting getFutureMeeting(int id){
+    public FutureMeeting getFutureMeeting(int id) throws IllegalStateException{
 
         FutureMeeting futureMeetingToReturn = null;
 
@@ -97,6 +97,9 @@ public class ContactManagerImpl implements ContactManager {
             }
         }
 
+        if(futureMeetingToReturn != null && futureMeetingToReturn.getDate().before(presentDate)){
+            throw new IllegalStateException();
+        }
 
         return futureMeetingToReturn ;
     }
@@ -141,17 +144,5 @@ public class ContactManagerImpl implements ContactManager {
 
     }
 
-    // Utility functions for ContactManagerImpl
-    private boolean isInContactSet(Set<Contact> contacts) {
-        boolean found = false;
-        for (Contact i : contacts) {
-            for (Contact j : contactSet) {
-                if (j.getId() == i.getId()) {
-                    found = true;
-                }
-            }
-        }
-        return found;
-    }
 
 }
