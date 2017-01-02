@@ -142,25 +142,23 @@ public class ContactManagerImplTest {
     // getPastMeeting
 
     @Test
-    @Ignore
     public void ReturnsPastMeetingFromId() throws Exception {
 
         Calendar pastCalendar = new GregorianCalendar(2011,10,12,12,12);
 
-        Meeting testMeetingOne = new PastMeetingImpl(45, pastCalendar, contacts, "Notes");
-        Meeting testMeetingTwo = new PastMeetingImpl(34, pastCalendar, contacts, "MoreNotes");
-
-        testContactManager.setMeetingSet();
-
-        int id = testContactManager.addFutureMeeting(contacts,calendar);
-
-        PastMeeting meetingReturned = testContactManager.getPastMeeting(id);
-
-        assertEquals(meetingReturned.getId(), id);
-        assertEquals(meetingReturned.getDate(), calendar);
+        PastMeeting testMeetingOne = new PastMeetingImpl(45, pastCalendar, contacts, "Notes");
+        PastMeeting testMeetingTwo = new PastMeetingImpl(34, pastCalendar, contacts, "MoreNotes");
+        Set<PastMeeting> testPastMeetingsSet = new ArrayListSet<>();
+        testPastMeetingsSet.add(testMeetingOne);
+        testPastMeetingsSet.add(testMeetingTwo);
 
 
+        testContactManager.setPastMeetingSetMeetingSet(testPastMeetingsSet);
 
+        PastMeeting pastMeetingReturned = testContactManager.getPastMeeting(45);
+        assertEquals(testMeetingOne.getId(), pastMeetingReturned.getId());
+        PastMeeting pastMeetingReturnedTwo = testContactManager.getPastMeeting(34);
+        assertEquals(testMeetingTwo, pastMeetingReturnedTwo);
 
     }
 

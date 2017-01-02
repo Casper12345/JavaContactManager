@@ -8,7 +8,8 @@ import java.util.stream.Collectors;
 public class ContactManagerImpl implements ContactManager {
 
     private Set<Contact> contactSet = new ArrayListSet<>();
-    private Set<Meeting> meetingSet = new ArrayListSet<>();
+    private Set<FutureMeeting> futureMeetingSet = new ArrayListSet<>();
+    private Set<PastMeeting> pastMeetingSet = new ArrayListSet<>();
 
     /**
      * This method is used to access contactSet for testing purposes
@@ -19,13 +20,23 @@ public class ContactManagerImpl implements ContactManager {
     }
 
     /**
-     * This method is used to access meetingSet for testing purposes
-     * @param meetingSet
+     * This method is used to access futureMeetingSet for testing purposes
+     * @param futureMeetingSet
      */
-    public void setMeetingSet(Set<Meeting> meetingSet){
+    public void setFutureMeetingSet(Set<FutureMeeting> futureMeetingSet){
 
-        this.meetingSet = meetingSet;
+        this.futureMeetingSet = futureMeetingSet;
     }
+
+    /**
+     * This method is used to access pastMeetingSet for testing purposes
+     * @param pastMeetingSet
+     */
+    public void setPastMeetingSetMeetingSet(Set<PastMeeting> pastMeetingSet){
+
+        this.pastMeetingSet = pastMeetingSet;
+    }
+
 
 
 
@@ -54,7 +65,7 @@ public class ContactManagerImpl implements ContactManager {
 
         FutureMeeting futureMeetingToSet = new FutureMeetingImpl(generatedId, date, contacts);
 
-        meetingSet.add(futureMeetingToSet);
+        futureMeetingSet.add(futureMeetingToSet);
 
         return generatedId;
     }
@@ -63,14 +74,9 @@ public class ContactManagerImpl implements ContactManager {
 
         PastMeeting pastMeetingToReturn = null;
 
-        List<PastMeeting> pastMeetings = meetingSet.stream().filter(a -> a instanceof PastMeeting)
-                .map(a -> (PastMeeting) a).collect(Collectors.toList());
-
-        for(PastMeeting i: pastMeetings){
+        for(PastMeeting i: pastMeetingSet){
             if(i.getId() == id){
                 pastMeetingToReturn = i;
-            }else{
-                pastMeetingToReturn = null;
             }
         }
 
