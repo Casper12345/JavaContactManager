@@ -123,12 +123,17 @@ public class ContactManagerImpl implements ContactManager {
     public List<Meeting> getFutureMeetingList(Contact contact){
 
         List<Meeting> meetingToReturn = new ArrayList<>();
+        Set<Meeting> setToRemoveDuplicates = new ArrayListSet<>();
 
         for(FutureMeeting i : futureMeetingSet){
             if(i.getContacts().contains(contact)){
-                meetingToReturn.add(i);
+                setToRemoveDuplicates.add(i);
             }
         }
+        meetingToReturn.addAll(setToRemoveDuplicates);
+
+        // sort chronologically
+        meetingToReturn.sort((a,b) -> a.getDate().compareTo(b.getDate()));
 
         return meetingToReturn;
     }
