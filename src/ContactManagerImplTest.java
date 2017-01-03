@@ -138,6 +138,20 @@ public class ContactManagerImplTest {
 
         assertTrue(Throw);
     }
+    /**
+     * check if the contacts are null
+     */
+    @Test
+    public void addFutureMeetingFour(){
+
+        try{
+            testContactManager.addFutureMeeting(null,calendar);
+        }catch (NullPointerException ex){
+            Throw = true;
+        }
+
+        assertTrue(Throw);
+    }
 
     // getPastMeeting
 
@@ -701,6 +715,137 @@ public class ContactManagerImplTest {
         assertTrue(Throw);
 
 
+    }
+
+    // addNewPastMeeting
+
+    @Test
+    public void addNewPastMeetingOne() throws Exception {
+
+        try{
+            testContactManager.addNewPastMeeting(contacts,calendar, "Notes");
+        }catch (IllegalArgumentException ex){
+            Throw = true;
+        }
+
+        assertTrue(Throw);
+
+    }
+
+    @Test
+    public void addNewPastMeetingTwo(){
+
+        // setting calender to past date to avoid IllegalArgumentException
+        calendar = new GregorianCalendar(2010,1,22,12,12);
+
+        //check if contact is not existing
+
+        Contact contact2 = new ContactImpl(3,"Poul", "myNotes");
+        Contact contact3 = new ContactImpl(4,"Finn", "moreNotes");
+        Set<Contact> testContactSet = new ArrayListSet<>();
+        testContactSet.add(contact2);
+        testContactSet.add(contact3);
+
+        testContactManager.setContactSet(testContactSet);
+
+
+        try{
+            testContactManager.addNewPastMeeting(contacts,calendar,"Notes");
+        }catch (IllegalArgumentException ex){
+            Throw = true;
+        }
+
+        assertTrue(Throw);
+        // set Throw to false
+        Throw = false;
+
+        Contact contact = new ContactImpl(1,"Peter", "myNotes");
+        Contact contact1 = new ContactImpl(2,"John", "moreNotes");
+        Set<Contact> testContactSetTwo = new ArrayListSet<>();
+        testContactSetTwo.add(contact);
+        testContactSetTwo.add(contact1);
+
+        testContactManager.setContactSet(testContactSetTwo);
+
+
+        try{
+            testContactManager.addNewPastMeeting(contacts,calendar, "Blah");
+        }catch (IllegalArgumentException ex){
+            Throw = true;
+        }
+
+        assertFalse(Throw);
+
+        // Check if contact is unknown
+        // set Throw to false
+        Throw = false;
+
+        // add more contacts to contacts
+
+        Contact contact4 = new ContactImpl(3, "Eric", "SickNotes");
+        Contact contact5 = new ContactImpl(4, "Sam", "Notifying");
+
+        contacts.add(contact4);
+        contacts.add(contact5);
+
+        try{
+            testContactManager.addNewPastMeeting(contacts,calendar, "Note");
+        }catch (IllegalArgumentException ex){
+            Throw = true;
+        }
+
+        assertTrue(Throw);
+
+
+    }
+
+    /**
+     * check if the date is null
+     */
+    @Test
+    public void addPastMeetingThree(){
+
+        try{
+            testContactManager.addNewPastMeeting(contacts,null, "blah");
+        }catch (NullPointerException ex){
+            Throw = true;
+        }
+
+        assertTrue(Throw);
+    }
+
+    /**
+     * check if the contacts are null
+     */
+    @Test
+    public void addPastMeetingFour(){
+
+        Calendar testCalendar = new GregorianCalendar(2012,11,1,23,41);
+
+        try{
+            testContactManager.addNewPastMeeting(null,testCalendar,"Blah");
+        }catch (NullPointerException ex){
+            Throw = true;
+        }
+
+        assertTrue(Throw);
+    }
+
+    /**
+     * check if the contacts are null
+     */
+    @Test
+    public void addPastMeetingFive(){
+
+        Calendar testCalendar = new GregorianCalendar(2012,11,1,23,41);
+
+        try{
+            testContactManager.addNewPastMeeting(contacts,testCalendar, "Hate Meetings");
+        }catch (NullPointerException ex){
+            Throw = true;
+        }
+
+        assertTrue(Throw);
     }
 
 

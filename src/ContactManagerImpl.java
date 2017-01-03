@@ -173,6 +173,10 @@ public class ContactManagerImpl implements ContactManager {
         List<PastMeeting> pastMeetingToReturn = new ArrayList<>();
         Set<PastMeeting> setToRemoveDuplicates = new ArrayListSet<>();
 
+        if(contact == null){
+            throw new NullPointerException();
+        }
+
         for(PastMeeting i : pastMeetingSet){
             if(i.getContacts().contains(contact)){
                 setToRemoveDuplicates.add(i);
@@ -187,7 +191,25 @@ public class ContactManagerImpl implements ContactManager {
         return pastMeetingToReturn;
     }
 
-    public int addNewPastMeeting(Set<Contact> contacts, Calendar date, String text){
+
+    public int addNewPastMeeting(Set<Contact> contacts, Calendar date, String text)
+            throws IllegalArgumentException, NullPointerException{
+
+
+        if (date.after(presentDate)){
+            throw new IllegalArgumentException();
+        }
+
+        // using streams and containsAll to check contact match by id
+        boolean isInContactSet = contactSet.stream().map(Contact::getId)
+                .collect(Collectors.toList()).containsAll(contacts.stream()
+                        .map(Contact::getId).collect(Collectors.toList()));
+
+        if(!isInContactSet) {
+            throw new IllegalArgumentException();
+        }
+
+
         return 2;
     }
 
