@@ -337,8 +337,8 @@ public class ContactManagerImplTest {
         contactTestSetTwo.add(contact2);
 
 
+        // set futureMeetingSet to empty
         Set<FutureMeeting> emptySet = new ArrayListSet<>();
-
         testContactManager.setFutureMeetingSet(emptySet);
 
         testContactManager.addFutureMeeting(contactTestSet,calendar);
@@ -376,9 +376,8 @@ public class ContactManagerImplTest {
         contactTestSetTwo.add(contact);
         contactTestSetTwo.add(contact2);
 
-
+        // set futureMeetingSet to empty
         Set<FutureMeeting> emptySet = new ArrayListSet<>();
-
         testContactManager.setFutureMeetingSet(emptySet);
 
         testContactManager.addFutureMeeting(contactTestSet,calendar);
@@ -410,9 +409,8 @@ public class ContactManagerImplTest {
         contactTestSet.add(contact);
         contactTestSet.add(contact1);
 
-
+        // set futureMeetingSet to empty
         Set<FutureMeeting> emptySet = new ArrayListSet<>();
-
         testContactManager.setFutureMeetingSet(emptySet);
 
         testContactManager.addFutureMeeting(contactTestSet,calendar);
@@ -443,8 +441,8 @@ public class ContactManagerImplTest {
         contactTestSet.add(contact);
         contactTestSet.add(contact1);
 
+        // set futureMeetingSet to empty
         Set<FutureMeeting> emptySet = new ArrayListSet<>();
-
         testContactManager.setFutureMeetingSet(emptySet);
 
         Calendar firstCalendar = new GregorianCalendar(2020,0,10,12,12);
@@ -475,8 +473,8 @@ public class ContactManagerImplTest {
         contactTestSet.add(contact);
         contactTestSet.add(contact1);
 
+        // set futureMeetingSet to empty
         Set<FutureMeeting> emptySet = new ArrayListSet<>();
-
         testContactManager.setFutureMeetingSet(emptySet);
 
         testContactManager.addFutureMeeting(contactTestSet,calendar);
@@ -494,10 +492,73 @@ public class ContactManagerImplTest {
 
     }
 
+    // getMeetingListOn
+
+
+
     @Test
-    public void getMeetingListOn() throws Exception {
+    public void getMeetingListOnReturnsList() throws Exception {
+        // set futureMeetingSet to empty
+        Set<FutureMeeting> emptySet = new ArrayListSet<>();
+        testContactManager.setFutureMeetingSet(emptySet);
+
+        Calendar testCalendar = new GregorianCalendar(2012,0,12,12,12);
+        PastMeeting testMeetingOne = new PastMeetingImpl(230, testCalendar, contacts, "notes");
+        PastMeeting testMeetingTwo = new PastMeetingImpl(330, testCalendar, contacts, "moreNotes");
+
+        Set<PastMeeting> testMeetingSet = new ArrayListSet<>();
+        testMeetingSet.add(testMeetingOne);
+        testMeetingSet.add(testMeetingTwo);
+
+        testContactManager.setPastMeetingSetMeetingSet(testMeetingSet);
+
+        List<Meeting> meetingsReturned = testContactManager.getMeetingListOn(testCalendar);
+
+        assertEquals(meetingsReturned.get(0).getId(),230);
+        assertEquals(meetingsReturned.get(1).getId(),330);
+
+        testContactManager.addFutureMeeting(contacts,calendar);
+
+        List<Meeting> meetingsReturnedTwo = testContactManager.getMeetingListOn(calendar);
+
+
+        assertEquals(meetingsReturnedTwo.get(0).getDate(),calendar);
 
     }
+
+    @Test
+    public void getMeetingListOnReturnsEmptyList() throws Exception {
+        // set futureMeetingSet to empty
+        Set<FutureMeeting> emptySet = new ArrayListSet<>();
+        testContactManager.setFutureMeetingSet(emptySet);
+
+        GregorianCalendar testCalendar = new GregorianCalendar(2030, 1,1,1,12);
+
+        List<Meeting> meetingsReturned = testContactManager.getMeetingListOn(testCalendar);
+
+        testContactManager.addFutureMeeting(contacts,calendar);
+
+        assertTrue(meetingsReturned.isEmpty());
+
+
+
+    }
+
+    @Test
+    public void getMeetingListOnThrowNullPointerException() throws Exception {
+
+        try{
+            List<Meeting> meetingsReturned = testContactManager.getMeetingListOn(null);
+            testContactManager.addFutureMeeting(contacts,calendar);
+            assertTrue(meetingsReturned.isEmpty());
+        }catch (NullPointerException ex){
+            Throw = true;
+        }
+
+        assertTrue(Throw);
+
+    }
+
 
     @Test
     public void getPastMeetingListFor() throws Exception {

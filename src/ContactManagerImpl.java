@@ -120,10 +120,14 @@ public class ContactManagerImpl implements ContactManager {
         return meetingToReturn;
     }
 
-    public List<Meeting> getFutureMeetingList(Contact contact){
+    public List<Meeting> getFutureMeetingList(Contact contact) throws NullPointerException{
 
         List<Meeting> meetingToReturn = new ArrayList<>();
         Set<Meeting> setToRemoveDuplicates = new ArrayListSet<>();
+
+        if(contact == null){
+            throw new NullPointerException();
+        }
 
         for(FutureMeeting i : futureMeetingSet){
             if(i.getContacts().contains(contact)){
@@ -140,7 +144,28 @@ public class ContactManagerImpl implements ContactManager {
 
 
     public List<Meeting> getMeetingListOn(Calendar date){
-        return new ArrayList<>();
+
+        List<Meeting> meetingToReturn = new ArrayList<>();
+        Set<Meeting> setToRemoveDuplicates = new ArrayListSet<>();
+
+        if(date == null){
+            throw new NullPointerException();
+        }
+
+        for(FutureMeeting i : futureMeetingSet){
+            if(i.getDate().equals(date)){
+                setToRemoveDuplicates.add(i);
+            }
+        }
+        for(PastMeeting i : pastMeetingSet){
+            if(i.getDate().equals(date)){
+                setToRemoveDuplicates.add(i);
+            }
+        }
+
+        meetingToReturn.addAll(setToRemoveDuplicates);
+
+        return meetingToReturn;
     }
 
     public List<PastMeeting> getPastMeetingListFor(Contact contact){
