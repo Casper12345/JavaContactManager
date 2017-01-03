@@ -226,26 +226,39 @@ public class ContactManagerImpl implements ContactManager {
     }
 
 
-    public PastMeeting addMeetingNotes(int id, String text) throws IllegalArgumentException{
-        Meeting meetingToBeOperatedOn = null;
+    public PastMeeting addMeetingNotes(int id, String text)
+            throws IllegalArgumentException, IllegalStateException{
+
+        //Meeting meetingToBeOperatedOn = null;
+        PastMeeting meetingToBeReturned = null;
+
+        if(text == null){
+            throw new NullPointerException();
+        }
 
         for(FutureMeeting i : futureMeetingSet){
             if(i.getId() == id){
-                meetingToBeOperatedOn = i;
+                meetingToBeReturned = new PastMeetingImpl(i.getId(),i.getDate(),i.getContacts(), text);
+                futureMeetingSet.remove(i);
+                pastMeetingSet.add(meetingToBeReturned);
             }
         }
         for(PastMeeting i : pastMeetingSet){
             if(i.getId() == id){
-                meetingToBeOperatedOn = i;
+                ((PastMeetingImpl) i).addToNotes(text);
+                meetingToBeReturned = i;
             }
         }
 
-        if(meetingToBeOperatedOn == null){
+        if(meetingToBeReturned == null){
             throw new IllegalArgumentException();
         }
 
+        if(meetingToBeReturned.getDate().after(presentDate)){
+            throw new IllegalStateException();
+        }
 
-        return new PastMeetingImpl(2, new GregorianCalendar(2010,12,18,11,11),contactSet,"");
+        return meetingToBeReturned;
     }
 
     public int addNewContact(String name, String notes){

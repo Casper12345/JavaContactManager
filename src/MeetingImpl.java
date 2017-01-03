@@ -43,5 +43,6 @@ public abstract class MeetingImpl {
         return contacts;
     }
 
+
 }
 
