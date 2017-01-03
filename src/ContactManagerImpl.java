@@ -257,12 +257,25 @@ public class ContactManagerImpl implements ContactManager {
         if(meetingToBeReturned.getDate().after(presentDate)){
             throw new IllegalStateException();
         }
-
         return meetingToBeReturned;
     }
 
-    public int addNewContact(String name, String notes){
-        return 2;
+    public int addNewContact(String name, String notes) throws IllegalArgumentException, NullPointerException {
+
+        if(name.equals("") || notes.equals("")){
+            throw new IllegalArgumentException();
+        }
+
+        // create meeting and add it to set
+        Contact contactToGenerateId = new ContactImpl(1,name,notes);
+        // generate unique id
+        int generatedId = new IdGeneratorImpl().genId(contactToGenerateId);
+
+        Contact contactToSet = new ContactImpl(generatedId,name,notes);
+
+        contactSet.add(contactToSet);
+
+        return generatedId;
     }
 
     public Set<Contact> getContacts(String name){

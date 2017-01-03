@@ -961,9 +961,34 @@ public class ContactManagerImplTest {
 
     }
 
+    // addNewContact
+
 
     @Test
-    public void addNewContact() throws Exception {
+    public void addNewContactIllegalArgumentException() throws Exception {
+
+        try{
+            testContactManager.addNewContact("","");
+        }catch (IllegalArgumentException ex){
+            Throw = true;
+        }
+
+        assertTrue(Throw);
+
+
+    }
+    @Test
+    public void addNewContactNullPointerException() throws Exception {
+
+
+        try{
+            testContactManager.addNewContact(null,null);
+        }catch (NullPointerException ex){
+            Throw = true;
+        }
+
+        assertTrue(Throw);
+
 
     }
 
