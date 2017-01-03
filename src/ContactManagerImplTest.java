@@ -153,7 +153,7 @@ public class ContactManagerImplTest {
         testPastMeetingsSet.add(testMeetingTwo);
 
 
-        testContactManager.setPastMeetingSetMeetingSet(testPastMeetingsSet);
+        testContactManager.setPastMeetingSet(testPastMeetingsSet);
 
         PastMeeting pastMeetingReturned = testContactManager.getPastMeeting(45);
         assertEquals(testMeetingOne.getId(), pastMeetingReturned.getId());
@@ -172,7 +172,7 @@ public class ContactManagerImplTest {
         testPastMeetingsSet.add(testMeetingOne);
         testPastMeetingsSet.add(testMeetingTwo);
 
-        testContactManager.setPastMeetingSetMeetingSet(testPastMeetingsSet);
+        testContactManager.setPastMeetingSet(testPastMeetingsSet);
 
         PastMeeting pastMeetingReturned = testContactManager.getPastMeeting(700);
         assertNull(pastMeetingReturned);
@@ -191,7 +191,7 @@ public class ContactManagerImplTest {
             Set<PastMeeting> testPastMeetingsSet = new ArrayListSet<>();
             testPastMeetingsSet.add(testMeetingOne);
 
-            testContactManager.setPastMeetingSetMeetingSet(testPastMeetingsSet);
+            testContactManager.setPastMeetingSet(testPastMeetingsSet);
 
             PastMeeting pastMeetingReturned = testContactManager.getPastMeeting(45);
 
@@ -283,7 +283,7 @@ public class ContactManagerImplTest {
         Set<PastMeeting> testPastMeetingsSet = new ArrayListSet<>();
         testPastMeetingsSet.add(testMeetingTwo);
         testContactManager.setFutureMeetingSet(testFutureMeetingsSet);
-        testContactManager.setPastMeetingSetMeetingSet(testPastMeetingsSet);
+        testContactManager.setPastMeetingSet(testPastMeetingsSet);
 
 
         Meeting meetingReturned = testContactManager.getMeeting(34);
@@ -510,7 +510,7 @@ public class ContactManagerImplTest {
         testMeetingSet.add(testMeetingOne);
         testMeetingSet.add(testMeetingTwo);
 
-        testContactManager.setPastMeetingSetMeetingSet(testMeetingSet);
+        testContactManager.setPastMeetingSet(testMeetingSet);
 
         List<Meeting> meetingsReturned = testContactManager.getMeetingListOn(testCalendar);
 
@@ -559,11 +559,150 @@ public class ContactManagerImplTest {
 
     }
 
+    // getPastMeetingListFor
 
     @Test
-    public void getPastMeetingListFor() throws Exception {
+    public void getPastMeetingListForReturnsList() throws Exception {
+
+        // set futureMeetingSet to empty
+        Set<PastMeeting> emptySet = new ArrayListSet<>();
+        testContactManager.setPastMeetingSet(emptySet);
+
+        Contact contact = new ContactImpl(1,"Peter", "myNotes");
+        Contact contact1 = new ContactImpl(2,"John", "moreNotes");
+
+        Set<Contact> contactTestSet = new ArrayListSet<>();
+        contactTestSet.add(contact);
+        contactTestSet.add(contact1);
+
+        PastMeeting testMeetingOne = new PastMeetingImpl(230, calendar, contactTestSet, "notes");
+        PastMeeting testMeetingTwo = new PastMeetingImpl(330, calendar, contactTestSet, "moreNotes");
+
+        Set<PastMeeting> testMeetingSet = new ArrayListSet<>();
+        testMeetingSet.add(testMeetingOne);
+        testMeetingSet.add(testMeetingTwo);
+
+        testContactManager.setPastMeetingSet(testMeetingSet);
+
+        List<PastMeeting> meetingsReturned = testContactManager.getPastMeetingListFor(contact);
+
+        assertEquals(meetingsReturned.get(0).getId(),230);
+        assertEquals(meetingsReturned.get(1).getId(),330);
+
 
     }
+
+    @Test
+    public void getPastMeetingListForReturnsEmptyList() throws Exception {
+
+
+        Contact contact = new ContactImpl(1,"Peter", "myNotes");
+        Contact contact1 = new ContactImpl(2,"John", "moreNotes");
+        Contact contact2 = new ContactImpl(10,"Josh", "notieNotes");
+
+        // setting contactSet to avoid IllegalArgumentException
+        Set<Contact> fullContactSet = new ArrayListSet<>();
+        fullContactSet.add(contact);
+        fullContactSet.add(contact1);
+        fullContactSet.add(contact2);
+        testContactManager.setContactSet(fullContactSet);
+
+
+        Set<Contact> contactTestSet = new ArrayListSet<>();
+        contactTestSet.add(contact);
+        contactTestSet.add(contact1);
+
+        // set futureMeetingSet to empty
+        Set<PastMeeting> emptySet = new ArrayListSet<>();
+        testContactManager.setPastMeetingSet(emptySet);
+
+        testContactManager.addFutureMeeting(contactTestSet,calendar);
+
+        List<PastMeeting> pastMeetingListReturned = testContactManager.getPastMeetingListFor(contact2);
+
+        assertTrue(pastMeetingListReturned.isEmpty());
+
+    }
+    @Test
+    public void getPastMeetingListForChronological() throws Exception {
+
+        Contact contact = new ContactImpl(1, "Peter", "myNotes");
+        Contact contact1 = new ContactImpl(2, "John", "moreNotes");
+        Contact contact2 = new ContactImpl(10, "Josh", "notieNotes");
+
+        // setting contactSet to avoid IllegalArgumentException
+        Set<Contact> fullContactSet = new ArrayListSet<>();
+        fullContactSet.add(contact);
+        fullContactSet.add(contact1);
+        fullContactSet.add(contact2);
+        testContactManager.setContactSet(fullContactSet);
+
+
+        Set<Contact> contactTestSet = new ArrayListSet<>();
+        contactTestSet.add(contact);
+        contactTestSet.add(contact1);
+
+        // set pastMeetingSet to empty
+        Set<PastMeeting> emptySet = new ArrayListSet<>();
+        testContactManager.setPastMeetingSet(emptySet);
+
+        Calendar firstCalendar = new GregorianCalendar(2012, 0, 10, 12, 12);
+        Calendar secondCalendar = new GregorianCalendar(2012, 1, 10, 12, 12);
+        Calendar thirdCalendar = new GregorianCalendar(2012, 2, 10, 12, 12);
+
+       Set<PastMeeting> pastMeetingList = new ArrayListSet<>();
+       PastMeeting testMeetingOne = new PastMeetingImpl(501, firstCalendar, contactTestSet, "Blah");
+       PastMeeting testMeetingTwo = new PastMeetingImpl(502, secondCalendar, contactTestSet, "haha");
+       PastMeeting testMeetingThree = new PastMeetingImpl(503, thirdCalendar, contactTestSet, "ohYes");
+       pastMeetingList.add(testMeetingTwo);
+       pastMeetingList.add(testMeetingOne);
+       pastMeetingList.add(testMeetingThree);
+
+       testContactManager.setPastMeetingSet(pastMeetingList);
+
+
+       List<PastMeeting> pastMeetingListReturned = testContactManager.getPastMeetingListFor(contact);
+
+       assertTrue(pastMeetingListReturned.get(0).getDate().before(pastMeetingListReturned.get(1).getDate()));
+       assertTrue(pastMeetingListReturned.get(1).getDate().before(pastMeetingListReturned.get(2).getDate()));
+
+    }
+
+    @Test
+    public void getPastMeetingListForThrowNullPointerException() throws Exception {
+        Contact contact = new ContactImpl(1,"Peter", "myNotes");
+        Contact contact1 = new ContactImpl(2,"John", "moreNotes");
+
+        Set<Contact> contactTestSet = new ArrayListSet<>();
+        contactTestSet.add(contact);
+        contactTestSet.add(contact1);
+
+        // set futureMeetingSet to empty
+        Set<FutureMeeting> emptySet = new ArrayListSet<>();
+        testContactManager.setFutureMeetingSet(emptySet);
+
+        Calendar pastCalendar = new GregorianCalendar(2012, 0, 10, 12, 12);
+
+        Set<PastMeeting> pastMeetingList = new ArrayListSet<>();
+        PastMeeting testMeetingOne = new PastMeetingImpl(501,pastCalendar , contactTestSet, "Blah");
+        PastMeeting testMeetingTwo = new PastMeetingImpl(502, pastCalendar, contactTestSet, "haha");
+
+        testContactManager.setPastMeetingSet(pastMeetingList);
+
+        try {
+
+            testContactManager.getPastMeetingListFor(null);
+
+
+        }catch (NullPointerException ex){
+            Throw = true;
+        }
+
+        assertTrue(Throw);
+
+
+    }
+
 
     @Test
     public void addNewPastMeeting() throws Exception {

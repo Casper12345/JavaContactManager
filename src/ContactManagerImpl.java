@@ -33,7 +33,7 @@ public class ContactManagerImpl implements ContactManager {
      * This method is used to access pastMeetingSet for testing purposes
      * @param pastMeetingSet
      */
-    public void setPastMeetingSetMeetingSet(Set<PastMeeting> pastMeetingSet){
+    public void setPastMeetingSet(Set<PastMeeting> pastMeetingSet){
 
         this.pastMeetingSet = pastMeetingSet;
     }
@@ -169,7 +169,22 @@ public class ContactManagerImpl implements ContactManager {
     }
 
     public List<PastMeeting> getPastMeetingListFor(Contact contact){
-        return new ArrayList<>();
+
+        List<PastMeeting> pastMeetingToReturn = new ArrayList<>();
+        Set<PastMeeting> setToRemoveDuplicates = new ArrayListSet<>();
+
+        for(PastMeeting i : pastMeetingSet){
+            if(i.getContacts().contains(contact)){
+                setToRemoveDuplicates.add(i);
+            }
+
+        }
+        pastMeetingToReturn.addAll(setToRemoveDuplicates);
+
+        // sort chronologically
+        pastMeetingToReturn.sort((a,b) -> a.getDate().compareTo(b.getDate()));
+
+        return pastMeetingToReturn;
     }
 
     public int addNewPastMeeting(Set<Contact> contacts, Calendar date, String text){
