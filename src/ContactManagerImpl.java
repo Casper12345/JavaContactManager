@@ -195,6 +195,9 @@ public class ContactManagerImpl implements ContactManager {
     public int addNewPastMeeting(Set<Contact> contacts, Calendar date, String text)
             throws IllegalArgumentException, NullPointerException{
 
+        if(text == null){
+            throw new NullPointerException();
+        }
 
         if (date.after(presentDate)){
             throw new IllegalArgumentException();
@@ -209,12 +212,40 @@ public class ContactManagerImpl implements ContactManager {
             throw new IllegalArgumentException();
         }
 
+        // create meeting and add it to set
+        Meeting pastMeetingToGenerateId = new PastMeetingImpl(1,date,contacts, text);
 
-        return 2;
+        int generatedId = new IdGeneratorImpl().genId(pastMeetingToGenerateId);
+
+        PastMeeting pastMeetingToSet = new PastMeetingImpl(generatedId, date, contacts, text);
+
+        pastMeetingSet.add(pastMeetingToSet);
+
+        return generatedId;
+
     }
 
-    public PastMeeting addMeetingNotes(int id, String text){
-        return new PastMeetingImpl(2, new GregorianCalendar(2010,12,18,11,11), new ArrayListSet<>(),"");
+
+    public PastMeeting addMeetingNotes(int id, String text) throws IllegalArgumentException{
+        Meeting meetingToBeOperatedOn = null;
+
+        for(FutureMeeting i : futureMeetingSet){
+            if(i.getId() == id){
+                meetingToBeOperatedOn = i;
+            }
+        }
+        for(PastMeeting i : pastMeetingSet){
+            if(i.getId() == id){
+                meetingToBeOperatedOn = i;
+            }
+        }
+
+        if(meetingToBeOperatedOn == null){
+            throw new IllegalArgumentException();
+        }
+
+
+        return new PastMeetingImpl(2, new GregorianCalendar(2010,12,18,11,11),contactSet,"");
     }
 
     public int addNewContact(String name, String notes){

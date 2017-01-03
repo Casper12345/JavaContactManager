@@ -840,7 +840,7 @@ public class ContactManagerImplTest {
         Calendar testCalendar = new GregorianCalendar(2012,11,1,23,41);
 
         try{
-            testContactManager.addNewPastMeeting(contacts,testCalendar, "Hate Meetings");
+            testContactManager.addNewPastMeeting(contacts,testCalendar, null);
         }catch (NullPointerException ex){
             Throw = true;
         }
@@ -848,14 +848,33 @@ public class ContactManagerImplTest {
         assertTrue(Throw);
     }
 
+    //addMeetingNotes
 
     @Test
-    public void addNewPastMeeting() throws Exception {
+    public void addMeetingNotesMeetingNotExists() throws Exception {
 
-    }
+        System.out.println(contacts);
 
-    @Test
-    public void addMeetingNotes() throws Exception {
+        Calendar pastCalendar = new GregorianCalendar(2015, 1,1,12,12);
+
+        FutureMeeting firstMeeting = new FutureMeetingImpl(90, pastCalendar, contacts);
+        FutureMeeting secondMeeting = new FutureMeetingImpl(91, pastCalendar, contacts);
+
+        Set<FutureMeeting> testFutureMeetings = new ArrayListSet<>();
+        testFutureMeetings.add(firstMeeting);
+        testFutureMeetings.add(secondMeeting);
+
+        //testContactManager.setFutureMeetingSet(testFutureMeetings);
+
+
+        try{
+            testContactManager.addMeetingNotes(90,"NewImportantNotes");
+        }catch (IllegalArgumentException ex){
+            Throw = true;
+        }
+
+        assertTrue(Throw);
+
 
     }
 
