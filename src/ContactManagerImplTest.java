@@ -269,17 +269,52 @@ public class ContactManagerImplTest {
 
     }
 
+    // getMeeting
 
 
     @Test
-    public void getFutureMeeting() throws Exception {
+    public void getMeetingGetId() throws Exception {
+        Calendar futureCalendar = new GregorianCalendar(2018,10,12,12,12);
+
+        FutureMeeting testMeetingOne = new FutureMeetingImpl(45, futureCalendar, contacts);
+        PastMeeting testMeetingTwo = new PastMeetingImpl(34, calendar, contacts, "NewNotes");
+        Set<FutureMeeting> testFutureMeetingsSet = new ArrayListSet<>();
+        testFutureMeetingsSet.add(testMeetingOne);
+        Set<PastMeeting> testPastMeetingsSet = new ArrayListSet<>();
+        testPastMeetingsSet.add(testMeetingTwo);
+        testContactManager.setFutureMeetingSet(testFutureMeetingsSet);
+        testContactManager.setPastMeetingSetMeetingSet(testPastMeetingsSet);
+
+
+        Meeting meetingReturned = testContactManager.getMeeting(34);
+
+        assertEquals(testMeetingTwo, meetingReturned);
+
 
     }
-
     @Test
-    public void getMeeting() throws Exception {
+    public void getMeetingGetIdReturnNull() throws Exception {
+
+        Calendar pastCalendar = new GregorianCalendar(2018,10,12,12,12);
+
+        FutureMeeting testMeetingOne = new FutureMeetingImpl(45, pastCalendar, contacts);
+        FutureMeeting testMeetingTwo = new FutureMeetingImpl(34, pastCalendar, contacts);
+        Set<FutureMeeting> testFutureMeetingsSet = new ArrayListSet<>();
+        testFutureMeetingsSet.add(testMeetingOne);
+        testFutureMeetingsSet.add(testMeetingTwo);
+
+
+        testContactManager.setFutureMeetingSet(testFutureMeetingsSet);
+
+        Meeting MeetingReturned = testContactManager.getFutureMeeting(322);
+        assertNull(MeetingReturned);
+
 
     }
+
+    //getFutureMeetingList
+
+
 
     @Test
     public void getFutureMeetingList() throws Exception {

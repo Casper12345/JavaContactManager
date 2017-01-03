@@ -39,8 +39,6 @@ public class ContactManagerImpl implements ContactManager {
     }
 
 
-
-
     public int addFutureMeeting(Set<Contact> contacts, Calendar date)
             throws IllegalArgumentException, NullPointerException{
 
@@ -105,7 +103,21 @@ public class ContactManagerImpl implements ContactManager {
     }
 
     public Meeting getMeeting(int id){
-        return new FutureMeetingImpl(1,new GregorianCalendar(2010,12,18,11,11), new ArrayListSet<>()) ;
+
+        Meeting meetingToReturn = null;
+
+        for(FutureMeeting i : futureMeetingSet){
+            if(i.getId() == id){
+                meetingToReturn = i;
+            }
+        }
+
+        for(PastMeeting j : pastMeetingSet){
+            if(j.getId() == id){
+                meetingToReturn = j;
+            }
+        }
+        return meetingToReturn;
     }
 
     public List<Meeting> getFutureMeetingList(Contact contact){
