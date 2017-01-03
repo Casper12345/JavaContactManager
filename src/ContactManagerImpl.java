@@ -121,8 +121,18 @@ public class ContactManagerImpl implements ContactManager {
     }
 
     public List<Meeting> getFutureMeetingList(Contact contact){
-        return new ArrayList<>();
+
+        List<Meeting> meetingToReturn = new ArrayList<>();
+
+        for(FutureMeeting i : futureMeetingSet){
+            if(i.getContacts().contains(contact)){
+                meetingToReturn.add(i);
+            }
+        }
+
+        return meetingToReturn;
     }
+
 
     public List<Meeting> getMeetingListOn(Calendar date){
         return new ArrayList<>();

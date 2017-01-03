@@ -2,9 +2,8 @@ import com.intellij.util.containers.ArrayListSet;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.Set;
+
+import java.util.*;
 
 import static org.junit.Assert.*;
 
@@ -228,10 +227,10 @@ public class ContactManagerImplTest {
 
     @Test
     public void futureMeetingReturnsNullWhenNotFound(){
-        Calendar pastCalendar = new GregorianCalendar(2018,10,12,12,12);
+        Calendar futureCalendar = new GregorianCalendar(2018,10,12,12,12);
 
-        FutureMeeting testMeetingOne = new FutureMeetingImpl(45, pastCalendar, contacts);
-        FutureMeeting testMeetingTwo = new FutureMeetingImpl(34, pastCalendar, contacts);
+        FutureMeeting testMeetingOne = new FutureMeetingImpl(45, futureCalendar, contacts);
+        FutureMeeting testMeetingTwo = new FutureMeetingImpl(34, futureCalendar, contacts);
         Set<FutureMeeting> testFutureMeetingsSet = new ArrayListSet<>();
         testFutureMeetingsSet.add(testMeetingOne);
         testFutureMeetingsSet.add(testMeetingTwo);
@@ -295,10 +294,10 @@ public class ContactManagerImplTest {
     @Test
     public void getMeetingGetIdReturnNull() throws Exception {
 
-        Calendar pastCalendar = new GregorianCalendar(2018,10,12,12,12);
+        Calendar futureCalendar = new GregorianCalendar(2018,10,12,12,12);
 
-        FutureMeeting testMeetingOne = new FutureMeetingImpl(45, pastCalendar, contacts);
-        FutureMeeting testMeetingTwo = new FutureMeetingImpl(34, pastCalendar, contacts);
+        FutureMeeting testMeetingOne = new FutureMeetingImpl(45, futureCalendar, contacts);
+        FutureMeeting testMeetingTwo = new FutureMeetingImpl(34, futureCalendar, contacts);
         Set<FutureMeeting> testFutureMeetingsSet = new ArrayListSet<>();
         testFutureMeetingsSet.add(testMeetingOne);
         testFutureMeetingsSet.add(testMeetingTwo);
@@ -314,10 +313,44 @@ public class ContactManagerImplTest {
 
     //getFutureMeetingList
 
-
-
     @Test
-    public void getFutureMeetingList() throws Exception {
+    public void getFutureMeetingListReturnsList() throws Exception {
+        Contact contact = new ContactImpl(1,"Peter", "myNotes");
+        Contact contact1 = new ContactImpl(2,"John", "moreNotes");
+        Contact contact2 = new ContactImpl(10,"Josh", "notieNotes");
+
+        // setting contactSet to avoid IllegalArgumentException
+        Set<Contact> fullContactSet = new ArrayListSet<>();
+        fullContactSet.add(contact);
+        fullContactSet.add(contact1);
+        fullContactSet.add(contact2);
+        testContactManager.setContactSet(fullContactSet);
+
+
+        Set<Contact> contactTestSet = new ArrayListSet<>();
+        contactTestSet.add(contact);
+        contactTestSet.add(contact1);
+
+        Set<Contact> contactTestSetTwo = new ArrayListSet<>();
+        contactTestSetTwo.add(contact);
+        contactTestSetTwo.add(contact2);
+
+
+        Set<FutureMeeting> emptySet = new ArrayListSet<>();
+
+        testContactManager.setFutureMeetingSet(emptySet);
+
+        testContactManager.addFutureMeeting(contactTestSet,calendar);
+        testContactManager.addFutureMeeting(contactTestSetTwo,calendar);
+
+
+        List<Meeting> futureMeetingListReturned = testContactManager.getFutureMeetingList(contact);
+
+        assertEquals(futureMeetingListReturned.get(0).getContacts(),contactTestSet);
+        assertEquals(futureMeetingListReturned.get(1).getContacts(),contactTestSetTwo);
+
+
+
 
     }
 
