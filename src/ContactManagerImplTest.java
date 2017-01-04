@@ -1,3 +1,4 @@
+import a.e.S;
 import com.intellij.util.containers.ArrayListSet;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -1104,21 +1105,34 @@ public class ContactManagerImplTest {
     // flush
 
     @Test
-    public void flushCreatesAndOverWritesContactsTXT() throws Exception {
-        BufferedWriter writer = new BufferedWriter(new FileWriter("contacts.txt"));
+    public void flushToFile() throws Exception {
 
-        writer.write("Blah");
-        writer.flush();
+        // set contactSet to empty
+        Set<Contact> empty = new ArrayListSet<>();
+        testContactManager.setContactSet(empty);
+
+
+        int contact1 = testContactManager.addNewContact("Peter","LongNotes");
+        int contact2 = testContactManager.addNewContact("Erik","ShortNotes");
+
+        int futureMeeting = testContactManager
+                .addFutureMeeting(testContactManager.getContacts(contact1,contact2),calendar);
+
+        int pastMeeting = testContactManager.addNewPastMeeting(testContactManager.getContacts(contact1,contact2),
+                new GregorianCalendar(1999, 1,2,12,12), "Notes");
 
         testContactManager.flush();
 
-        BufferedReader reader = new BufferedReader(new FileReader("contacts.txt"));
+        IOOperations IO = new IOOperationsImpl();
+        List<List<String>> input = IO.readFromFile();
 
-        assertEquals(0,reader.lines().count());
+        assertEquals(input.get(0).get(1), Integer.toString(contact1));
+        assertEquals(input.get(1).get(1), Integer.toString(contact2));
+        assertEquals(input.get(2).get(1), Integer.toString(futureMeeting));
+        assertEquals(input.get(3).get(1), Integer.toString(pastMeeting));
 
 
     }
-
 
 
 }

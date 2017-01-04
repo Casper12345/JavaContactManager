@@ -338,6 +338,9 @@ public class ContactManagerImpl implements ContactManager {
     public void flush(){
 
         IOHandler.overWriteFile();
+        IOHandler.writeContactsToFile(contactSet);
+        IOHandler.writeFutureMeetingsToFile(futureMeetingSet);
+        IOHandler.writePastMeetingsToFile(pastMeetingSet);
 
     }
 
