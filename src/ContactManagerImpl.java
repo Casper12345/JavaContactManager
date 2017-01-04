@@ -301,13 +301,17 @@ public class ContactManagerImpl implements ContactManager {
         return generatedId;
     }
 
-    public Set<Contact> getContacts(String name){
+    public Set<Contact> getContacts(String name) throws NullPointerException{
 
+        // matching with regular expression
+        return contactSet.stream()
+                .filter(a -> a.getName().matches("(.*)"+name+"(.*)"))
+                .collect(Collectors.toSet());
 
-        return new ArrayListSet<>();
     }
 
     public Set<Contact> getContacts(int... ids){
+
         return new ArrayListSet<>();
     }
 

@@ -1007,16 +1007,38 @@ public class ContactManagerImplTest {
 
        testContactManager.addNewContact("James Morgan","BlahBlah");
 
-        Set<Contact> contactsReturned = testContactManager.getContacts("James Morgan");
+        Set<Contact> contactsReturned = testContactManager.getContacts("James M");
 
         Contact returned = (Contact)contactsReturned.toArray()[0];
 
         assertEquals(returned.getName(),"James Morgan");
 
     }
+    @Test
+    public void getContactsReturnsFullList() throws Exception {
+        // set contact to empty
+        Set<Contact> empty = new ArrayListSet<>();
+        testContactManager.setContactSet(empty);
+
+        testContactManager.addNewContact("James Morgan","BlahBlah");
+        testContactManager.addNewContact("Elliot Paulson","MoreBlah");
+        testContactManager.addNewContact("Richard Head","Point");
+
+        Set<Contact> contactsReturned = testContactManager.getContacts("");
+
+        assertEquals(testContactManager.getContactSet().size(), contactsReturned.size());
+
+    }
+
+    // getContactsTwo
 
     @Test
-    public void getContacts1() throws Exception {
+    public void getContactsOneReturnById() throws Exception {
+
+        int id1 = testContactManager.addNewContact("James Morgan","BlahBlah");
+        int id2 = testContactManager.addNewContact("Elliot Paulson","MoreBlah");
+        int id3 = testContactManager.addNewContact("Richard Head","Point");
+
 
     }
 
