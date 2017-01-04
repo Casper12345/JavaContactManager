@@ -22,5 +22,17 @@ public interface IOOperations {
      */
     void writeFutureMeetingsToFile(Set<FutureMeeting> futureMeetings);
 
+    /**
+     * This method PastMeeting to the csv file contacts.txt
+     */
+    void writePastMeetingsToFile(Set<PastMeeting> pastMeetings);
+
+    /**
+     * This method flushes and overrides files with Contacts, FutureMeetings and Pastmeetings
+     * from the system.
+     */
+    void overWriteFile();
+
+
 
 }

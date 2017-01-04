@@ -102,5 +102,52 @@ public class IOOperationsImpl implements IOOperations{
 
     }
 
+    public void writePastMeetingsToFile(Set<PastMeeting> pastMeetings){
 
+        BufferedWriter writer;
+        try {
+            writer = new BufferedWriter(new FileWriter("contacts.txt",true));
+            for(PastMeeting i : pastMeetings){
+                writer.write("PastMeeting");
+                writer.write(", ");
+                writer.write(Integer.toString(i.getId()));
+                writer.write(", ");
+                writer.write(Integer.toString(i.getDate().get(Calendar.YEAR)));
+                writer.write(":");
+                writer.write(Integer.toString(i.getDate().get(Calendar.MONTH)));
+                writer.write(":");
+                writer.write(Integer.toString(i.getDate().get(Calendar.DATE)));
+                writer.write(":");
+                writer.write(Integer.toString(i.getDate().get(Calendar.HOUR)));
+                writer.write(":");
+                writer.write(Integer.toString(i.getDate().get(Calendar.MINUTE)));
+                writer.write(", ");
+                writer.write("\"");
+                writer.write(i.getContacts().stream().map(Contact::getId).collect(Collectors.toList()).toString());
+                writer.write("\"");
+                writer.write(", ");
+                writer.write("\"");
+                writer.write(i.getNotes().replace("\n","<newline>"));
+                writer.write("\"");
+                writer.newLine();
+            }
+
+            writer.flush();
+
+        }catch (IOException ex){
+            ex.printStackTrace();
+        }
+
+    }
+
+    public void overWriteFile() {
+
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter("contacts.txt"));
+            writer.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
 }

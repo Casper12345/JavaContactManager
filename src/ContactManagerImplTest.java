@@ -4,6 +4,10 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.hamcrest.*;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.util.*;
 
 import static org.junit.Assert.*;
@@ -1101,9 +1105,20 @@ public class ContactManagerImplTest {
 
     @Test
     public void flushCreatesAndOverWritesContactsTXT() throws Exception {
+        BufferedWriter writer = new BufferedWriter(new FileWriter("contacts.txt"));
 
+        writer.write("Blah");
+        writer.flush();
+
+        testContactManager.flush();
+
+        BufferedReader reader = new BufferedReader(new FileReader("contacts.txt"));
+
+        assertEquals(0,reader.lines().count());
 
 
     }
+
+
 
 }

@@ -12,6 +12,8 @@ public class ContactManagerImpl implements ContactManager {
     private Set<FutureMeeting> futureMeetingSet = new ArrayListSet<>();
     private Set<PastMeeting> pastMeetingSet = new ArrayListSet<>();
     private Calendar presentDate = Calendar.getInstance();
+    private IOOperations IOHandler = new IOOperationsImpl();
+
 
     /**
      * This method is used to access contactSet for testing purposes
@@ -334,6 +336,8 @@ public class ContactManagerImpl implements ContactManager {
     }
 
     public void flush(){
+
+        IOHandler.overWriteFile();
 
     }
 

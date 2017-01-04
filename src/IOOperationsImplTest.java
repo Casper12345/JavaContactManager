@@ -1,6 +1,7 @@
 import com.intellij.util.ScrambledOutputStream;
 import com.intellij.util.containers.ArrayListSet;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.*;
@@ -81,9 +82,26 @@ public class IOOperationsImplTest {
     }
 
     @Test
-    public void readFromFileTwo() throws Exception {
+    public void writePastMeetingsToFile() throws Exception {
 
+        int id1 = testContactManager.addNewContact("Josh", "Notes, yes");
+        int id2 = testContactManager.addNewContact("Jill", "Hello");
+        testContactManager.getContacts(id1,id2);
+
+        Calendar testCal = new GregorianCalendar(2012,2,21,11,12);
+
+        int meetingId = testContactManager.addNewPastMeeting(testContactManager.getContacts(id1,id2), testCal, "Notes");
+
+        Set<PastMeeting> testMeetingSet = new ArrayListSet<>();
+        testMeetingSet.add(testContactManager.getPastMeeting(meetingId));
+
+        testIO.writePastMeetingsToFile(testMeetingSet);
+
+        IOOperations testIO = new IOOperationsImpl();
+        List<List<String>> input = testIO.readFromFile();
+        assertEquals(input.get(4).get(4),"Notes");
 
 
     }
+
 }
