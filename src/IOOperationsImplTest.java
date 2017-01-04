@@ -3,8 +3,7 @@ import com.intellij.util.containers.ArrayListSet;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static org.junit.Assert.*;
 
@@ -13,12 +12,11 @@ import static org.junit.Assert.*;
  */
 public class IOOperationsImplTest {
 
-    private IOOperations testIO;
+    private IOOperations testIO = new IOOperationsImpl();
     private ContactManager testContactManager;
 
     @Before
     public void setUp(){
-        testIO = new IOOperationsImpl();
         testContactManager = new ContactManagerImpl();
     }
 
@@ -30,7 +28,6 @@ public class IOOperationsImplTest {
         Set<Contact>  testContacts = new ArrayListSet<>();
         testContacts.add(first);
         testContacts.add(second);
-        testIO.writeContactsToFile(testContacts);
 
         testContactManager.addNewContact("Josh", "Notes, yes");
         Set<Contact> contactsReturned  = testContactManager.getContacts("Josh");
@@ -63,6 +60,28 @@ public class IOOperationsImplTest {
     @Test
     public void writeFutureMeetingsToFile() throws Exception {
 
+        int id1 = testContactManager.addNewContact("Josh", "Notes, yes");
+        int id2 = testContactManager.addNewContact("Jill", "Hello");
+        testContactManager.getContacts(id1,id2);
+
+        Calendar testCal = new GregorianCalendar(2019,2,21,11,12);
+
+        int meetingId = testContactManager.addFutureMeeting(testContactManager.getContacts(id1,id2), testCal);
+
+        Set<FutureMeeting> testMeetingSet = new ArrayListSet<>();
+        testMeetingSet.add(testContactManager.getFutureMeeting(meetingId));
+
+        testIO.writeFutureMeetingsToFile(testMeetingSet);
+
+        IOOperations testIO = new IOOperationsImpl();
+        List<List<String>> input = testIO.readFromFile();
+        assertEquals(input.get(3).get(2),"2019:2:21:11:12");
+        assertEquals(input.get(3).get(3),"["+id1+", "+id2+"]");
+
+    }
+
+    @Test
+    public void readFromFileTwo() throws Exception {
 
 
 

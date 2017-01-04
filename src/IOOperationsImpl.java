@@ -1,9 +1,12 @@
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import static java.util.Calendar.YEAR;
 
 /**
  * Implements IOOperations
@@ -41,7 +44,7 @@ public class IOOperationsImpl implements IOOperations{
     public void writeContactsToFile(Set<Contact> contacts){
         BufferedWriter writer;
         try {
-            writer = new BufferedWriter(new FileWriter("contacts.txt"));
+            writer = new BufferedWriter(new FileWriter("contacts.txt",true));
             for(Contact i : contacts){
                 writer.write("Contact");
                 writer.write(", ");
@@ -66,5 +69,38 @@ public class IOOperationsImpl implements IOOperations{
 
     public void writeFutureMeetingsToFile(Set<FutureMeeting> futureMeetings){
 
+        BufferedWriter writer;
+        try {
+            writer = new BufferedWriter(new FileWriter("contacts.txt",true));
+            for(FutureMeeting i : futureMeetings){
+                writer.write("FutureMeeting");
+                writer.write(", ");
+                writer.write(Integer.toString(i.getId()));
+                writer.write(", ");
+                writer.write(Integer.toString(i.getDate().get(Calendar.YEAR)));
+                writer.write(":");
+                writer.write(Integer.toString(i.getDate().get(Calendar.MONTH)));
+                writer.write(":");
+                writer.write(Integer.toString(i.getDate().get(Calendar.DATE)));
+                writer.write(":");
+                writer.write(Integer.toString(i.getDate().get(Calendar.HOUR)));
+                writer.write(":");
+                writer.write(Integer.toString(i.getDate().get(Calendar.MINUTE)));
+                writer.write(", ");
+                writer.write("\"");
+                writer.write(i.getContacts().stream().map(Contact::getId).collect(Collectors.toList()).toString());
+                writer.write("\"");
+                writer.write(", ");
+                writer.newLine();
+            }
+
+            writer.flush();
+
+        }catch (IOException ex){
+            ex.printStackTrace();
+        }
+
     }
+
+
 }
