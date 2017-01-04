@@ -38,6 +38,29 @@ public class ContactManagerImpl implements ContactManager {
         this.pastMeetingSet = pastMeetingSet;
     }
 
+    /**
+     * This method is used to access contactSet for testing purposes
+     * @return contactSet
+     */
+    public Set<Contact> getContactSet(){
+        return contactSet;
+    }
+
+    /**
+     * This method is used to access futureMeetingSet for testing purposes
+     * @return futureMeetingSet
+     */
+    public Set<FutureMeeting> getFutureMeetingSet() {
+        return futureMeetingSet;
+    }
+
+    /**
+     * This method is used to access pastMeetingSet for testing purposes
+     * @return pastMeetingSet
+     */
+    public Set<PastMeeting> getPastMeetingSet() {
+        return pastMeetingSet;
+    }
 
     public int addFutureMeeting(Set<Contact> contacts, Calendar date)
             throws IllegalArgumentException, NullPointerException{
@@ -279,6 +302,8 @@ public class ContactManagerImpl implements ContactManager {
     }
 
     public Set<Contact> getContacts(String name){
+
+
         return new ArrayListSet<>();
     }
 

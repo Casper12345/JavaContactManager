@@ -946,6 +946,10 @@ public class ContactManagerImplTest {
     @Test
     public void addMeetingNotesNodesAdded() throws Exception {
 
+        // setting pastMeetingSet to empty
+        Set<PastMeeting> empty = new ArrayListSet<>();
+        testContactManager.setPastMeetingSet(empty);
+
         Calendar pastCalendar = new GregorianCalendar(2015, 1,1,12,12);
 
         PastMeeting firstMeeting = new PastMeetingImpl(90, pastCalendar, contacts, "NewStuff");
@@ -957,7 +961,11 @@ public class ContactManagerImplTest {
 
         PastMeeting pastMeetingReturned = testContactManager.addMeetingNotes(90,"Notes");
 
-        assertEquals("NewStuff" + "\n" + "Notes",pastMeetingReturned.getNotes());
+        Object returnedSet = testContactManager.getPastMeetingSet().toArray()[0];
+
+        PastMeeting returned = (PastMeeting)returnedSet;
+
+        assertEquals(returned.getNotes(),pastMeetingReturned.getNotes());
 
     }
 
@@ -992,8 +1000,18 @@ public class ContactManagerImplTest {
 
     }
 
+    // getContacts
+
     @Test
-    public void getContacts() throws Exception {
+    public void getContactsReturns() throws Exception {
+
+       testContactManager.addNewContact("James Morgan","BlahBlah");
+
+        Set<Contact> contactsReturned = testContactManager.getContacts("James Morgan");
+
+        Contact returned = (Contact)contactsReturned.toArray()[0];
+
+        assertEquals(returned.getName(),"James Morgan");
 
     }
 
