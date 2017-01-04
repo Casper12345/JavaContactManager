@@ -1054,12 +1054,54 @@ public class ContactManagerImplTest {
     }
 
     @Test
-    public void getContactsOneIllegalArgumentException() throws Exception {
+    public void getContactsOneIllegalArgumentExceptionNoIds() throws Exception {
+
+        try {
+            testContactManager.getContacts();
+        }catch (IllegalArgumentException e){
+            Throw = true;
+        }
+        assertTrue(Throw);
 
     }
 
     @Test
+    public void getContactsOneIllegalArgumentExceptionNoExistingContact() throws Exception {
+
+        // set contact to empty
+        Set<Contact> empty = new ArrayListSet<>();
+        testContactManager.setContactSet(empty);
+
+        int id1 = testContactManager.addNewContact("James Morgan","BlahBlah");
+        int id2 = testContactManager.addNewContact("Elliot Paulson","MoreBlah");
+        int id3 = testContactManager.addNewContact("Richard Head","Point");
+        int fakeId = 210;
+
+        try {
+            testContactManager.getContacts(id2, id3, fakeId);
+        }catch (IllegalArgumentException e){
+            Throw = true;
+        }
+        assertTrue(Throw);
+        // set Throw to false
+        Throw = false;
+
+        try {
+            testContactManager.getContacts(id2, id3, id1);
+        }catch (IllegalArgumentException e){
+            Throw = true;
+        }
+
+        assertFalse(Throw);
+
+
+    }
+
+    // flush
+
+    @Test
     public void flush() throws Exception {
+
 
     }
 

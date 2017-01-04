@@ -312,8 +312,16 @@ public class ContactManagerImpl implements ContactManager {
     }
 
     public Set<Contact> getContacts(int... ids){
-
         Set<Contact> setToReturn = new ArrayListSet<>();
+
+        if(ids.length == 0){
+            throw new IllegalArgumentException();
+        }
+        for(int i: ids) {
+            if(!contactSet.stream().map(Contact::getId).collect(Collectors.toList()).contains(i)){
+                throw new IllegalArgumentException();
+            }
+        }
         for(Contact i : contactSet){
             for(int j: ids){
                 if(i.getId() == j){
