@@ -20,7 +20,8 @@ public class IOOperationsImpl implements IOOperations{
             try {
                 reader = new BufferedReader(new FileReader("contacts.txt"));
 
-                inputList = reader.lines().map(line -> Stream.of(line.split(REGEX)).map(a -> a.replace("\"", ""))
+                inputList = reader.lines().map(line -> Stream.of(line.split(REGEX))
+                        .map(a -> a.replace("\"", "")).map(b -> b.replace("<newline>","\n"))
                         .collect(Collectors.toList())).collect(Collectors.toList());
                 break;
             } catch (FileNotFoundException ex) {
@@ -49,7 +50,7 @@ public class IOOperationsImpl implements IOOperations{
                 writer.write(i.getName());
                 writer.write(", ");
                 writer.write("\"");
-                writer.write(i.getNotes());
+                writer.write(i.getNotes().replace("\n","<newline>"));
                 writer.write("\"");
                 writer.write(", ");
                 writer.newLine();
@@ -60,6 +61,10 @@ public class IOOperationsImpl implements IOOperations{
         }catch (IOException ex){
             ex.printStackTrace();
         }
+
+    }
+
+    public void writeFutureMeetingsToFile(Set<FutureMeeting> futureMeetings){
 
     }
 }

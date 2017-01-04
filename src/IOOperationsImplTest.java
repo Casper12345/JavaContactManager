@@ -14,15 +14,17 @@ import static org.junit.Assert.*;
 public class IOOperationsImplTest {
 
     private IOOperations testIO;
+    private ContactManager testContactManager;
 
     @Before
     public void setUp(){
         testIO = new IOOperationsImpl();
+        testContactManager = new ContactManagerImpl();
     }
 
 
     @Test
-    public void writeToFile() throws Exception {
+    public void writeContactsToFile() throws Exception {
         Contact first = new ContactImpl(23, "Paolo", "Blah, blah, blah");
         Contact second = new ContactImpl(34, "Erik", "more, more, more");
         Set<Contact>  testContacts = new ArrayListSet<>();
@@ -30,10 +32,20 @@ public class IOOperationsImplTest {
         testContacts.add(second);
         testIO.writeContactsToFile(testContacts);
 
+        testContactManager.addNewContact("Josh", "Notes, yes");
+        Set<Contact> contactsReturned  = testContactManager.getContacts("Josh");
+        Contact returned = (Contact) contactsReturned.toArray()[0];
+        returned.addNotes("no");
+        Set<Contact> contactsReturnedTwo  = testContactManager.getContacts("Josh");
+        Contact returnedTwo = (Contact) contactsReturnedTwo.toArray()[0];
+
+        testContacts.add(returnedTwo);
+        testIO.writeContactsToFile(testContacts);
+
     }
 
     @Test
-    public void readContactsFromFile() throws Exception {
+    public void readFromFile() throws Exception {
         IOOperations testIO = new IOOperationsImpl();
         List<List<String>> input = testIO.readFromFile();
 
@@ -45,12 +57,14 @@ public class IOOperationsImplTest {
         assertEquals(input.get(1).get(2), "Erik");
         assertEquals(input.get(0).get(3), "Blah, blah, blah");
         assertEquals(input.get(1).get(3), "more, more, more");
-
-        System.out.print(input.get(0).get(0));
-        System.out.print(input.get(0).get(1));
-        System.out.print(input.get(0).get(2));
-        System.out.print(input.get(0).get(3));
-
+        assertEquals(input.get(2).get(3), "Notes, yes" + "\n" +"no");
     }
 
+    @Test
+    public void writeFutureMeetingsToFile() throws Exception {
+
+
+
+
+    }
 }

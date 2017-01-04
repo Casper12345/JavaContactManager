@@ -13,8 +13,14 @@ public interface IOOperations {
     List<List<String>> readFromFile();
 
     /**
-     * This method writes the data to the csv file contacts.txt
+     * This method Contacts to the csv file contacts.txt
      */
     void writeContactsToFile(Set<Contact> contacts);
+
+    /**
+     * This method FutureMeeting to the csv file contacts.txt
+     */
+    void writeFutureMeetingsToFile(Set<FutureMeeting> futureMeetings);
+
 
 }
