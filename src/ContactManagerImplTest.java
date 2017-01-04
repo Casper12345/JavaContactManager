@@ -1100,7 +1100,8 @@ public class ContactManagerImplTest {
     // flush
 
     @Test
-    public void flush() throws Exception {
+    public void flushCreatesAndOverWritesContactsTXT() throws Exception {
+
 
 
     }

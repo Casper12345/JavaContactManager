@@ -1,4 +1,5 @@
 import java.util.List;
+import java.util.Set;
 
 /**
  * A class to manage IOOperations
@@ -14,6 +15,6 @@ public interface IOOperations {
     /**
      * This method writes the data to the csv file contacts.txt
      */
-    void writeToFile();
+    void writeContactsToFile(Set<Contact> contacts);
 
 }

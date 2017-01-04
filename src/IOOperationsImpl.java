@@ -1,37 +1,63 @@
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
- * Created by Casper on 01/01/2017.
+ * Implements IOOperations
  */
 public class IOOperationsImpl implements IOOperations{
 
-    private final String REGEX = ",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)";
+    private final String REGEX = ", (?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)";
 
-    public List<List<String>> readFromFile(){
+    public List<List<String>> readFromFile() {
         BufferedReader reader;
-        List<List<String>> inputList = new ArrayList<>();
+        List<List<String>> inputList;
 
-        try {
-            reader = new BufferedReader(new FileReader("contacts.txt"));
+        while (true) {
+            try {
+                reader = new BufferedReader(new FileReader("contacts.txt"));
 
-            inputList = reader.lines().map(line -> Stream.of(line.split(REGEX))
-                    .collect(Collectors.toList())).collect(Collectors.toList());
+                inputList = reader.lines().map(line -> Stream.of(line.split(REGEX))
+                        .collect(Collectors.toList())).collect(Collectors.toList());
+                break;
+            } catch (FileNotFoundException ex) {
+                try {
+                    File fileHandle = new File("contacts.txt");
+                    fileHandle.createNewFile();
 
-        }catch (FileNotFoundException ex){
-            System.out.println("File Not Found");
+                }catch (IOException e){
+                    e.printStackTrace();
+                }
+
+            }
         }
-
         return inputList;
     }
 
-    public void writeToFile(){
+    public void writeContactsToFile(Set<Contact> contacts){
+        BufferedWriter writer;
+        try {
+            writer = new BufferedWriter(new FileWriter("contacts.txt"));
+            for(Contact i : contacts){
+                writer.write("Contact");
+                writer.write(", ");
+                writer.write(Integer.toString(i.getId()));
+                writer.write(", ");
+                writer.write(i.getName());
+                writer.write(", ");
+                writer.write(i.getNotes());
+                writer.write(", ");
+                writer.newLine();
+            }
+
+            writer.flush();
+
+        }catch (IOException ex){
+            ex.printStackTrace();
+        }
 
     }
 }
