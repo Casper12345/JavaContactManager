@@ -1,6 +1,7 @@
 import com.intellij.util.containers.ArrayListSet;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Implements interface ContactManager
@@ -312,7 +313,16 @@ public class ContactManagerImpl implements ContactManager {
 
     public Set<Contact> getContacts(int... ids){
 
-        return new ArrayListSet<>();
+        Set<Contact> setToReturn = new ArrayListSet<>();
+        for(Contact i : contactSet){
+            for(int j: ids){
+                if(i.getId() == j){
+                    setToReturn.add(i);
+                }
+            }
+        }
+
+        return setToReturn;
     }
 
     public void flush(){

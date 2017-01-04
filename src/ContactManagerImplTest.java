@@ -1034,11 +1034,27 @@ public class ContactManagerImplTest {
 
     @Test
     public void getContactsOneReturnById() throws Exception {
+        // set contact to empty
+        Set<Contact> empty = new ArrayListSet<>();
+        testContactManager.setContactSet(empty);
 
         int id1 = testContactManager.addNewContact("James Morgan","BlahBlah");
         int id2 = testContactManager.addNewContact("Elliot Paulson","MoreBlah");
         int id3 = testContactManager.addNewContact("Richard Head","Point");
 
+        Set<Contact> contactsReturned = testContactManager.getContacts(id2, id3);
+
+        Contact oneReturned = (Contact)contactsReturned.toArray()[0];
+        Contact twoReturned = (Contact)contactsReturned.toArray()[1];
+
+        assertEquals(oneReturned.getId(), id2);
+        assertEquals(twoReturned.getId(), id3);
+
+
+    }
+
+    @Test
+    public void getContactsOneIllegalArgumentException() throws Exception {
 
     }
 
