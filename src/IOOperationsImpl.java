@@ -20,7 +20,7 @@ public class IOOperationsImpl implements IOOperations{
             try {
                 reader = new BufferedReader(new FileReader("contacts.txt"));
 
-                inputList = reader.lines().map(line -> Stream.of(line.split(REGEX))
+                inputList = reader.lines().map(line -> Stream.of(line.split(REGEX)).map(a -> a.replace("\"", ""))
                         .collect(Collectors.toList())).collect(Collectors.toList());
                 break;
             } catch (FileNotFoundException ex) {
@@ -48,7 +48,9 @@ public class IOOperationsImpl implements IOOperations{
                 writer.write(", ");
                 writer.write(i.getName());
                 writer.write(", ");
+                writer.write("\"");
                 writer.write(i.getNotes());
+                writer.write("\"");
                 writer.write(", ");
                 writer.newLine();
             }

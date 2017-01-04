@@ -23,8 +23,8 @@ public class IOOperationsImplTest {
 
     @Test
     public void writeToFile() throws Exception {
-        Contact first = new ContactImpl(23, "Paolo", "Blah");
-        Contact second = new ContactImpl(34, "Erik", "more");
+        Contact first = new ContactImpl(23, "Paolo", "Blah, blah, blah");
+        Contact second = new ContactImpl(34, "Erik", "more, more, more");
         Set<Contact>  testContacts = new ArrayListSet<>();
         testContacts.add(first);
         testContacts.add(second);
@@ -43,8 +43,8 @@ public class IOOperationsImplTest {
         assertEquals(input.get(1).get(1), "34");
         assertEquals(input.get(0).get(2), "Paolo");
         assertEquals(input.get(1).get(2), "Erik");
-        assertEquals(input.get(0).get(3), "Blah");
-        assertEquals(input.get(1).get(3), "more");
+        assertEquals(input.get(0).get(3), "Blah, blah, blah");
+        assertEquals(input.get(1).get(3), "more, more, more");
 
         System.out.print(input.get(0).get(0));
         System.out.print(input.get(0).get(1));
