@@ -14,7 +14,6 @@ public class ContactManagerImpl implements ContactManager {
     private Calendar presentDate = Calendar.getInstance();
     private IOOperations IOHandler = new IOOperationsImpl();
 
-
     /**
      * This method is used to access contactSet for testing purposes
      * @param contactSet
@@ -341,7 +340,6 @@ public class ContactManagerImpl implements ContactManager {
         IOHandler.writeContactsToFile(contactSet);
         IOHandler.writeFutureMeetingsToFile(futureMeetingSet);
         IOHandler.writePastMeetingsToFile(pastMeetingSet);
-
     }
 
 

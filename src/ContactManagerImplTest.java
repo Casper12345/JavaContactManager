@@ -1,14 +1,6 @@
-import a.e.S;
 import com.intellij.util.containers.ArrayListSet;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
-import org.hamcrest.*;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.util.*;
 
 import static org.junit.Assert.*;
@@ -45,10 +37,10 @@ public class ContactManagerImplTest {
         calendar = new GregorianCalendar(2018,1,22,12,12);
     }
 
-    // addFutureMeeting
+    // tests for addFutureMeeting
 
     @Test
-    public void addFutureMeetingOne() throws Exception {
+    public void addFutureMeetingThrowsIllegalArgumentExceptionWithPastDate() throws Exception {
         // setting calender to past date
         calendar = new GregorianCalendar(2010,1,22,12,12);
 
@@ -61,14 +53,12 @@ public class ContactManagerImplTest {
         assertTrue(Throw);
 
 
-
-
     }
 
     @Test
-    public void addFutureMeetingTwo(){
+    public void addFutureMeetingThrowsIllegalArgumentExceptionWithContactUnknown(){
 
-        //check if contact is not existing
+        //check for thrown exception with unknown contact
 
         Contact contact2 = new ContactImpl(3,"Poul", "myNotes");
         Contact contact3 = new ContactImpl(4,"Finn", "moreNotes");
@@ -129,11 +119,11 @@ public class ContactManagerImplTest {
 
     }
 
-    /**
-     * check if the date is null
-     */
+
     @Test
-    public void addFutureMeetingThree(){
+    public void addFutureMeetingThrowsIllegalArgumentExceptionNullDate(){
+
+        // throws IllegalArgumentsException if date is Null
 
         try{
             testContactManager.addFutureMeeting(contacts,null);
@@ -143,11 +133,11 @@ public class ContactManagerImplTest {
 
         assertTrue(Throw);
     }
-    /**
-     * check if the contacts are null
-     */
+
     @Test
-    public void addFutureMeetingFour(){
+    public void addFutureMeetingThrowsNullPointerException(){
+
+        // throw NullPointerException if contacts is null
 
         try{
             testContactManager.addFutureMeeting(null,calendar);
@@ -158,10 +148,12 @@ public class ContactManagerImplTest {
         assertTrue(Throw);
     }
 
-    // getPastMeeting
+    // tests for getPastMeeting
 
     @Test
     public void returnsPastMeetingFromId() throws Exception {
+
+        // tests that past meeting is returned from id
 
         Calendar pastCalendar = new GregorianCalendar(2011,10,12,12,12);
 
@@ -183,6 +175,9 @@ public class ContactManagerImplTest {
 
     @Test
     public void returnsNullWhenNotFound(){
+
+        // tests that null is returned when not found
+
         Calendar pastCalendar = new GregorianCalendar(2011,10,12,12,12);
 
         PastMeeting testMeetingOne = new PastMeetingImpl(45, pastCalendar, contacts, "Notes");
@@ -201,6 +196,8 @@ public class ContactManagerImplTest {
 
     @Test
     public void meetingFromTheFuture(){
+
+        // tests that IllegalStateException is thrown with future meeting
 
         try {
 
@@ -222,10 +219,12 @@ public class ContactManagerImplTest {
 
     }
 
-    // getFutureMeeting
+    // tests for getFutureMeeting
 
     @Test
     public void returnsFutureMeetingFromId() throws Exception {
+
+        // tests that future meeting is retrieved from id
 
         Calendar futureCalendar = new GregorianCalendar(2018,10,12,12,12);
 
@@ -247,6 +246,9 @@ public class ContactManagerImplTest {
 
     @Test
     public void futureMeetingReturnsNullWhenNotFound(){
+
+        // Checks that null is returned
+
         Calendar futureCalendar = new GregorianCalendar(2018,10,12,12,12);
 
         FutureMeeting testMeetingOne = new FutureMeetingImpl(45, futureCalendar, contacts);
@@ -267,6 +269,8 @@ public class ContactManagerImplTest {
     @Test
     public void meetingFromThePast(){
 
+        // checks that IllegalStateException is thrown with future meeting
+
         try {
 
             Calendar pastCalendar = new GregorianCalendar(2010, 10, 12, 12, 12);
@@ -278,7 +282,7 @@ public class ContactManagerImplTest {
 
             testContactManager.setFutureMeetingSet(testFutureMeetingsSet);
 
-            FutureMeeting futureMeetingReturned = testContactManager.getFutureMeeting(45);
+            testContactManager.getFutureMeeting(45);
 
         }catch (IllegalStateException ex){
             Throw = true;
@@ -288,11 +292,14 @@ public class ContactManagerImplTest {
 
     }
 
-    // getMeeting
+    // tests for getMeeting
 
 
     @Test
     public void getMeetingGetId() throws Exception {
+
+        // tests that meeting is retrieved from id
+
         Calendar futureCalendar = new GregorianCalendar(2018,10,12,12,12);
 
         FutureMeeting testMeetingOne = new FutureMeetingImpl(45, futureCalendar, contacts);
@@ -314,6 +321,8 @@ public class ContactManagerImplTest {
     @Test
     public void getMeetingGetIdReturnNull() throws Exception {
 
+        // tests that null is returned
+
         Calendar futureCalendar = new GregorianCalendar(2018,10,12,12,12);
 
         FutureMeeting testMeetingOne = new FutureMeetingImpl(45, futureCalendar, contacts);
@@ -331,10 +340,13 @@ public class ContactManagerImplTest {
 
     }
 
-    //getFutureMeetingList
+    //tests for getFutureMeetingList
 
     @Test
     public void getFutureMeetingListReturnsList() throws Exception {
+
+       // checks that list is returned
+
         Contact contact = new ContactImpl(1,"Peter", "myNotes");
         Contact contact1 = new ContactImpl(2,"John", "moreNotes");
         Contact contact2 = new ContactImpl(10,"Josh", "notieNotes");
@@ -375,6 +387,8 @@ public class ContactManagerImplTest {
     @Test
     public void getFutureMeetingListRemoveDuplicates() throws Exception {
 
+        // checks that duplicates are removed
+
         Contact contact = new ContactImpl(1,"Peter", "myNotes");
         Contact contact1 = new ContactImpl(2,"John", "moreNotes");
         Contact contact2 = new ContactImpl(10,"Josh", "notieNotes");
@@ -412,6 +426,8 @@ public class ContactManagerImplTest {
     @Test
     public void getFutureMeetingListReturnsEmptyList() throws Exception {
 
+        // checks that empty list is returned
+
         Contact contact = new ContactImpl(1,"Peter", "myNotes");
         Contact contact1 = new ContactImpl(2,"John", "moreNotes");
         Contact contact2 = new ContactImpl(10,"Josh", "notieNotes");
@@ -443,6 +459,8 @@ public class ContactManagerImplTest {
 
     @Test
     public void getFutureMeetingListChronological() throws Exception {
+
+        // checks that list is chronologically sorted
 
         Contact contact = new ContactImpl(1,"Peter", "myNotes");
         Contact contact1 = new ContactImpl(2,"John", "moreNotes");
@@ -485,6 +503,8 @@ public class ContactManagerImplTest {
     @Test
     public void getFutureMeetingListThrowNullPointerException() throws Exception {
 
+        // check that NullPointerException is thrown with parameter null
+
         Contact contact = new ContactImpl(1,"Peter", "myNotes");
         Contact contact1 = new ContactImpl(2,"John", "moreNotes");
 
@@ -517,6 +537,9 @@ public class ContactManagerImplTest {
 
     @Test
     public void getMeetingListOnReturnsList() throws Exception {
+
+        // checks that list is returned
+
         // set futureMeetingSet to empty
         Set<FutureMeeting> emptySet = new ArrayListSet<>();
         testContactManager.setFutureMeetingSet(emptySet);
@@ -547,6 +570,9 @@ public class ContactManagerImplTest {
 
     @Test
     public void getMeetingListOnReturnsEmptyList() throws Exception {
+
+        // checks that empty list is returned
+
         // set futureMeetingSet to empty
         Set<FutureMeeting> emptySet = new ArrayListSet<>();
         testContactManager.setFutureMeetingSet(emptySet);
@@ -559,12 +585,12 @@ public class ContactManagerImplTest {
 
         assertTrue(meetingsReturned.isEmpty());
 
-
-
     }
 
     @Test
     public void getMeetingListOnThrowNullPointerException() throws Exception {
+
+        // checks that NullPointerException is thrown with null parameter
 
         try{
             List<Meeting> meetingsReturned = testContactManager.getMeetingListOn(null);
@@ -578,10 +604,12 @@ public class ContactManagerImplTest {
 
     }
 
-    // getPastMeetingListFor
+    // tests for getPastMeetingListFor
 
     @Test
     public void getPastMeetingListForReturnsList() throws Exception {
+
+        // checks that list is returned
 
         // set futureMeetingSet to empty
         Set<PastMeeting> emptySet = new ArrayListSet<>();
@@ -614,6 +642,7 @@ public class ContactManagerImplTest {
     @Test
     public void getPastMeetingListForReturnsEmptyList() throws Exception {
 
+        // checks that empty list is returned
 
         Contact contact = new ContactImpl(1,"Peter", "myNotes");
         Contact contact1 = new ContactImpl(2,"John", "moreNotes");
@@ -644,6 +673,8 @@ public class ContactManagerImplTest {
     }
     @Test
     public void getPastMeetingListForChronological() throws Exception {
+
+        // checks that list is sorted chronologically
 
         Contact contact = new ContactImpl(1, "Peter", "myNotes");
         Contact contact1 = new ContactImpl(2, "John", "moreNotes");
@@ -689,6 +720,9 @@ public class ContactManagerImplTest {
 
     @Test
     public void getPastMeetingListForThrowNullPointerException() throws Exception {
+
+        // checks that NullPointerException is thrown with past null parameter
+
         Contact contact = new ContactImpl(1,"Peter", "myNotes");
         Contact contact1 = new ContactImpl(2,"John", "moreNotes");
 
@@ -722,10 +756,12 @@ public class ContactManagerImplTest {
 
     }
 
-    // addNewPastMeeting
+    // tests for addNewPastMeeting
 
     @Test
-    public void addNewPastMeetingOne() throws Exception {
+    public void addNewPastMeetingIllegalArgumentExceptionIsThrownWithFutureDate() throws Exception {
+
+        // checks that IllegalArgumentException is thrown with future date
 
         try{
             testContactManager.addNewPastMeeting(contacts,calendar, "Notes");
@@ -738,7 +774,9 @@ public class ContactManagerImplTest {
     }
 
     @Test
-    public void addNewPastMeetingTwo(){
+    public void addNewPastMeetingTwoThrowsIllegalArgumentExceptionWithUnknownContact(){
+
+        // checks if IllegalArgumentException is thrown with unknown contact
 
         // setting calender to past date to avoid IllegalArgumentException
         calendar = new GregorianCalendar(2010,1,22,12,12);
@@ -800,15 +838,13 @@ public class ContactManagerImplTest {
         }
 
         assertTrue(Throw);
-
-
     }
 
-    /**
-     * check if the date is null
-     */
+
     @Test
-    public void addPastMeetingThree(){
+    public void addPastMeetingThreeNullPointerExceptionThownWithDateNull(){
+
+        // checks if NullPointerException is thrown with Null date
 
         try{
             testContactManager.addNewPastMeeting(contacts,null, "blah");
@@ -819,11 +855,11 @@ public class ContactManagerImplTest {
         assertTrue(Throw);
     }
 
-    /**
-     * check if the contacts are null
-     */
+
     @Test
-    public void addPastMeetingFour(){
+    public void addPastMeetingFourNullPointerExceptionThownContactsNull(){
+
+        // Checks if NullPointerException is thrown with null contacts
 
         Calendar testCalendar = new GregorianCalendar(2012,11,1,23,41);
 
@@ -836,11 +872,11 @@ public class ContactManagerImplTest {
         assertTrue(Throw);
     }
 
-    /**
-     * check if the contacts are null
-     */
+
     @Test
-    public void addPastMeetingFive(){
+    public void addPastMeetingNullPointerExceptionThrownWithNullNotes(){
+
+        // checks if NullPointerException is thrown with null notes
 
         Calendar testCalendar = new GregorianCalendar(2012,11,1,23,41);
 
@@ -853,10 +889,12 @@ public class ContactManagerImplTest {
         assertTrue(Throw);
     }
 
-    //addMeetingNotes
+    // tests for addMeetingNotes
 
     @Test
     public void addMeetingNotesMeetingNotExists() throws Exception {
+
+        // checks if IllegalArgumentException is thrown with unknown meeting
 
         Calendar pastCalendar = new GregorianCalendar(2015, 1,1,12,12);
 
@@ -876,12 +914,12 @@ public class ContactManagerImplTest {
         }
 
         assertTrue(Throw);
-
-
     }
 
     @Test
     public void addMeetingNotesMeetingSetInFuture() throws Exception {
+
+        // checks if IllegalStateException is thrown with meeting set in the future
 
         FutureMeeting firstMeeting = new FutureMeetingImpl(90, calendar, contacts);
         FutureMeeting secondMeeting = new FutureMeetingImpl(91, calendar, contacts);
@@ -905,6 +943,8 @@ public class ContactManagerImplTest {
 
     @Test
     public void addMeetingNotesNotesAreNull() throws Exception {
+
+        // checks if NullPointerException is thrown with added notes null
 
         Calendar pastCalendar = new GregorianCalendar(2015, 1,1,12,12);
 
@@ -931,6 +971,8 @@ public class ContactManagerImplTest {
     @Test
     public void addMeetingNotesConvertMeeting() throws Exception {
 
+        // checks if future meeting is converted to past meeting
+
         Calendar pastCalendar = new GregorianCalendar(2015, 1,1,12,12);
 
         FutureMeeting firstMeeting = new FutureMeetingImpl(90, pastCalendar, contacts);
@@ -950,6 +992,8 @@ public class ContactManagerImplTest {
     }
     @Test
     public void addMeetingNotesNodesAdded() throws Exception {
+
+        // checks if pastmeeting gets notes added
 
         // setting pastMeetingSet to empty
         Set<PastMeeting> empty = new ArrayListSet<>();
@@ -974,11 +1018,12 @@ public class ContactManagerImplTest {
 
     }
 
-    // addNewContact
-
+    // tests for addNewContact
 
     @Test
     public void addNewContactIllegalArgumentException() throws Exception {
+
+        // checks if IllegalArgumentException is thrown with empty strings
 
         try{
             testContactManager.addNewContact("","");
@@ -993,6 +1038,7 @@ public class ContactManagerImplTest {
     @Test
     public void addNewContactNullPointerException() throws Exception {
 
+        // checks if NullPointerException is thrown with null parameters
 
         try{
             testContactManager.addNewContact(null,null);
@@ -1005,10 +1051,12 @@ public class ContactManagerImplTest {
 
     }
 
-    // getContacts
+    // tests for getContacts
 
     @Test
     public void getContactsReturns() throws Exception {
+
+        // checks if getContacts returns contacts
 
        testContactManager.addNewContact("James Morgan","BlahBlah");
 
@@ -1021,6 +1069,8 @@ public class ContactManagerImplTest {
     }
     @Test
     public void getContactsReturnsFullList() throws Exception {
+        // checks if full contact list is returned with empty string
+
         // set contact to empty
         Set<Contact> empty = new ArrayListSet<>();
         testContactManager.setContactSet(empty);
@@ -1035,10 +1085,13 @@ public class ContactManagerImplTest {
 
     }
 
-    // getContactsTwo
+    // tests for getContactsTwo
 
     @Test
     public void getContactsOneReturnById() throws Exception {
+
+        // checks if contacts are returned by id
+
         // set contact to empty
         Set<Contact> empty = new ArrayListSet<>();
         testContactManager.setContactSet(empty);
@@ -1061,6 +1114,8 @@ public class ContactManagerImplTest {
     @Test
     public void getContactsOneIllegalArgumentExceptionNoIds() throws Exception {
 
+        // checks if IllegalArgumentException is thrown with no ids
+
         try {
             testContactManager.getContacts();
         }catch (IllegalArgumentException e){
@@ -1072,6 +1127,8 @@ public class ContactManagerImplTest {
 
     @Test
     public void getContactsOneIllegalArgumentExceptionNoExistingContact() throws Exception {
+
+        // checks if IllegalArgumentException is thrown with non existing id
 
         // set contact to empty
         Set<Contact> empty = new ArrayListSet<>();
@@ -1106,6 +1163,8 @@ public class ContactManagerImplTest {
 
     @Test
     public void flushToFile() throws Exception {
+
+        // checks if data is flushed to file
 
         // set contactSet to empty
         Set<Contact> empty = new ArrayListSet<>();
