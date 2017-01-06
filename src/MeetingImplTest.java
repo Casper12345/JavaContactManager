@@ -28,7 +28,7 @@ public class MeetingImplTest {
         boolean Throw = false;
 
         try{
-            testMeeting = new MeetingMockClass(1, new GregorianCalendar(2016,Calendar.DECEMBER,24,13,12), new ArrayListSet());
+            new MeetingMockClass(1, new GregorianCalendar(2016,Calendar.DECEMBER,24,13,12), new ArrayListSet());
         }catch(IllegalArgumentException ex){
             Throw = true;
         }
@@ -41,7 +41,7 @@ public class MeetingImplTest {
         contacts.add(new ContactImpl(1,"George","myImportantNotes"));
 
         try{
-            testMeeting = new MeetingMockClass(1, new GregorianCalendar(2016,Calendar.DECEMBER,24,13,12), contacts);
+            new MeetingMockClass(1, new GregorianCalendar(2016,Calendar.DECEMBER,24,13,12), contacts);
         }catch(IllegalArgumentException ex){
             Throw = true;
         }
@@ -58,7 +58,7 @@ public class MeetingImplTest {
         contacts.add(new ContactImpl(1,"George","myImportantNotes"));
 
         try{
-            testMeeting = new MeetingMockClass(-1, new GregorianCalendar(2016,Calendar.DECEMBER,24,13,12), contacts);
+            new MeetingMockClass(-1, new GregorianCalendar(2016,Calendar.DECEMBER,24,13,12), contacts);
 
         }catch(IllegalArgumentException ex){
             Throw = true;
@@ -69,7 +69,7 @@ public class MeetingImplTest {
         Throw = false;
 
         try{
-            testMeeting = new MeetingMockClass(1, new GregorianCalendar(2016,Calendar.DECEMBER,24,13,12), contacts);
+            new MeetingMockClass(1, new GregorianCalendar(2016,Calendar.DECEMBER,24,13,12), contacts);
 
         }catch(IllegalArgumentException ex){
             Throw = true;
@@ -86,7 +86,7 @@ public class MeetingImplTest {
         contacts.add(new ContactImpl(1,"George","myImportantNotes"));
 
         try{
-            testMeeting = new MeetingMockClass(1, null, contacts);
+            new MeetingMockClass(1, null, contacts);
 
         }catch(NullPointerException ex){
             Throw = true;
@@ -97,7 +97,7 @@ public class MeetingImplTest {
         Throw = false;
 
         try{
-            testMeeting = new MeetingMockClass(1, new GregorianCalendar(2016,Calendar.DECEMBER,24,13,12), contacts);
+            new MeetingMockClass(1, new GregorianCalendar(2016,Calendar.DECEMBER,24,13,12), contacts);
 
         }catch(NullPointerException ex){
             Throw = true;

@@ -1,4 +1,5 @@
 import java.io.*;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -13,7 +14,8 @@ import static java.util.Calendar.YEAR;
  */
 public class IOOperationsImpl implements IOOperations{
 
-    private final String REGEX = ", (?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)";
+    private static final String REGEX = ", (?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)";
+    private static String filePath = "contacts.txt";
 
     public List<List<String>> readFromFile() {
         BufferedReader reader;
@@ -21,22 +23,29 @@ public class IOOperationsImpl implements IOOperations{
 
         while (true) {
             try {
-                reader = new BufferedReader(new FileReader("contacts.txt"));
 
+                reader = new BufferedReader(new InputStreamReader(new FileInputStream(filePath),
+                        Charset.defaultCharset()));
                 inputList = reader.lines().map(line -> Stream.of(line.split(REGEX))
                         .map(a -> a.replace("\"", "")).map(b -> b.replace("<newline>","\n"))
                         .collect(Collectors.toList())).collect(Collectors.toList());
+
+                reader.close();
                 break;
             } catch (FileNotFoundException ex) {
                 try {
                     File fileHandle = new File("contacts.txt");
-                    fileHandle.createNewFile();
+                    boolean created = fileHandle.createNewFile();
+
 
                 }catch (IOException e){
                     e.printStackTrace();
                 }
 
+            }catch (IOException e){
+                e.printStackTrace();
             }
+
         }
         return inputList;
     }
@@ -44,7 +53,9 @@ public class IOOperationsImpl implements IOOperations{
     public void writeContactsToFile(Set<Contact> contacts){
         BufferedWriter writer;
         try {
-            writer = new BufferedWriter(new FileWriter("contacts.txt",true));
+
+            writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filePath,true),"UTF-8"));
+
             for(Contact i : contacts){
                 writer.write("Contact");
                 writer.write(", ");
@@ -60,6 +71,7 @@ public class IOOperationsImpl implements IOOperations{
             }
 
             writer.flush();
+            writer.close();
 
         }catch (IOException ex){
             ex.printStackTrace();
@@ -71,7 +83,7 @@ public class IOOperationsImpl implements IOOperations{
 
         BufferedWriter writer;
         try {
-            writer = new BufferedWriter(new FileWriter("contacts.txt",true));
+            writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filePath,true),"UTF-8"));
             for(FutureMeeting i : futureMeetings){
                 writer.write("FutureMeeting");
                 writer.write(", ");
@@ -95,6 +107,7 @@ public class IOOperationsImpl implements IOOperations{
             }
 
             writer.flush();
+            writer.close();
 
         }catch (IOException ex){
             ex.printStackTrace();
@@ -106,7 +119,7 @@ public class IOOperationsImpl implements IOOperations{
 
         BufferedWriter writer;
         try {
-            writer = new BufferedWriter(new FileWriter("contacts.txt",true));
+            writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filePath,true),"UTF-8"));
             for(PastMeeting i : pastMeetings){
                 writer.write("PastMeeting");
                 writer.write(", ");
@@ -133,6 +146,7 @@ public class IOOperationsImpl implements IOOperations{
             }
 
             writer.flush();
+            writer.close();
 
         }catch (IOException ex){
             ex.printStackTrace();
@@ -143,8 +157,9 @@ public class IOOperationsImpl implements IOOperations{
     public void overWriteFile() {
 
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter("contacts.txt"));
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filePath),"UTF-8"));
             writer.flush();
+            writer.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -737,8 +737,8 @@ public class ContactManagerImplTest {
         Calendar pastCalendar = new GregorianCalendar(2012, 0, 10, 12, 12);
 
         Set<PastMeeting> pastMeetingList = new ArrayListSet<>();
-        PastMeeting testMeetingOne = new PastMeetingImpl(501,pastCalendar , contactTestSet, "Blah");
-        PastMeeting testMeetingTwo = new PastMeetingImpl(502, pastCalendar, contactTestSet, "haha");
+        new PastMeetingImpl(501,pastCalendar , contactTestSet, "Blah");
+        new PastMeetingImpl(502, pastCalendar, contactTestSet, "haha");
 
         testContactManager.setPastMeetingSet(pastMeetingList);
 
@@ -1096,7 +1096,7 @@ public class ContactManagerImplTest {
         Set<Contact> empty = new ArrayListSet<>();
         testContactManager.setContactSet(empty);
 
-        int id1 = testContactManager.addNewContact("James Morgan","BlahBlah");
+        testContactManager.addNewContact("James Morgan","BlahBlah");
         int id2 = testContactManager.addNewContact("Elliot Paulson","MoreBlah");
         int id3 = testContactManager.addNewContact("Richard Head","Point");
 

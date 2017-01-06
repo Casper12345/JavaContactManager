@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
  */
 public class PastMeetingImplTest {
     private PastMeeting pastMeetingTestTwo;
-    private Calendar calendar = new GregorianCalendar(2016,12,30,12,12);
+    private Calendar calendar = new GregorianCalendar(2016,11,30,12,12);
     private Set<Contact> contacts = new ArrayListSet<>();
     private String notes = "myNotesAreImportant";
     private boolean Throw;
@@ -31,7 +31,7 @@ public class PastMeetingImplTest {
     public void constructorTestOne(){
 
         try{
-            PastMeeting pastMeetingTest = new PastMeetingImpl(1,calendar,contacts,null);
+            new PastMeetingImpl(1,calendar,contacts,null);
         }catch (NullPointerException ex){
             Throw = true;
         }
@@ -41,7 +41,7 @@ public class PastMeetingImplTest {
         Throw = false;
 
         try{
-            PastMeeting pastMeetingTest = new PastMeetingImpl(1,calendar,contacts,notes);
+           new PastMeetingImpl(1,calendar,contacts,notes);
         }catch (NullPointerException ex){
             Throw = true;
         }

@@ -1,5 +1,5 @@
 /**
- * Created by Casper on 31/12/2016.
+ * Implements IDGenerator
  */
 public class IdGeneratorImpl implements IdGenerator {
     public int genId(Object toGenerate){

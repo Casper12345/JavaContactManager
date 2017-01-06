@@ -13,15 +13,7 @@ public class ContactImplTest {
 
     @Before
     public void setupTestContact() {
-
-        try{
-            testContact = new ContactImpl(1, "Paul", "myNotes");
-
-        }catch (IllegalArgumentException ex){
-            ex.getStackTrace();
-        } catch (NullPointerException ex){
-            ex.getStackTrace();
-        }
+        testContact = new ContactImpl(1, "Paul", "myNotes");
     }
 
 
@@ -62,7 +54,7 @@ public class ContactImplTest {
         boolean Thrown = false;
 
         try {
-            testContactTwo = new ContactImpl(-1, "Mark","Something");
+            new ContactImpl(-1, "Mark","Something");
         } catch (IllegalArgumentException ex){
             Thrown = true;
         } catch (NullPointerException ex){
@@ -78,7 +70,7 @@ public class ContactImplTest {
         boolean Thrown = false;
 
         try {
-            testContactTwo = new ContactImpl(10, null,"Something");
+            new ContactImpl(10, null,"Something");
         } catch (IllegalArgumentException ex){
             ex.printStackTrace();
         } catch (NullPointerException ex){
@@ -89,7 +81,7 @@ public class ContactImplTest {
         Thrown = false;
 
         try {
-            testContactTwo = new ContactImpl(10, "Mark",null);
+            new ContactImpl(10, "Mark",null);
         } catch (IllegalArgumentException ex){
             ex.printStackTrace();
         } catch (NullPointerException ex){
@@ -104,7 +96,7 @@ public class ContactImplTest {
         boolean Thrown = false;
 
         try {
-            testContactTwo = new ContactImpl(-1, "Mark");
+            new ContactImpl(-1, "Mark");
         } catch (IllegalArgumentException ex){
             Thrown = true;
         } catch (NullPointerException ex){
@@ -120,7 +112,7 @@ public class ContactImplTest {
         boolean Thrown = false;
 
         try {
-            testContactTwo = new ContactImpl(10,null);
+            new ContactImpl(10,null);
         } catch (IllegalArgumentException ex){
             ex.printStackTrace();
         } catch (NullPointerException ex){

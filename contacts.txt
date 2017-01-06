@@ -1,0 +1,4 @@
+Contact, 901506536, Peter, "LongNotes", 
+Contact, 747464370, Erik, "ShortNotes", 
+FutureMeeting, 1513712028, 2018:1:22:0:12, "[901506536, 747464370]", 
+PastMeeting, 288665596, 1999:1:2:0:12, "[901506536, 747464370]", "Notes"

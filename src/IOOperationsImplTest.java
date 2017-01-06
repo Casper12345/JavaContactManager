@@ -10,6 +10,7 @@ import static org.junit.Assert.*;
 
 /**
  * JUnit test for IOOperations.
+ *
  */
 public class IOOperationsImplTest {
 
@@ -24,6 +25,7 @@ public class IOOperationsImplTest {
 
     @Test
     public void writeContactsToFile() throws Exception {
+        testIO.overWriteFile();
         Contact first = new ContactImpl(23, "Paolo", "Blah, blah, blah");
         Contact second = new ContactImpl(34, "Erik", "more, more, more");
         Set<Contact>  testContacts = new ArrayListSet<>();
