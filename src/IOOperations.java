@@ -34,5 +34,13 @@ public interface IOOperations {
     void overWriteFile();
 
 
+    /**
+     * This method reads contacts from file and stores them in Set<Contact>
+     * @return Set<Contact>
+     */
+    Set<Contact> readContactsFromFile();
+
+
+
 
 }

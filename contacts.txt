@@ -1,4 +1,5 @@
-Contact, 901506536, Peter, "LongNotes", 
-Contact, 747464370, Erik, "ShortNotes", 
-FutureMeeting, 1513712028, 2018:1:22:0:12, "[901506536, 747464370]", 
-PastMeeting, 288665596, 1999:1:2:0:12, "[901506536, 747464370]", "Notes"
+Contact, 23, Paolo, "Blah, blah, blah", 
+Contact, 34, Erik, "more, more, more", 
+Contact, 353842779, Josh, "Notes, yes<newline>no", 
+FutureMeeting, 290658609, 2019:2:21:11:12, "[589446616, 1321640594]", 
+PastMeeting, 2109957412, 2012:2:21:11:12, "[209813603, 1057941451]", "Notes"

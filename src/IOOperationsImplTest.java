@@ -106,4 +106,16 @@ public class IOOperationsImplTest {
 
     }
 
+    @Test
+    public void readContactsFromFile(){
+        Set<Contact> testSet = testIO.readContactsFromFile();
+
+        Contact one = (Contact)testSet.toArray()[0];
+        Contact two = (Contact)testSet.toArray()[1];
+
+        assertEquals(23,one.getId());
+        assertEquals(34,two.getId());
+
+    }
+
 }

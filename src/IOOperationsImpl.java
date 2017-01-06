@@ -1,3 +1,5 @@
+import com.intellij.util.containers.ArrayListSet;
+
 import java.io.*;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
@@ -164,5 +166,28 @@ public class IOOperationsImpl implements IOOperations{
             e.printStackTrace();
         }
 
+    }
+
+    public Set<Contact> readContactsFromFile(){
+
+        Set<Contact> toReturn = new ArrayListSet<>();
+
+        List<List<String>> contactsInput = this.readFromFile().stream()
+                .filter(a -> a.get(0).equals("Contact")).collect(Collectors.toList());
+
+        for(List<String> i: contactsInput){
+            int id; String name; String notes;
+            id = Integer.parseInt(i.get(1));
+            name = i.get(2);
+            notes = i.get(3);
+            toReturn.add(new ContactImpl(id,name,notes));
+
+        }
+
+        System.out.println(contactsInput);
+        System.out.println(toReturn);
+
+
+        return toReturn;
     }
 }
