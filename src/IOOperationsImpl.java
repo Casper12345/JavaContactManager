@@ -12,6 +12,9 @@ import java.util.stream.Stream;
  */
 public class IOOperationsImpl implements IOOperations{
     private Set<Contact> contactsLoaded = new ArrayListSet<>();
+
+
+
     private static final String REGEX = ", (?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)";
     private static String filePath = "contacts.txt";
 
@@ -192,7 +195,6 @@ public class IOOperationsImpl implements IOOperations{
         List<List<String>> futureMeetingInput = this.readFromFile().stream()
                 .filter(a -> a.get(0).equals("FutureMeeting")).collect(Collectors.toList());
 
-
         for(List<String> i: futureMeetingInput){
             int id; List<Integer> date = new ArrayList<>(); Set<Contact> contacts = new ArrayListSet<>();
                 id = Integer.parseInt(i.get(1));
@@ -229,6 +231,47 @@ public class IOOperationsImpl implements IOOperations{
 
 
     public Set<PastMeeting> readPastMeetingFromFile(){
-        return new ArrayListSet<>();
+
+        Set<PastMeeting> toReturn = new ArrayListSet<>();
+        List<List<String>> pastMeetingInput = this.readFromFile().stream()
+                .filter(a -> a.get(0).equals("PastMeeting")).collect(Collectors.toList());
+
+
+        for(List<String> i: pastMeetingInput){
+            int id; List<Integer> date = new ArrayList<>(); Set<Contact> contacts = new ArrayListSet<>();
+            String notes;
+
+            id = Integer.parseInt(i.get(1));
+            date.add(Integer.parseInt(i.get(2).split(":")[0]));
+            date.add(Integer.parseInt(i.get(2).split(":")[1]));
+            date.add(Integer.parseInt(i.get(2).split(":")[2]));
+            date.add(Integer.parseInt(i.get(2).split(":")[3]));
+            date.add(Integer.parseInt(i.get(2).split(":")[4]));
+            String temp;
+            temp = i.get(3).replace("[","");
+            temp = temp.replace("]","");
+
+            for(String j : temp.split(", ")){
+                List<Contact> contactsIdList = contactsLoaded.stream()
+                        .filter(a -> a.getId() == Integer.parseInt(j))
+                        .collect(Collectors.toList());
+
+                for(Contact k : contactsIdList){
+                    if(k.getId() == Integer.parseInt(j)){
+                        contacts.add(k);
+                    }
+                }
+            }
+
+            notes = i.get(4);
+
+
+            toReturn.add(new PastMeetingImpl(id, new GregorianCalendar(date.get(0),
+                    date.get(1),date.get(2),date.get(3),date.get(4)),contacts, notes));
+
+        }
+
+        return toReturn;
+
     }
 }
