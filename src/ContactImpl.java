@@ -7,6 +7,7 @@ public class ContactImpl implements Contact {
     private String name;
     private String notes;
 
+
     public ContactImpl(int id, String name, String notes) throws IllegalArgumentException, NullPointerException {
 
         if(id < 0){
@@ -31,18 +32,22 @@ public class ContactImpl implements Contact {
         this.name = name;
     }
 
+    @Override
     public int getId(){
         return id;
     }
 
+    @Override
     public String getName(){
         return name;
     }
 
+    @Override
     public String getNotes(){
         return notes;
     }
 
+    @Override
     public void addNotes(String noteToAdd){
         this.notes += "\n" + noteToAdd;
     }

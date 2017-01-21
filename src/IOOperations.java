@@ -41,6 +41,19 @@ public interface IOOperations {
     Set<Contact> readContactsFromFile();
 
 
+    /**
+     * This method reads futureMeetings from file and stores them in Set<FutureMeeting>
+     * @return Set<FutureMeeting>
+     */
+    Set<FutureMeeting> readFutureMeetingFromFile();
+
+    /**
+     * This method reads PastMeeting from file and stores them in Set<PastMeeting>
+     * @return Set<PastMeeting>
+     */
+    Set<PastMeeting> readPastMeetingFromFile();
+
+
 
 
 }

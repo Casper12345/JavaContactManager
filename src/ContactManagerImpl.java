@@ -1,7 +1,6 @@
 import com.intellij.util.containers.ArrayListSet;
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * Implements interface ContactManager
@@ -14,9 +13,20 @@ public class ContactManagerImpl implements ContactManager {
     private Calendar presentDate = Calendar.getInstance();
     private IOOperations IOHandler = new IOOperationsImpl();
 
+
+    public Set<Contact> getContactSet(){ return contactSet; }
+
+    public Set<FutureMeeting> getFutureMeetingSet() { return futureMeetingSet; }
+
+    public Set<PastMeeting> getPastMeetingSet() {
+        return pastMeetingSet;
+    }
+
+
     /**
      * This method is used to access contactSet for testing purposes
      * @param contactSet
+     *
      */
     public void setContactSet(Set<Contact> contactSet){
         this.contactSet = contactSet;
@@ -27,7 +37,6 @@ public class ContactManagerImpl implements ContactManager {
      * @param futureMeetingSet
      */
     public void setFutureMeetingSet(Set<FutureMeeting> futureMeetingSet){
-
         this.futureMeetingSet = futureMeetingSet;
     }
 
@@ -36,34 +45,10 @@ public class ContactManagerImpl implements ContactManager {
      * @param pastMeetingSet
      */
     public void setPastMeetingSet(Set<PastMeeting> pastMeetingSet){
-
         this.pastMeetingSet = pastMeetingSet;
     }
 
-    /**
-     * This method is used to access contactSet for testing purposes
-     * @return contactSet
-     */
-    public Set<Contact> getContactSet(){
-        return contactSet;
-    }
-
-    /**
-     * This method is used to access futureMeetingSet for testing purposes
-     * @return futureMeetingSet
-     */
-    public Set<FutureMeeting> getFutureMeetingSet() {
-        return futureMeetingSet;
-    }
-
-    /**
-     * This method is used to access pastMeetingSet for testing purposes
-     * @return pastMeetingSet
-     */
-    public Set<PastMeeting> getPastMeetingSet() {
-        return pastMeetingSet;
-    }
-
+    @Override
     public int addFutureMeeting(Set<Contact> contacts, Calendar date)
             throws IllegalArgumentException, NullPointerException{
 
@@ -92,6 +77,7 @@ public class ContactManagerImpl implements ContactManager {
         return generatedId;
     }
 
+    @Override
     public PastMeeting getPastMeeting(int id) throws IllegalStateException{
 
         PastMeeting pastMeetingToReturn = null;
@@ -109,7 +95,7 @@ public class ContactManagerImpl implements ContactManager {
         return pastMeetingToReturn;
     }
 
-
+    @Override
     public FutureMeeting getFutureMeeting(int id) throws IllegalStateException{
 
         FutureMeeting futureMeetingToReturn = null;
@@ -127,6 +113,7 @@ public class ContactManagerImpl implements ContactManager {
         return futureMeetingToReturn ;
     }
 
+    @Override
     public Meeting getMeeting(int id){
 
         Meeting meetingToReturn = null;
@@ -145,6 +132,7 @@ public class ContactManagerImpl implements ContactManager {
         return meetingToReturn;
     }
 
+    @Override
     public List<Meeting> getFutureMeetingList(Contact contact) throws NullPointerException{
 
         List<Meeting> meetingToReturn = new ArrayList<>();
@@ -167,7 +155,7 @@ public class ContactManagerImpl implements ContactManager {
         return meetingToReturn;
     }
 
-
+    @Override
     public List<Meeting> getMeetingListOn(Calendar date){
 
         List<Meeting> meetingToReturn = new ArrayList<>();
@@ -193,6 +181,7 @@ public class ContactManagerImpl implements ContactManager {
         return meetingToReturn;
     }
 
+    @Override
     public List<PastMeeting> getPastMeetingListFor(Contact contact){
 
         List<PastMeeting> pastMeetingToReturn = new ArrayList<>();
@@ -216,7 +205,7 @@ public class ContactManagerImpl implements ContactManager {
         return pastMeetingToReturn;
     }
 
-
+    @Override
     public int addNewPastMeeting(Set<Contact> contacts, Calendar date, String text)
             throws IllegalArgumentException, NullPointerException{
 
@@ -250,7 +239,7 @@ public class ContactManagerImpl implements ContactManager {
 
     }
 
-
+    @Override
     public PastMeeting addMeetingNotes(int id, String text)
             throws IllegalArgumentException, IllegalStateException{
 
@@ -285,6 +274,7 @@ public class ContactManagerImpl implements ContactManager {
         return meetingToBeReturned;
     }
 
+    @Override
     public int addNewContact(String name, String notes) throws IllegalArgumentException, NullPointerException {
 
         if(name.equals("") || notes.equals("")){
@@ -303,6 +293,7 @@ public class ContactManagerImpl implements ContactManager {
         return generatedId;
     }
 
+    @Override
     public Set<Contact> getContacts(String name) throws NullPointerException{
 
         // matching with regular expression
@@ -312,6 +303,7 @@ public class ContactManagerImpl implements ContactManager {
 
     }
 
+    @Override
     public Set<Contact> getContacts(int... ids){
         Set<Contact> setToReturn = new ArrayListSet<>();
 
@@ -334,6 +326,7 @@ public class ContactManagerImpl implements ContactManager {
         return setToReturn;
     }
 
+    @Override
     public void flush(){
 
         IOHandler.overWriteFile();
