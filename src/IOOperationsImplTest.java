@@ -31,8 +31,6 @@ public class IOOperationsImplTest {
         i.readFutureMeetingFromFile();
         i.readPastMeetingFromFile();
 
-
-
     }
 
 

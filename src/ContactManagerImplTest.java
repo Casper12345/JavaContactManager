@@ -1169,7 +1169,10 @@ public class ContactManagerImplTest {
         // set contactSet to empty
         Set<Contact> empty = new ArrayListSet<>();
         testContactManager.setContactSet(empty);
+        IOOperations IO = new IOOperationsImpl();
 
+        // overwrite file
+        IO.overWriteFile();
 
         int contact1 = testContactManager.addNewContact("Peter","LongNotes");
         int contact2 = testContactManager.addNewContact("Erik","ShortNotes");
@@ -1182,8 +1185,9 @@ public class ContactManagerImplTest {
 
         testContactManager.flush();
 
-        IOOperations IO = new IOOperationsImpl();
         List<List<String>> input = IO.readFromFile();
+
+        System.out.println(testContactManager.getFutureMeetingSet());
 
         assertEquals(input.get(0).get(1), Integer.toString(contact1));
         assertEquals(input.get(1).get(1), Integer.toString(contact2));

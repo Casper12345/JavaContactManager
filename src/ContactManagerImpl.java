@@ -1,17 +1,18 @@
 import com.intellij.util.containers.ArrayListSet;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Implements interface ContactManager
  */
 public class ContactManagerImpl implements ContactManager {
 
+    private IOOperations IOHandler = new IOOperationsImpl();
     private Set<Contact> contactSet = new ArrayListSet<>();
     private Set<FutureMeeting> futureMeetingSet = new ArrayListSet<>();
     private Set<PastMeeting> pastMeetingSet = new ArrayListSet<>();
     private Calendar presentDate = Calendar.getInstance();
-    private IOOperations IOHandler = new IOOperationsImpl();
 
 
     public Set<Contact> getContactSet(){ return contactSet; }
@@ -333,6 +334,45 @@ public class ContactManagerImpl implements ContactManager {
         IOHandler.writeContactsToFile(contactSet);
         IOHandler.writeFutureMeetingsToFile(futureMeetingSet);
         IOHandler.writePastMeetingsToFile(pastMeetingSet);
+    }
+
+
+    public void loadFromFile(){
+
+        contactSet.addAll(readContactsToSet());
+        futureMeetingSet.addAll(readFutureMeetingsToSet());
+        pastMeetingSet.addAll(readPastMeetingsToSet());
+
+    }
+
+    private Set<Contact> readContactsToSet(){
+
+        Set<Contact> contactsRead = IOHandler.readContactsFromFile();
+
+        return contactsRead.stream().filter(a -> !contactSet.stream()
+                    .map(Contact::getId).collect(Collectors.toSet()).contains(a.getId())).
+                    collect(Collectors.toSet());
+
+    }
+
+    private Set<FutureMeeting> readFutureMeetingsToSet(){
+
+        Set<FutureMeeting> futureMeetingsRead = IOHandler.readFutureMeetingFromFile();
+
+        return futureMeetingsRead.stream().filter(a -> !futureMeetingSet.stream()
+                   .map(FutureMeeting::getId).collect(Collectors.toList()).contains(a.getId())).
+                    collect(Collectors.toSet());
+
+    }
+
+    private Set<PastMeeting> readPastMeetingsToSet(){
+
+        Set<PastMeeting> pastMeetingsRead = IOHandler.readPastMeetingFromFile();
+
+        return pastMeetingsRead.stream().filter(a -> !pastMeetingSet.stream()
+                .map(PastMeeting::getId).collect(Collectors.toList()).contains(a.getId())).
+                collect(Collectors.toSet());
+
     }
 
 

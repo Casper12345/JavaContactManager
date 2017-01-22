@@ -12,12 +12,10 @@ import java.util.stream.Stream;
  */
 public class IOOperationsImpl implements IOOperations{
     private Set<Contact> contactsLoaded = new ArrayListSet<>();
-
-
-
     private static final String REGEX = ", (?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)";
     private static String filePath = "contacts.txt";
 
+    @Override
     public List<List<String>> readFromFile() {
         BufferedReader reader;
         List<List<String>> inputList;
@@ -51,6 +49,7 @@ public class IOOperationsImpl implements IOOperations{
         return inputList;
     }
 
+    @Override
     public void writeContactsToFile(Set<Contact> contacts){
         BufferedWriter writer;
         try {
@@ -80,6 +79,7 @@ public class IOOperationsImpl implements IOOperations{
 
     }
 
+    @Override
     public void writeFutureMeetingsToFile(Set<FutureMeeting> futureMeetings){
 
         BufferedWriter writer;
@@ -116,6 +116,7 @@ public class IOOperationsImpl implements IOOperations{
 
     }
 
+    @Override
     public void writePastMeetingsToFile(Set<PastMeeting> pastMeetings){
 
         BufferedWriter writer;
@@ -155,6 +156,7 @@ public class IOOperationsImpl implements IOOperations{
 
     }
 
+    @Override
     public void overWriteFile() {
 
         try {
@@ -188,6 +190,8 @@ public class IOOperationsImpl implements IOOperations{
         return toReturn;
     }
 
+    @Override
+    @SuppressWarnings("Duplicates")
     public Set<FutureMeeting> readFutureMeetingFromFile(){
 
         Set<FutureMeeting> toReturn = new ArrayListSet<>();
@@ -218,10 +222,12 @@ public class IOOperationsImpl implements IOOperations{
                         }
                     }
                 }
-
-            toReturn.add(new FutureMeetingImpl(id, new GregorianCalendar(date.get(0),
-                    date.get(1),date.get(2),date.get(3),date.get(4)),contacts));
-
+            try {
+                toReturn.add(new FutureMeetingImpl(id, new GregorianCalendar(date.get(0),
+                        date.get(1), date.get(2), date.get(3), date.get(4)), contacts));
+            } catch (IllegalArgumentException ex){
+                return toReturn;
+            }
         }
 
 
@@ -229,7 +235,8 @@ public class IOOperationsImpl implements IOOperations{
 
     }
 
-
+    @Override
+    @SuppressWarnings("Duplicates")
     public Set<PastMeeting> readPastMeetingFromFile(){
 
         Set<PastMeeting> toReturn = new ArrayListSet<>();
@@ -265,10 +272,12 @@ public class IOOperationsImpl implements IOOperations{
 
             notes = i.get(4);
 
-
-            toReturn.add(new PastMeetingImpl(id, new GregorianCalendar(date.get(0),
-                    date.get(1),date.get(2),date.get(3),date.get(4)),contacts, notes));
-
+            try {
+                toReturn.add(new PastMeetingImpl(id, new GregorianCalendar(date.get(0),
+                        date.get(1), date.get(2), date.get(3), date.get(4)), contacts, notes));
+            }catch (IllegalArgumentException ex){
+                return toReturn;
+            }
         }
 
         return toReturn;
