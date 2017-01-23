@@ -1,5 +1,10 @@
 # cw-cm
 
+-- Project --
+
+This project is create using TDD. The source code and the tests are
+in separate folder named src and tests.
+
 -- Setters in src.ContactManagerImpl --
 
 Setters in ContactMangagerImpl are created for the purpose of tests gaining access and setting variables in the
