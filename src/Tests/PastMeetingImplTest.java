@@ -10,8 +10,6 @@ import src.PastMeetingImpl;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Set;
-
-
 import static org.junit.Assert.*;
 
 /**
@@ -29,7 +27,6 @@ public class PastMeetingImplTest {
         contacts.add(new ContactImpl(1,"John", "John is cool"));
         Throw = false;
         pastMeetingTestTwo = new PastMeetingImpl(1,calendar, contacts, notes);
-
     }
 
     @Test
@@ -60,8 +57,5 @@ public class PastMeetingImplTest {
         String notesForTest = "myNotesAreImportant";
 
         assertEquals(notesReturned, notesForTest );
-
-
     }
-
 }

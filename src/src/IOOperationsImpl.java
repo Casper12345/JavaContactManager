@@ -7,7 +7,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-
 /**
  * Implements src.IOOperations
  */
@@ -77,7 +76,6 @@ public class IOOperationsImpl implements IOOperations{
         }catch (IOException ex){
             ex.printStackTrace();
         }
-
     }
 
     @Override
@@ -154,7 +152,6 @@ public class IOOperationsImpl implements IOOperations{
         }catch (IOException ex){
             ex.printStackTrace();
         }
-
     }
 
     @Override
@@ -167,7 +164,6 @@ public class IOOperationsImpl implements IOOperations{
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     public Set<Contact> readContactsFromFile(){
@@ -183,7 +179,6 @@ public class IOOperationsImpl implements IOOperations{
             name = i.get(2);
             notes = i.get(3);
             toReturn.add(new ContactImpl(id,name,notes));
-
         }
 
         contactsLoaded = toReturn;
@@ -230,10 +225,7 @@ public class IOOperationsImpl implements IOOperations{
                 return toReturn;
             }
         }
-
-
         return toReturn;
-
     }
 
     @Override
@@ -243,7 +235,6 @@ public class IOOperationsImpl implements IOOperations{
         Set<PastMeeting> toReturn = new ArrayListSet<>();
         List<List<String>> pastMeetingInput = this.readFromFile().stream()
                 .filter(a -> a.get(0).equals("src.PastMeeting")).collect(Collectors.toList());
-
 
         for(List<String> i: pastMeetingInput){
             int id; List<Integer> date = new ArrayList<>(); Set<Contact> contacts = new ArrayListSet<>();
@@ -280,8 +271,6 @@ public class IOOperationsImpl implements IOOperations{
                 return toReturn;
             }
         }
-
         return toReturn;
-
     }
 }

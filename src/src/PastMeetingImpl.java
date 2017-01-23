@@ -34,5 +34,4 @@ public class PastMeetingImpl extends MeetingImpl implements PastMeeting {
         this.notes += "\n" + notes;
     }
 
-
 }

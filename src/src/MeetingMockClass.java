@@ -10,8 +10,6 @@ import java.util.Set;
 public class MeetingMockClass extends MeetingImpl {
 
     public MeetingMockClass(int id, Calendar date, Set contacts){
-
         super(id, date, contacts);
     }
-
 }

@@ -10,7 +10,6 @@ public class IdGeneratorImpl<T> implements IdGenerator<T> {
     @Override
     public int genId(Object toGenerate, Set<T> objectsInSystem){
         return returnID(hashGenerator(toGenerate), objectsInSystem);
-
     }
 
     /**
@@ -60,7 +59,6 @@ public class IdGeneratorImpl<T> implements IdGenerator<T> {
                     return false;
                 }
             }
-
         }
         return true;
     }

@@ -124,6 +124,4 @@ public class ContactImplTest {
         }
         assertTrue(Thrown);
     }
-
-
 }

@@ -28,7 +28,6 @@ public abstract class MeetingImpl {
         if(date == null){
             throw new NullPointerException();
         }
-
     }
 
     public int getId(){
@@ -42,7 +41,5 @@ public abstract class MeetingImpl {
     public Set<Contact> getContacts(){
         return contacts;
     }
-
-
 }
 

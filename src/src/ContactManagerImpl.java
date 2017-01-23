@@ -15,7 +15,6 @@ public class ContactManagerImpl implements ContactManager {
     private Set<PastMeeting> pastMeetingSet = new ArrayListSet<>();
     private Calendar presentDate = Calendar.getInstance();
 
-
     public Set<Contact> getContactSet(){ return contactSet; }
 
     public Set<FutureMeeting> getFutureMeetingSet() { return futureMeetingSet; }
@@ -338,7 +337,6 @@ public class ContactManagerImpl implements ContactManager {
         IOHandler.writePastMeetingsToFile(pastMeetingSet);
     }
 
-
     /**
      * loadFromFile loads the contents of contacts.txt to the system.
      * It is not a part of the interface and has to be invoked before any operations take place,
@@ -362,7 +360,6 @@ public class ContactManagerImpl implements ContactManager {
         return contactsRead.stream().filter(a -> !contactSet.stream()
                     .map(Contact::getId).collect(Collectors.toSet()).contains(a.getId())).
                     collect(Collectors.toSet());
-
     }
 
     /**
@@ -375,7 +372,6 @@ public class ContactManagerImpl implements ContactManager {
         return futureMeetingsRead.stream().filter(a -> !futureMeetingSet.stream()
                    .map(FutureMeeting::getId).collect(Collectors.toList()).contains(a.getId())).
                     collect(Collectors.toSet());
-
     }
 
     /**
@@ -388,8 +384,5 @@ public class ContactManagerImpl implements ContactManager {
         return pastMeetingsRead.stream().filter(a -> !pastMeetingSet.stream()
                 .map(PastMeeting::getId).collect(Collectors.toList()).contains(a.getId())).
                 collect(Collectors.toSet());
-
     }
-
-
 }

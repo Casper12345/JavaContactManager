@@ -23,7 +23,6 @@ public class IdGeneratorImplTest {
     private Contact testContactOne;
     private Contact testContactTwo;
 
-
     @Before
     public void setup(){
         testContactOne = new ContactImpl(1, "Poul", "goodNotes");
@@ -69,7 +68,6 @@ public class IdGeneratorImplTest {
         assertFalse(isZero);
     }
 
-
     @Test
     public void stressTestIdGenerator(){
         IdGeneratorImplTest n = new IdGeneratorImplTest();
@@ -91,13 +89,9 @@ public class IdGeneratorImplTest {
             assertNotEquals(testIdOne,testIdTwo);
 
         }
-
-
-
     }
 
     private String randomStringGenerator() {
         return new BigInteger(130, random).toString(32);
     }
-
 }

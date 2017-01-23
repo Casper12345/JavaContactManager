@@ -20,7 +20,6 @@ public class ContactManagerImplTest {
     private Set<Contact> contacts;
     private Calendar calendar;
 
-
     @Before
     public void setUp() throws Exception {
         testContactManager = new ContactManagerImpl();
@@ -73,7 +72,6 @@ public class ContactManagerImplTest {
 
         testContactManager.setContactSet(testContactSet);
 
-
         try{
             testContactManager.addFutureMeeting(contacts,calendar);
         }catch (IllegalArgumentException ex){
@@ -91,7 +89,6 @@ public class ContactManagerImplTest {
         testContactSetTwo.add(contact1);
 
         testContactManager.setContactSet(testContactSetTwo);
-
 
         try{
             testContactManager.addFutureMeeting(contacts,calendar);
@@ -121,9 +118,7 @@ public class ContactManagerImplTest {
 
         assertTrue(Throw);
 
-
     }
-
 
     @Test
     public void addFutureMeetingThrowsIllegalArgumentExceptionNullDate(){
@@ -175,7 +170,6 @@ public class ContactManagerImplTest {
         Assert.assertEquals(testMeetingOne.getId(), pastMeetingReturned.getId());
         PastMeeting pastMeetingReturnedTwo = testContactManager.getPastMeeting(34);
         Assert.assertEquals(testMeetingTwo, pastMeetingReturnedTwo);
-
     }
 
     @Test
@@ -195,8 +189,6 @@ public class ContactManagerImplTest {
 
         PastMeeting pastMeetingReturned = testContactManager.getPastMeeting(700);
         assertNull(pastMeetingReturned);
-
-
     }
 
     @Test
@@ -221,7 +213,6 @@ public class ContactManagerImplTest {
         }
 
         assertTrue(Throw);
-
     }
 
     // tests for getFutureMeeting
@@ -238,7 +229,6 @@ public class ContactManagerImplTest {
         Set<FutureMeeting> testFutureMeetingsSet = new ArrayListSet<>();
         testFutureMeetingsSet.add(testMeetingOne);
         testFutureMeetingsSet.add(testMeetingTwo);
-
 
         testContactManager.setFutureMeetingSet(testFutureMeetingsSet);
 
@@ -268,7 +258,6 @@ public class ContactManagerImplTest {
         FutureMeeting futureMeetingReturned = testContactManager.getFutureMeeting(700);
         assertNull(futureMeetingReturned);
 
-
     }
 
     @Test
@@ -284,7 +273,6 @@ public class ContactManagerImplTest {
             Set<FutureMeeting> testFutureMeetingsSet = new ArrayListSet<>();
             testFutureMeetingsSet.add(testMeetingOne);
 
-
             testContactManager.setFutureMeetingSet(testFutureMeetingsSet);
 
             testContactManager.getFutureMeeting(45);
@@ -294,11 +282,9 @@ public class ContactManagerImplTest {
         }
 
         assertTrue(Throw);
-
     }
 
     // tests for getMeeting
-
 
     @Test
     public void getMeetingGetId() throws Exception {
@@ -316,11 +302,9 @@ public class ContactManagerImplTest {
         testContactManager.setFutureMeetingSet(testFutureMeetingsSet);
         testContactManager.setPastMeetingSet(testPastMeetingsSet);
 
-
         Meeting meetingReturned = testContactManager.getMeeting(34);
 
         Assert.assertEquals(testMeetingTwo, meetingReturned);
-
 
     }
     @Test
@@ -336,13 +320,10 @@ public class ContactManagerImplTest {
         testFutureMeetingsSet.add(testMeetingOne);
         testFutureMeetingsSet.add(testMeetingTwo);
 
-
         testContactManager.setFutureMeetingSet(testFutureMeetingsSet);
 
         Meeting MeetingReturned = testContactManager.getFutureMeeting(322);
         assertNull(MeetingReturned);
-
-
     }
 
     //tests for getFutureMeetingList
@@ -363,7 +344,6 @@ public class ContactManagerImplTest {
         fullContactSet.add(contact2);
         testContactManager.setContactSet(fullContactSet);
 
-
         Set<Contact> contactTestSet = new ArrayListSet<>();
         contactTestSet.add(contact);
         contactTestSet.add(contact1);
@@ -372,28 +352,22 @@ public class ContactManagerImplTest {
         contactTestSetTwo.add(contact);
         contactTestSetTwo.add(contact2);
 
-
         // set futureMeetingSet to empty
         Set<FutureMeeting> emptySet = new ArrayListSet<>();
         testContactManager.setFutureMeetingSet(emptySet);
-
         testContactManager.addFutureMeeting(contactTestSet,calendar);
         testContactManager.addFutureMeeting(contactTestSetTwo,calendar);
-
 
         List<Meeting> futureMeetingListReturned = testContactManager.getFutureMeetingList(contact);
 
         Assert.assertEquals(futureMeetingListReturned.get(0).getContacts(),contactTestSet);
         Assert.assertEquals(futureMeetingListReturned.get(1).getContacts(),contactTestSetTwo);
-
-
     }
 
     @Test
     public void getFutureMeetingListRemoveDuplicates() throws Exception {
 
         // checks that duplicates are removed
-
         Contact contact = new ContactImpl(1,"Peter", "myNotes");
         Contact contact1 = new ContactImpl(2,"John", "moreNotes");
         Contact contact2 = new ContactImpl(10,"Josh", "notieNotes");
@@ -405,7 +379,6 @@ public class ContactManagerImplTest {
         fullContactSet.add(contact2);
         testContactManager.setContactSet(fullContactSet);
 
-
         Set<Contact> contactTestSet = new ArrayListSet<>();
         contactTestSet.add(contact);
         contactTestSet.add(contact1);
@@ -421,13 +394,12 @@ public class ContactManagerImplTest {
         testContactManager.addFutureMeeting(contactTestSet,calendar);
         testContactManager.addFutureMeeting(contactTestSet,calendar);
 
-
         List<Meeting> futureMeetingListReturned = testContactManager.getFutureMeetingList(contact);
 
         Assert.assertNotEquals(futureMeetingListReturned.get(0),futureMeetingListReturned.get(1));
 
-
     }
+
     @Test
     public void getFutureMeetingListReturnsEmptyList() throws Exception {
 
@@ -444,7 +416,6 @@ public class ContactManagerImplTest {
         fullContactSet.add(contact2);
         testContactManager.setContactSet(fullContactSet);
 
-
         Set<Contact> contactTestSet = new ArrayListSet<>();
         contactTestSet.add(contact);
         contactTestSet.add(contact1);
@@ -458,15 +429,12 @@ public class ContactManagerImplTest {
         List<Meeting> futureMeetingListReturned = testContactManager.getFutureMeetingList(contact2);
 
         assertTrue(futureMeetingListReturned.isEmpty());
-
-
     }
 
     @Test
     public void getFutureMeetingListChronological() throws Exception {
 
         // checks that list is chronologically sorted
-
         Contact contact = new ContactImpl(1,"Peter", "myNotes");
         Contact contact1 = new ContactImpl(2,"John", "moreNotes");
         Contact contact2 = new ContactImpl(10,"Josh", "notieNotes");
@@ -477,7 +445,6 @@ public class ContactManagerImplTest {
         fullContactSet.add(contact1);
         fullContactSet.add(contact2);
         testContactManager.setContactSet(fullContactSet);
-
 
         Set<Contact> contactTestSet = new ArrayListSet<>();
         contactTestSet.add(contact);
@@ -495,13 +462,10 @@ public class ContactManagerImplTest {
         testContactManager.addFutureMeeting(contactTestSet,firstCalendar);
         testContactManager.addFutureMeeting(contactTestSet,secondCalendar);
 
-
         List<Meeting> futureMeetingListReturned = testContactManager.getFutureMeetingList(contact);
 
         assertTrue(futureMeetingListReturned.get(0).getDate().before(futureMeetingListReturned.get(1).getDate()));
         assertTrue(futureMeetingListReturned.get(1).getDate().before(futureMeetingListReturned.get(2).getDate()));
-
-
 
     }
 
@@ -520,7 +484,6 @@ public class ContactManagerImplTest {
         // set futureMeetingSet to empty
         Set<FutureMeeting> emptySet = new ArrayListSet<>();
         testContactManager.setFutureMeetingSet(emptySet);
-
         testContactManager.addFutureMeeting(contactTestSet,calendar);
 
         try {
@@ -533,12 +496,9 @@ public class ContactManagerImplTest {
         }
 
         assertTrue(Throw);
-
     }
 
     // getMeetingListOn
-
-
 
     @Test
     public void getMeetingListOnReturnsList() throws Exception {
@@ -568,9 +528,7 @@ public class ContactManagerImplTest {
 
         List<Meeting> meetingsReturnedTwo = testContactManager.getMeetingListOn(calendar);
 
-
         Assert.assertEquals(meetingsReturnedTwo.get(0).getDate(),calendar);
-
     }
 
     @Test
@@ -606,7 +564,6 @@ public class ContactManagerImplTest {
         }
 
         assertTrue(Throw);
-
     }
 
     // tests for getPastMeetingListFor
@@ -641,7 +598,6 @@ public class ContactManagerImplTest {
         Assert.assertEquals(meetingsReturned.get(0).getId(),230);
         Assert.assertEquals(meetingsReturned.get(1).getId(),330);
 
-
     }
 
     @Test
@@ -659,7 +615,6 @@ public class ContactManagerImplTest {
         fullContactSet.add(contact1);
         fullContactSet.add(contact2);
         testContactManager.setContactSet(fullContactSet);
-
 
         Set<Contact> contactTestSet = new ArrayListSet<>();
         contactTestSet.add(contact);
@@ -758,7 +713,6 @@ public class ContactManagerImplTest {
 
         assertTrue(Throw);
 
-
     }
 
     // tests for addNewPastMeeting
@@ -796,7 +750,6 @@ public class ContactManagerImplTest {
 
         testContactManager.setContactSet(testContactSet);
 
-
         try{
             testContactManager.addNewPastMeeting(contacts,calendar,"Notes");
         }catch (IllegalArgumentException ex){
@@ -814,7 +767,6 @@ public class ContactManagerImplTest {
         testContactSetTwo.add(contact1);
 
         testContactManager.setContactSet(testContactSetTwo);
-
 
         try{
             testContactManager.addNewPastMeeting(contacts,calendar, "Blah");
@@ -935,7 +887,6 @@ public class ContactManagerImplTest {
 
         testContactManager.setFutureMeetingSet(testFutureMeetings);
 
-
         try{
             testContactManager.addMeetingNotes(90,"NewImportantNotes");
         }catch (IllegalStateException ex){
@@ -961,7 +912,6 @@ public class ContactManagerImplTest {
         testFutureMeetings.add(secondMeeting);
 
         testContactManager.setFutureMeetingSet(testFutureMeetings);
-
 
         try{
             testContactManager.addMeetingNotes(90,null);
@@ -992,9 +942,8 @@ public class ContactManagerImplTest {
         PastMeeting pastMeetingReturned = testContactManager.addMeetingNotes(90,"Notes");
 
         Assert.assertEquals(firstMeeting.getId(),pastMeetingReturned.getId());
-
-
     }
+
     @Test
     public void addMeetingNotesNodesAdded() throws Exception {
 
@@ -1020,7 +969,6 @@ public class ContactManagerImplTest {
         PastMeeting returned = (PastMeeting)returnedSet;
 
         Assert.assertEquals(returned.getNotes(),pastMeetingReturned.getNotes());
-
     }
 
     // tests for addNewContact
@@ -1037,9 +985,8 @@ public class ContactManagerImplTest {
         }
 
         assertTrue(Throw);
-
-
     }
+
     @Test
     public void addNewContactNullPointerException() throws Exception {
 
@@ -1052,8 +999,6 @@ public class ContactManagerImplTest {
         }
 
         assertTrue(Throw);
-
-
     }
 
     // tests for getContacts
@@ -1070,8 +1015,8 @@ public class ContactManagerImplTest {
         Contact returned = (Contact)contactsReturned.toArray()[0];
 
         Assert.assertEquals(returned.getName(),"James Morgan");
-
     }
+
     @Test
     public void getContactsReturnsFullList() throws Exception {
         // checks if full contact list is returned with empty string
@@ -1087,7 +1032,6 @@ public class ContactManagerImplTest {
         Set<Contact> contactsReturned = testContactManager.getContacts("");
 
         Assert.assertEquals(testContactManager.getContactSet().size(), contactsReturned.size());
-
     }
 
     // tests for getContactsTwo
@@ -1112,8 +1056,6 @@ public class ContactManagerImplTest {
 
         Assert.assertEquals(oneReturned.getId(), id2);
         Assert.assertEquals(twoReturned.getId(), id3);
-
-
     }
 
     @Test
@@ -1127,7 +1069,6 @@ public class ContactManagerImplTest {
             Throw = true;
         }
         assertTrue(Throw);
-
     }
 
     @Test
@@ -1160,8 +1101,6 @@ public class ContactManagerImplTest {
         }
 
         assertFalse(Throw);
-
-
     }
 
     // flush
@@ -1196,8 +1135,6 @@ public class ContactManagerImplTest {
         assertEquals(input.get(1).get(1), Integer.toString(contact2));
         assertEquals(input.get(2).get(1), Integer.toString(futureMeeting));
         assertEquals(input.get(3).get(1), Integer.toString(pastMeeting));
-
-
     }
 
     @Test
@@ -1222,7 +1159,6 @@ public class ContactManagerImplTest {
 
         testContactManager.flush();
         testContactManager.loadFromFile();
-
 
         Set<Contact> contactsRead = IO.readContactsFromFile();
 
@@ -1250,12 +1186,5 @@ public class ContactManagerImplTest {
         PastMeeting fromSetPastMeeting = (PastMeeting)pastMeetingsFromSet.toArray()[0];
 
         Assert.assertEquals(readPastMeeting.getId(), fromSetPastMeeting.getId());
-
-
-
     }
-
-
-
-
 }

@@ -11,14 +11,13 @@ import static org.junit.Assert.*;
 
 /**
  * JUnit test for src.IOOperations.
- *
+ * The tests are run as a bundle from one methods, as they have to be run in a
+ * certain order.
  */
 public class IOOperationsImplTest {
 
     private IOOperations testIO = new IOOperationsImpl();
     private ContactManager testContactManager = new ContactManagerImpl();
-
-
 
     @Test
     public void testAll(){
@@ -31,9 +30,7 @@ public class IOOperationsImplTest {
         i.readContactsFromFile();
         i.readFutureMeetingFromFile();
         i.readPastMeetingFromFile();
-
     }
-
 
     public void writeContactsToFile(){
         testIO.overWriteFile();
@@ -52,10 +49,7 @@ public class IOOperationsImplTest {
 
         testContacts.add(returnedTwo);
         testIO.writeContactsToFile(testContacts);
-
-
     }
-
 
     public void readFromFile(){
 
@@ -72,7 +66,6 @@ public class IOOperationsImplTest {
         assertEquals(input.get(1).get(3), "more, more, more");
         assertEquals(input.get(2).get(3), "Notes, yes" + "\n" +"no");
     }
-
 
     public void writeFutureMeetingsToFile(){
 
@@ -95,15 +88,12 @@ public class IOOperationsImplTest {
         assertEquals(input.get(0).get(2),"2019:2:21:11:12");
         assertEquals(input.get(0).get(3),"["+id1+", "+id2+"]");
         testIO.writeContactsToFile(testContactManager.getContacts(id1,id2));
-
     }
-
 
     public void writePastMeetingsToFile(){
 
         int id1 = testContactManager.addNewContact("Miles", "Notes, yes");
         int id2 = testContactManager.addNewContact("Jill", "Hello");
-
 
         Calendar testCal = new GregorianCalendar(2012,2,21,11,12);
 
@@ -119,9 +109,7 @@ public class IOOperationsImplTest {
         assertEquals(input.get(3).get(4),"Notes");
         testIO.writeContactsToFile(testContactManager.getContacts(id1,id2));
 
-
     }
-
 
     public void readContactsFromFile(){
 
@@ -139,13 +127,9 @@ public class IOOperationsImplTest {
 
         Assert.assertEquals(id1,one.getId());
         Assert.assertEquals(id2,two.getId());
-
     }
 
-
     public void readFutureMeetingFromFile(){
-
-
         // creating test future meeting
 
         int id1 = testContactManager.addNewContact("Bill", "Notes, yes");
@@ -162,7 +146,6 @@ public class IOOperationsImplTest {
 
         testIO.writeFutureMeetingsToFile(testMeetingSet);
 
-
         testIO.readContactsFromFile();
 
         Set<FutureMeeting> returnedFutureMeetings = testIO.readFutureMeetingFromFile();
@@ -175,23 +158,14 @@ public class IOOperationsImplTest {
 
         Assert.assertEquals(testContactReturnedOne.getName(), "Bill");
         Assert.assertEquals(testContactReturnedTwo.getName(), "Monkey");
-
     }
 
-
-
     public void readPastMeetingFromFile(){
-
 
         Set<PastMeeting> pastMeetingsReturned = testIO.readPastMeetingFromFile();
 
         PastMeeting returnedPastMeeting = (PastMeeting)pastMeetingsReturned.toArray()[0];
 
         Assert.assertEquals(returnedPastMeeting.getNotes(), "Notes");
-
-
     }
-
-
-
 }

@@ -26,7 +26,6 @@ public class MeetingImplTest {
         ArrayListSet<Contact> myContacts = new ArrayListSet<>();
         myContacts.add(new ContactImpl(1,"George","myImportantNotes"));
         testMeetingTwo = new MeetingMockClass(1, new GregorianCalendar(2016,Calendar.DECEMBER,24,13,12), myContacts);
-
     }
 
     @Test
@@ -54,7 +53,6 @@ public class MeetingImplTest {
         }
 
         assertFalse(Throw);
-
     }
 
     @Test
@@ -119,7 +117,6 @@ public class MeetingImplTest {
 
         Assert.assertEquals(1,testMeetingTwo.getId());
         Assert.assertNotEquals(2,testMeetingTwo.getId());
-
     }
 
     @Test
@@ -127,7 +124,6 @@ public class MeetingImplTest {
 
         Assert.assertEquals(new GregorianCalendar(2016,Calendar.DECEMBER,24,13,12),testMeetingTwo.getDate());
         Assert.assertNotEquals(new GregorianCalendar(2019,Calendar.DECEMBER,28,23,30),testMeetingTwo.getDate());
-
     }
 
     @Test
@@ -140,5 +136,4 @@ public class MeetingImplTest {
             }
         }
     }
-
 }
