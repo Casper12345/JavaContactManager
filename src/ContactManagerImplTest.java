@@ -1187,8 +1187,6 @@ public class ContactManagerImplTest {
 
         List<List<String>> input = IO.readFromFile();
 
-        System.out.println(testContactManager.getFutureMeetingSet());
-
         assertEquals(input.get(0).get(1), Integer.toString(contact1));
         assertEquals(input.get(1).get(1), Integer.toString(contact2));
         assertEquals(input.get(2).get(1), Integer.toString(futureMeeting));
@@ -1196,6 +1194,63 @@ public class ContactManagerImplTest {
 
 
     }
+
+    @Test
+    public void loadFromFile(){
+
+        IOOperations IO = new IOOperationsImpl();
+        IO.overWriteFile();
+
+        testContactManager.setContactSet(new ArrayListSet<>());
+        testContactManager.setFutureMeetingSet(new ArrayListSet<>());
+        testContactManager.setPastMeetingSet(new ArrayListSet<>());
+
+        Calendar pastCalendar = new GregorianCalendar(1900, 2,3,1,1);
+
+        int contactOne = testContactManager.addNewContact("Poul", "Notes");
+
+        testContactManager.
+                addFutureMeeting(testContactManager.getContacts(contactOne), calendar);
+
+        testContactManager.
+                addNewPastMeeting(testContactManager.getContacts(contactOne), pastCalendar, "yes");
+
+        testContactManager.flush();
+        testContactManager.loadFromFile();
+
+
+        Set<Contact> contactsRead = IO.readContactsFromFile();
+
+        Set<Contact> contactsFromSet = testContactManager.getContactSet();
+
+        Contact readContact = (Contact)contactsRead.toArray()[0];
+
+        Contact fromSetContact = (Contact)contactsFromSet.toArray()[0];
+
+        assertEquals(readContact.getId(), fromSetContact.getId());
+
+        Set<FutureMeeting> futureMeetingsFromSet = testContactManager.getFutureMeetingSet();
+        Set<FutureMeeting> futureMeetingsRead = IO.readFutureMeetingFromFile();
+
+        FutureMeeting readFutureMeeting = (FutureMeeting)futureMeetingsRead.toArray()[0];
+        FutureMeeting fromSetFutureMeeting = (FutureMeeting)futureMeetingsFromSet.toArray()[0];
+
+        assertEquals(readFutureMeeting.getId(), fromSetFutureMeeting.getId());
+
+
+        Set<PastMeeting> pastMeetingsFromSet = testContactManager.getPastMeetingSet();
+        Set<PastMeeting> pastMeetingsRead = IO.readPastMeetingFromFile();
+
+        PastMeeting readPastMeeting = (PastMeeting)pastMeetingsRead.toArray()[0];
+        PastMeeting fromSetPastMeeting = (PastMeeting)pastMeetingsFromSet.toArray()[0];
+
+        assertEquals(readPastMeeting.getId(), fromSetPastMeeting.getId());
+
+
+
+    }
+
+
 
 
 }

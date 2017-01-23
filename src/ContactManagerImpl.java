@@ -69,7 +69,7 @@ public class ContactManagerImpl implements ContactManager {
         // create meeting and add it to set
         Meeting futureMeetingToGenerateId = new FutureMeetingImpl(1,date,contacts);
         // generate unique id
-        int generatedId = new IdGeneratorImpl().genId(futureMeetingToGenerateId);
+        int generatedId = new IdGeneratorImpl().genId(futureMeetingToGenerateId, futureMeetingSet);
 
         FutureMeeting futureMeetingToSet = new FutureMeetingImpl(generatedId, date, contacts);
 
@@ -151,7 +151,7 @@ public class ContactManagerImpl implements ContactManager {
         meetingToReturn.addAll(setToRemoveDuplicates);
 
         // sort chronologically
-        meetingToReturn.sort((a,b) -> a.getDate().compareTo(b.getDate()));
+        meetingToReturn.sort(Comparator.comparing(Meeting::getDate));
 
         return meetingToReturn;
     }
@@ -201,7 +201,7 @@ public class ContactManagerImpl implements ContactManager {
         pastMeetingToReturn.addAll(setToRemoveDuplicates);
 
         // sort chronologically
-        pastMeetingToReturn.sort((a,b) -> a.getDate().compareTo(b.getDate()));
+        pastMeetingToReturn.sort(Comparator.comparing(Meeting::getDate));
 
         return pastMeetingToReturn;
     }
@@ -230,7 +230,7 @@ public class ContactManagerImpl implements ContactManager {
         // create meeting and add it to set
         Meeting pastMeetingToGenerateId = new PastMeetingImpl(1,date,contacts, text);
 
-        int generatedId = new IdGeneratorImpl().genId(pastMeetingToGenerateId);
+        int generatedId = new IdGeneratorImpl().genId(pastMeetingToGenerateId,pastMeetingSet);
 
         PastMeeting pastMeetingToSet = new PastMeetingImpl(generatedId, date, contacts, text);
 
@@ -285,7 +285,7 @@ public class ContactManagerImpl implements ContactManager {
         // create meeting and add it to set
         Contact contactToGenerateId = new ContactImpl(1,name,notes);
         // generate unique id
-        int generatedId = new IdGeneratorImpl().genId(contactToGenerateId);
+        int generatedId = new IdGeneratorImpl().genId(contactToGenerateId, contactSet);
 
         Contact contactToSet = new ContactImpl(generatedId,name,notes);
 

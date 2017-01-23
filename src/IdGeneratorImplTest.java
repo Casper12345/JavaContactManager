@@ -1,7 +1,12 @@
+import com.intellij.util.containers.ArrayListSet;
+import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import java.security.SecureRandom;
 import java.math.BigInteger;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.Set;
 
 /**
  * JUnit test for IdGenerator
@@ -10,15 +15,26 @@ public class IdGeneratorImplTest {
 
     private SecureRandom random = new SecureRandom();
     private IdGenerator testGenerator = new IdGeneratorImpl();
+    private Set<Contact> contacts = new ArrayListSet<>();
+    private Contact testContactOne;
+    private Contact testContactTwo;
+
+
+    @Before
+    public void setup(){
+        testContactOne = new ContactImpl(1, "Poul", "goodNotes");
+        testContactTwo = new ContactImpl(2, "Eric", "badNotes");
+
+        contacts.add(testContactOne);
+        contacts.add(testContactTwo);
+
+    }
 
     @Test
     public void genId() throws Exception {
+        int testIdOne = testGenerator.genId(testContactOne, contacts);
 
-        Contact testContactOne = new ContactImpl(1, "Poul", "goodNotes");
-        int testIdOne = testGenerator.genId(testContactOne);
-
-        Contact testContactTwo = new ContactImpl(1, "Eric", "badNotes");
-        int testIdTwo = testGenerator.genId(testContactTwo);
+        int testIdTwo = testGenerator.genId(testContactTwo, contacts);
 
         assertNotEquals(testIdOne,testIdTwo);
 
@@ -26,6 +42,11 @@ public class IdGeneratorImplTest {
 
     @Test
     public void checkIfZero(){
+
+        Calendar calendar = new GregorianCalendar(2020, 2,2,1,11);
+        Set<FutureMeeting> testObjects = new ArrayListSet<>();
+        FutureMeeting one = new FutureMeetingImpl(2, calendar, contacts);
+
         boolean isZero = false;
 
         for (int i=0; i < 2000000; i++){
@@ -35,7 +56,7 @@ public class IdGeneratorImplTest {
                             n.randomStringGenerator(),
                             n.randomStringGenerator());
 
-            int testIdOne = testGenerator.genId(testContactOne);
+            int testIdOne = testGenerator.genId(one,testObjects);
             if (testIdOne == 0){
                 isZero = true;
             }
@@ -60,8 +81,8 @@ public class IdGeneratorImplTest {
                             n.randomStringGenerator(),
                             n.randomStringGenerator());
 
-            int testIdOne = testGenerator.genId(testContactOne);
-            int testIdTwo = testGenerator.genId(testContactTwo);
+            int testIdOne = testGenerator.genId(testContactOne, contacts);
+            int testIdTwo = testGenerator.genId(testContactTwo, contacts);
 
             assertNotEquals(testIdOne,testIdTwo);
 
