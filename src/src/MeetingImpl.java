@@ -1,10 +1,10 @@
-import com.intellij.util.containers.ArrayListSet;
+package src;
 
 import java.util.Calendar;
 import java.util.Set;
 
 /**
- * Created by Casper on 23/12/2016.
+ * Abstract class implements meeting.
  */
 public abstract class MeetingImpl {
 

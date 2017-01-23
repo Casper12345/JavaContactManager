@@ -1,6 +1,10 @@
+package Tests;
+
 import com.intellij.util.containers.ArrayListSet;
 import org.junit.Before;
 import org.junit.Test;
+import src.*;
+
 import static org.junit.Assert.*;
 import java.security.SecureRandom;
 import java.math.BigInteger;
@@ -9,7 +13,7 @@ import java.util.GregorianCalendar;
 import java.util.Set;
 
 /**
- * JUnit test for IdGenerator
+ * JUnit test for src.IdGenerator
  */
 public class IdGeneratorImplTest {
 

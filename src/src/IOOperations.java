@@ -1,8 +1,10 @@
+package src;
+
 import java.util.List;
 import java.util.Set;
 
 /**
- * A class to manage IOOperations
+ * A class to manage src.IOOperations
  */
 public interface IOOperations {
 
@@ -13,17 +15,17 @@ public interface IOOperations {
     List<List<String>> readFromFile();
 
     /**
-     * This method Contacts to the csv file contacts.txt
+     * This method writes Contacts to the csv file contacts.txt
      */
     void writeContactsToFile(Set<Contact> contacts);
 
     /**
-     * This method FutureMeeting to the csv file contacts.txt
+     * This method writes src.FutureMeeting to the csv file contacts.txt
      */
     void writeFutureMeetingsToFile(Set<FutureMeeting> futureMeetings);
 
     /**
-     * This method PastMeeting to the csv file contacts.txt
+     * This method writes src.PastMeeting to the csv file contacts.txt
      */
     void writePastMeetingsToFile(Set<PastMeeting> pastMeetings);
 
@@ -35,25 +37,22 @@ public interface IOOperations {
 
 
     /**
-     * This method reads contacts from file and stores them in Set<Contact>
-     * @return Set<Contact>
+     * This method reads contacts from file and stores them in Set<src.Contact>
+     * @return Set<src.Contact>
      */
     Set<Contact> readContactsFromFile();
 
 
     /**
-     * This method reads futureMeetings from file and stores them in Set<FutureMeeting>
-     * @return Set<FutureMeeting>
+     * This method reads futureMeetings from file and stores them in Set<src.FutureMeeting>
+     * @return Set<src.FutureMeeting>
      */
     Set<FutureMeeting> readFutureMeetingFromFile();
 
     /**
-     * This method reads PastMeeting from file and stores them in Set<PastMeeting>
-     * @return Set<PastMeeting>
+     * This method reads src.PastMeeting from file and stores them in Set<src.PastMeeting>
+     * @return Set<src.PastMeeting>
      */
     Set<PastMeeting> readPastMeetingFromFile();
-
-
-
 
 }

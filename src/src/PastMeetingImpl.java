@@ -1,14 +1,14 @@
+package src;
 
 import java.util.Calendar;
 import java.util.Set;
 
 /**
- * Implements PastMeeting
+ * Implements src.PastMeeting
  */
 public class PastMeetingImpl extends MeetingImpl implements PastMeeting {
 
     private String notes;
-
 
     public PastMeetingImpl(int id, Calendar date, Set contacts, String notes) throws NullPointerException {
 
@@ -20,6 +20,7 @@ public class PastMeetingImpl extends MeetingImpl implements PastMeeting {
         this.notes = notes;
     }
 
+    @Override
     public String getNotes(){
         return notes;
     }

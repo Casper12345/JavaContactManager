@@ -1,15 +1,16 @@
-import com.intellij.util.ScrambledOutputStream;
+package Tests;
+
 import com.intellij.util.containers.ArrayListSet;
-import org.junit.Before;
-import org.junit.Ignore;
+import org.junit.Assert;
 import org.junit.Test;
+import src.*;
 
 import java.util.*;
 
 import static org.junit.Assert.*;
 
 /**
- * JUnit test for IOOperations.
+ * JUnit test for src.IOOperations.
  *
  */
 public class IOOperationsImplTest {
@@ -61,8 +62,8 @@ public class IOOperationsImplTest {
         IOOperations testIO = new IOOperationsImpl();
         List<List<String>> input = testIO.readFromFile();
 
-        assertEquals(input.get(0).get(0), "Contact");
-        assertEquals(input.get(1).get(0), "Contact");
+        assertEquals(input.get(0).get(0), "src.Contact");
+        assertEquals(input.get(1).get(0), "src.Contact");
         assertEquals(input.get(0).get(1), "23");
         assertEquals(input.get(1).get(1), "34");
         assertEquals(input.get(0).get(2), "Paolo");
@@ -136,8 +137,8 @@ public class IOOperationsImplTest {
         Contact one = (Contact)testSet.toArray()[4];
         Contact two = (Contact)testSet.toArray()[5];
 
-        assertEquals(id1,one.getId());
-        assertEquals(id2,two.getId());
+        Assert.assertEquals(id1,one.getId());
+        Assert.assertEquals(id2,two.getId());
 
     }
 
@@ -172,8 +173,8 @@ public class IOOperationsImplTest {
 
         Contact testContactReturnedTwo = (Contact) testMeetingReturned.getContacts().toArray()[1];
 
-        assertEquals(testContactReturnedOne.getName(), "Bill");
-        assertEquals(testContactReturnedTwo.getName(), "Monkey");
+        Assert.assertEquals(testContactReturnedOne.getName(), "Bill");
+        Assert.assertEquals(testContactReturnedTwo.getName(), "Monkey");
 
     }
 
@@ -186,7 +187,7 @@ public class IOOperationsImplTest {
 
         PastMeeting returnedPastMeeting = (PastMeeting)pastMeetingsReturned.toArray()[0];
 
-        assertEquals(returnedPastMeeting.getNotes(), "Notes");
+        Assert.assertEquals(returnedPastMeeting.getNotes(), "Notes");
 
 
     }

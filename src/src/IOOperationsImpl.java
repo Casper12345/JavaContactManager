@@ -1,5 +1,6 @@
-import com.intellij.util.containers.ArrayListSet;
+package src;
 
+import com.intellij.util.containers.ArrayListSet;
 import java.io.*;
 import java.nio.charset.Charset;
 import java.util.*;
@@ -8,7 +9,7 @@ import java.util.stream.Stream;
 
 
 /**
- * Implements IOOperations
+ * Implements src.IOOperations
  */
 public class IOOperationsImpl implements IOOperations{
     private Set<Contact> contactsLoaded = new ArrayListSet<>();
@@ -57,7 +58,7 @@ public class IOOperationsImpl implements IOOperations{
             writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filePath,true),"UTF-8"));
 
             for(Contact i : contacts){
-                writer.write("Contact");
+                writer.write("src.Contact");
                 writer.write(", ");
                 writer.write(Integer.toString(i.getId()));
                 writer.write(", ");
@@ -86,7 +87,7 @@ public class IOOperationsImpl implements IOOperations{
         try {
             writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filePath,true),"UTF-8"));
             for(FutureMeeting i : futureMeetings){
-                writer.write("FutureMeeting");
+                writer.write("src.FutureMeeting");
                 writer.write(", ");
                 writer.write(Integer.toString(i.getId()));
                 writer.write(", ");
@@ -123,7 +124,7 @@ public class IOOperationsImpl implements IOOperations{
         try {
             writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filePath,true),"UTF-8"));
             for(PastMeeting i : pastMeetings){
-                writer.write("PastMeeting");
+                writer.write("src.PastMeeting");
                 writer.write(", ");
                 writer.write(Integer.toString(i.getId()));
                 writer.write(", ");
@@ -174,7 +175,7 @@ public class IOOperationsImpl implements IOOperations{
         Set<Contact> toReturn = new ArrayListSet<>();
 
         List<List<String>> contactsInput = this.readFromFile().stream()
-                .filter(a -> a.get(0).equals("Contact")).collect(Collectors.toList());
+                .filter(a -> a.get(0).equals("src.Contact")).collect(Collectors.toList());
 
         for(List<String> i: contactsInput){
             int id; String name; String notes;
@@ -197,7 +198,7 @@ public class IOOperationsImpl implements IOOperations{
         Set<FutureMeeting> toReturn = new ArrayListSet<>();
 
         List<List<String>> futureMeetingInput = this.readFromFile().stream()
-                .filter(a -> a.get(0).equals("FutureMeeting")).collect(Collectors.toList());
+                .filter(a -> a.get(0).equals("src.FutureMeeting")).collect(Collectors.toList());
 
         for(List<String> i: futureMeetingInput){
             int id; List<Integer> date = new ArrayList<>(); Set<Contact> contacts = new ArrayListSet<>();
@@ -241,7 +242,7 @@ public class IOOperationsImpl implements IOOperations{
 
         Set<PastMeeting> toReturn = new ArrayListSet<>();
         List<List<String>> pastMeetingInput = this.readFromFile().stream()
-                .filter(a -> a.get(0).equals("PastMeeting")).collect(Collectors.toList());
+                .filter(a -> a.get(0).equals("src.PastMeeting")).collect(Collectors.toList());
 
 
         for(List<String> i: pastMeetingInput){

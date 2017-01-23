@@ -1,5 +1,7 @@
+package src;
+
 /**
- * Implements interface Contact. Is written with TDD.
+ * Implements interface src.Contact. Is written with TDD.
  */
 public class ContactImpl implements Contact {
 

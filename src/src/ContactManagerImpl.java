@@ -1,10 +1,11 @@
+package src;
+
 import com.intellij.util.containers.ArrayListSet;
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
- * Implements interface ContactManager
+ * Implements interface src.ContactManager
  */
 public class ContactManagerImpl implements ContactManager {
 
@@ -26,7 +27,7 @@ public class ContactManagerImpl implements ContactManager {
 
     /**
      * This method is used to access contactSet for testing purposes
-     * @param contactSet
+     * @param contactSet sets contacts in the system.
      *
      */
     public void setContactSet(Set<Contact> contactSet){
@@ -35,7 +36,7 @@ public class ContactManagerImpl implements ContactManager {
 
     /**
      * This method is used to access futureMeetingSet for testing purposes
-     * @param futureMeetingSet
+     * @param futureMeetingSet sets futureMeetings in the system.
      */
     public void setFutureMeetingSet(Set<FutureMeeting> futureMeetingSet){
         this.futureMeetingSet = futureMeetingSet;
@@ -43,11 +44,12 @@ public class ContactManagerImpl implements ContactManager {
 
     /**
      * This method is used to access pastMeetingSet for testing purposes
-     * @param pastMeetingSet
+     * @param pastMeetingSet sets pastMeetings in the system.
      */
     public void setPastMeetingSet(Set<PastMeeting> pastMeetingSet){
         this.pastMeetingSet = pastMeetingSet;
     }
+
 
     @Override
     public int addFutureMeeting(Set<Contact> contacts, Calendar date)
@@ -244,7 +246,7 @@ public class ContactManagerImpl implements ContactManager {
     public PastMeeting addMeetingNotes(int id, String text)
             throws IllegalArgumentException, IllegalStateException{
 
-        //Meeting meetingToBeOperatedOn = null;
+        //src.Meeting meetingToBeOperatedOn = null;
         PastMeeting meetingToBeReturned = null;
 
         if(text == null){
@@ -337,6 +339,11 @@ public class ContactManagerImpl implements ContactManager {
     }
 
 
+    /**
+     * loadFromFile loads the contents of contacts.txt to the system.
+     * It is not a part of the interface and has to be invoked before any operations take place,
+     * as it loads the stored content into the system.
+      */
     public void loadFromFile(){
 
         contactSet.addAll(readContactsToSet());
@@ -345,6 +352,9 @@ public class ContactManagerImpl implements ContactManager {
 
     }
 
+    /**
+     * Auxiliary method for loadFromFIle, that eliminates duplicate contacts from the fileReader
+     */
     private Set<Contact> readContactsToSet(){
 
         Set<Contact> contactsRead = IOHandler.readContactsFromFile();
@@ -355,6 +365,9 @@ public class ContactManagerImpl implements ContactManager {
 
     }
 
+    /**
+     * Auxiliary method for loadFromFIle, that eliminates duplicate futureMeetings from the fileReader
+     */
     private Set<FutureMeeting> readFutureMeetingsToSet(){
 
         Set<FutureMeeting> futureMeetingsRead = IOHandler.readFutureMeetingFromFile();
@@ -365,6 +378,9 @@ public class ContactManagerImpl implements ContactManager {
 
     }
 
+    /**
+     * Auxiliary method for loadFromFIle, that eliminates duplicate pastMeeting from the fileReader
+     */
     private Set<PastMeeting> readPastMeetingsToSet(){
 
         Set<PastMeeting> pastMeetingsRead = IOHandler.readPastMeetingFromFile();

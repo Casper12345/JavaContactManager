@@ -1,12 +1,17 @@
+package Tests;
+
 import com.intellij.util.containers.ArrayListSet;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import src.*;
+
 import java.util.*;
 
 import static org.junit.Assert.*;
 
 /**
- * JUnit test for ContactManagerImpl
+ * JUnit test for src.ContactManagerImpl
  */
 public class ContactManagerImplTest {
 
@@ -167,9 +172,9 @@ public class ContactManagerImplTest {
         testContactManager.setPastMeetingSet(testPastMeetingsSet);
 
         PastMeeting pastMeetingReturned = testContactManager.getPastMeeting(45);
-        assertEquals(testMeetingOne.getId(), pastMeetingReturned.getId());
+        Assert.assertEquals(testMeetingOne.getId(), pastMeetingReturned.getId());
         PastMeeting pastMeetingReturnedTwo = testContactManager.getPastMeeting(34);
-        assertEquals(testMeetingTwo, pastMeetingReturnedTwo);
+        Assert.assertEquals(testMeetingTwo, pastMeetingReturnedTwo);
 
     }
 
@@ -238,9 +243,9 @@ public class ContactManagerImplTest {
         testContactManager.setFutureMeetingSet(testFutureMeetingsSet);
 
         FutureMeeting futureMeetingReturned = testContactManager.getFutureMeeting(45);
-        assertEquals(testMeetingOne.getId(), futureMeetingReturned.getId());
+        Assert.assertEquals(testMeetingOne.getId(), futureMeetingReturned.getId());
         FutureMeeting futureMeetingReturnedTwo = testContactManager.getFutureMeeting(34);
-        assertEquals(testMeetingTwo, futureMeetingReturnedTwo);
+        Assert.assertEquals(testMeetingTwo, futureMeetingReturnedTwo);
 
     }
 
@@ -314,7 +319,7 @@ public class ContactManagerImplTest {
 
         Meeting meetingReturned = testContactManager.getMeeting(34);
 
-        assertEquals(testMeetingTwo, meetingReturned);
+        Assert.assertEquals(testMeetingTwo, meetingReturned);
 
 
     }
@@ -378,8 +383,8 @@ public class ContactManagerImplTest {
 
         List<Meeting> futureMeetingListReturned = testContactManager.getFutureMeetingList(contact);
 
-        assertEquals(futureMeetingListReturned.get(0).getContacts(),contactTestSet);
-        assertEquals(futureMeetingListReturned.get(1).getContacts(),contactTestSetTwo);
+        Assert.assertEquals(futureMeetingListReturned.get(0).getContacts(),contactTestSet);
+        Assert.assertEquals(futureMeetingListReturned.get(1).getContacts(),contactTestSetTwo);
 
 
     }
@@ -419,7 +424,7 @@ public class ContactManagerImplTest {
 
         List<Meeting> futureMeetingListReturned = testContactManager.getFutureMeetingList(contact);
 
-        assertNotEquals(futureMeetingListReturned.get(0),futureMeetingListReturned.get(1));
+        Assert.assertNotEquals(futureMeetingListReturned.get(0),futureMeetingListReturned.get(1));
 
 
     }
@@ -556,15 +561,15 @@ public class ContactManagerImplTest {
 
         List<Meeting> meetingsReturned = testContactManager.getMeetingListOn(testCalendar);
 
-        assertEquals(meetingsReturned.get(0).getId(),230);
-        assertEquals(meetingsReturned.get(1).getId(),330);
+        Assert.assertEquals(meetingsReturned.get(0).getId(),230);
+        Assert.assertEquals(meetingsReturned.get(1).getId(),330);
 
         testContactManager.addFutureMeeting(contacts,calendar);
 
         List<Meeting> meetingsReturnedTwo = testContactManager.getMeetingListOn(calendar);
 
 
-        assertEquals(meetingsReturnedTwo.get(0).getDate(),calendar);
+        Assert.assertEquals(meetingsReturnedTwo.get(0).getDate(),calendar);
 
     }
 
@@ -633,8 +638,8 @@ public class ContactManagerImplTest {
 
         List<PastMeeting> meetingsReturned = testContactManager.getPastMeetingListFor(contact);
 
-        assertEquals(meetingsReturned.get(0).getId(),230);
-        assertEquals(meetingsReturned.get(1).getId(),330);
+        Assert.assertEquals(meetingsReturned.get(0).getId(),230);
+        Assert.assertEquals(meetingsReturned.get(1).getId(),330);
 
 
     }
@@ -986,7 +991,7 @@ public class ContactManagerImplTest {
 
         PastMeeting pastMeetingReturned = testContactManager.addMeetingNotes(90,"Notes");
 
-        assertEquals(firstMeeting.getId(),pastMeetingReturned.getId());
+        Assert.assertEquals(firstMeeting.getId(),pastMeetingReturned.getId());
 
 
     }
@@ -1014,7 +1019,7 @@ public class ContactManagerImplTest {
 
         PastMeeting returned = (PastMeeting)returnedSet;
 
-        assertEquals(returned.getNotes(),pastMeetingReturned.getNotes());
+        Assert.assertEquals(returned.getNotes(),pastMeetingReturned.getNotes());
 
     }
 
@@ -1064,7 +1069,7 @@ public class ContactManagerImplTest {
 
         Contact returned = (Contact)contactsReturned.toArray()[0];
 
-        assertEquals(returned.getName(),"James Morgan");
+        Assert.assertEquals(returned.getName(),"James Morgan");
 
     }
     @Test
@@ -1081,7 +1086,7 @@ public class ContactManagerImplTest {
 
         Set<Contact> contactsReturned = testContactManager.getContacts("");
 
-        assertEquals(testContactManager.getContactSet().size(), contactsReturned.size());
+        Assert.assertEquals(testContactManager.getContactSet().size(), contactsReturned.size());
 
     }
 
@@ -1105,8 +1110,8 @@ public class ContactManagerImplTest {
         Contact oneReturned = (Contact)contactsReturned.toArray()[0];
         Contact twoReturned = (Contact)contactsReturned.toArray()[1];
 
-        assertEquals(oneReturned.getId(), id2);
-        assertEquals(twoReturned.getId(), id3);
+        Assert.assertEquals(oneReturned.getId(), id2);
+        Assert.assertEquals(twoReturned.getId(), id3);
 
 
     }
@@ -1227,7 +1232,7 @@ public class ContactManagerImplTest {
 
         Contact fromSetContact = (Contact)contactsFromSet.toArray()[0];
 
-        assertEquals(readContact.getId(), fromSetContact.getId());
+        Assert.assertEquals(readContact.getId(), fromSetContact.getId());
 
         Set<FutureMeeting> futureMeetingsFromSet = testContactManager.getFutureMeetingSet();
         Set<FutureMeeting> futureMeetingsRead = IO.readFutureMeetingFromFile();
@@ -1235,7 +1240,7 @@ public class ContactManagerImplTest {
         FutureMeeting readFutureMeeting = (FutureMeeting)futureMeetingsRead.toArray()[0];
         FutureMeeting fromSetFutureMeeting = (FutureMeeting)futureMeetingsFromSet.toArray()[0];
 
-        assertEquals(readFutureMeeting.getId(), fromSetFutureMeeting.getId());
+        Assert.assertEquals(readFutureMeeting.getId(), fromSetFutureMeeting.getId());
 
 
         Set<PastMeeting> pastMeetingsFromSet = testContactManager.getPastMeetingSet();
@@ -1244,7 +1249,7 @@ public class ContactManagerImplTest {
         PastMeeting readPastMeeting = (PastMeeting)pastMeetingsRead.toArray()[0];
         PastMeeting fromSetPastMeeting = (PastMeeting)pastMeetingsFromSet.toArray()[0];
 
-        assertEquals(readPastMeeting.getId(), fromSetPastMeeting.getId());
+        Assert.assertEquals(readPastMeeting.getId(), fromSetPastMeeting.getId());
 
 
 

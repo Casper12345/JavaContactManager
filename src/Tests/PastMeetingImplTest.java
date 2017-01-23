@@ -1,16 +1,21 @@
+package Tests;
+
 import com.intellij.util.containers.ArrayListSet;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
-
+import src.Contact;
+import src.ContactImpl;
+import src.PastMeeting;
+import src.PastMeetingImpl;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Set;
 
+
 import static org.junit.Assert.*;
 
 /**
- * JUnit test for PastMeetingImpl
+ * JUnit test for src.PastMeetingImpl
  */
 public class PastMeetingImplTest {
     private PastMeeting pastMeetingTestTwo;

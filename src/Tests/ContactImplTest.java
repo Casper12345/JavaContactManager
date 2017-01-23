@@ -1,11 +1,15 @@
+package Tests;
+
+import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
+import src.Contact;
+import src.ContactImpl;
 
 import static org.junit.Assert.*;
 
 /**
- * Tests used to create Contact ImplTest
+ * Tests used to create src.Contact ImplTest
  */
 public class ContactImplTest {
 
@@ -19,32 +23,32 @@ public class ContactImplTest {
 
     @Test
     public void getId() throws Exception {
-        assertEquals(1, testContact.getId());
+        Assert.assertEquals(1, testContact.getId());
 
     }
 
     @Test
     public void getName() throws Exception {
-        assertEquals("Paul", testContact.getName());
+        Assert.assertEquals("Paul", testContact.getName());
 
     }
 
     @Test
     public void getNotes() throws Exception {
-        assertEquals("myNotes", testContact.getNotes());
+        Assert.assertEquals("myNotes", testContact.getNotes());
     }
 
     @Test
     public void addNotes() throws Exception {
         StringBuilder toCompare = new StringBuilder(testContact.getNotes());
         // testing string builder
-        assertEquals(testContact.getNotes(), toCompare.toString());
+        Assert.assertEquals(testContact.getNotes(), toCompare.toString());
         // adding notes
         testContact.addNotes("moreNotes");
         // adding notes stringbuilder
         toCompare.append("\n"+"moreNotes");
         // testing again
-        assertEquals(testContact.getNotes(), toCompare.toString());
+        Assert.assertEquals(testContact.getNotes(), toCompare.toString());
 
     }
 

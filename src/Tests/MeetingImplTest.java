@@ -1,6 +1,13 @@
+package Tests;
+
 import com.intellij.util.containers.ArrayListSet;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import src.Contact;
+import src.ContactImpl;
+import src.MeetingImpl;
+import src.MeetingMockClass;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -8,7 +15,7 @@ import java.util.GregorianCalendar;
 import static org.junit.Assert.*;
 
 /**
- * Junit test for TDD of MeetingImpl
+ * Junit test for TDD of src.MeetingImpl
  */
 public class MeetingImplTest {
 
@@ -110,16 +117,16 @@ public class MeetingImplTest {
     @Test
     public void getId(){
 
-        assertEquals(1,testMeetingTwo.getId());
-        assertNotEquals(2,testMeetingTwo.getId());
+        Assert.assertEquals(1,testMeetingTwo.getId());
+        Assert.assertNotEquals(2,testMeetingTwo.getId());
 
     }
 
     @Test
     public void getDate() {
 
-        assertEquals(new GregorianCalendar(2016,Calendar.DECEMBER,24,13,12),testMeetingTwo.getDate());
-        assertNotEquals(new GregorianCalendar(2019,Calendar.DECEMBER,28,23,30),testMeetingTwo.getDate());
+        Assert.assertEquals(new GregorianCalendar(2016,Calendar.DECEMBER,24,13,12),testMeetingTwo.getDate());
+        Assert.assertNotEquals(new GregorianCalendar(2019,Calendar.DECEMBER,28,23,30),testMeetingTwo.getDate());
 
     }
 
@@ -129,7 +136,7 @@ public class MeetingImplTest {
         contacts.add(new ContactImpl(1,"George","myImportantNotes"));
         for(Contact i: contacts){
             for(Contact j : testMeetingTwo.getContacts()){
-                assertEquals(i.getId(), j.getId());
+                Assert.assertEquals(i.getId(), j.getId());
             }
         }
     }

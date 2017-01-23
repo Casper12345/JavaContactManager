@@ -1,3 +1,5 @@
+package src;
+
 import java.util.Set;
 
 /**
@@ -5,12 +7,16 @@ import java.util.Set;
  */
 public class IdGeneratorImpl<T> implements IdGenerator<T> {
 
-
+    @Override
     public int genId(Object toGenerate, Set<T> objectsInSystem){
         return returnID(hashGenerator(toGenerate), objectsInSystem);
 
     }
 
+    /**
+     * Auxiliary function for genID().
+     *
+     */
     private int returnID(int generated, Set<T> objectsInSystem){
 
         if(checkUniqueness(generated, objectsInSystem)){
@@ -20,11 +26,18 @@ public class IdGeneratorImpl<T> implements IdGenerator<T> {
         }
     }
 
+    /**
+     * Auxiliary function for genID().
+     *
+     */
     private int hashGenerator(Object toGenerate){
         return Math.abs(toGenerate.hashCode());
     }
 
-
+    /**
+     * Auxiliary function for genID().
+     *
+     */
     private boolean checkUniqueness(int hashCode, Set<T> objectsInSystem){
         for(T i: objectsInSystem){
 
@@ -52,6 +65,10 @@ public class IdGeneratorImpl<T> implements IdGenerator<T> {
         return true;
     }
 
+    /**
+     * Auxiliary function for genID().
+     *
+     */
     private int numericIdGen(int gen){
          return gen + 1;
     }

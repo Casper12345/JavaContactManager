@@ -1,8 +1,10 @@
+package src;
+
 import java.util.Calendar;
 import java.util.Set;
 
 /**
- * Implements FutureMeeting and extends MeetingImpl
+ * Implements src.FutureMeeting and extends src.MeetingImpl
  */
 public class FutureMeetingImpl extends MeetingImpl implements FutureMeeting {
 
