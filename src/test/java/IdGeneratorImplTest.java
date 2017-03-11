@@ -1,9 +1,14 @@
-package Tests;
+package test.java;
 
 import com.intellij.util.containers.ArrayListSet;
+import main.java.impl.ContactImpl;
+import main.java.impl.FutureMeetingImpl;
+import main.java.impl.IdGeneratorImpl;
+import main.java.spec.Contact;
+import main.java.spec.FutureMeeting;
+import main.java.spec.IdGenerator;
 import org.junit.Before;
 import org.junit.Test;
-import src.*;
 
 import static org.junit.Assert.*;
 import java.security.SecureRandom;
@@ -13,7 +18,7 @@ import java.util.GregorianCalendar;
 import java.util.Set;
 
 /**
- * JUnit test for src.IdGenerator
+ * JUnit test for main.java.spec.IdGenerator
  */
 public class IdGeneratorImplTest {
 
@@ -53,11 +58,9 @@ public class IdGeneratorImplTest {
         boolean isZero = false;
 
         for (int i=0; i < 2000000; i++){
-            IdGeneratorImplTest n = new IdGeneratorImplTest();
-            Contact testContactOne =
-                    new ContactImpl(1,
-                            n.randomStringGenerator(),
-                            n.randomStringGenerator());
+            new ContactImpl(1,
+                            randomStringGenerator(),
+                            randomStringGenerator());
 
             int testIdOne = testGenerator.genId(one,testObjects);
             if (testIdOne == 0){

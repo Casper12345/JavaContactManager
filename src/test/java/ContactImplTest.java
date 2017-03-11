@@ -1,15 +1,15 @@
-package Tests;
+package test.java;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import src.Contact;
-import src.ContactImpl;
+import main.java.spec.Contact;
+import main.java.impl.ContactImpl;
 
 import static org.junit.Assert.*;
 
 /**
- * Tests used to create src.Contact ImplTest
+ * Tests used to create main.java.spec.Contact ImplTest.
  */
 public class ContactImplTest {
 

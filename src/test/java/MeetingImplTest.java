@@ -1,13 +1,13 @@
-package Tests;
+package test.java;
 
 import com.intellij.util.containers.ArrayListSet;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import src.Contact;
-import src.ContactImpl;
-import src.MeetingImpl;
-import src.MeetingMockClass;
+import main.java.spec.Contact;
+import main.java.impl.ContactImpl;
+import main.java.impl.MeetingImpl;
+import main.java.impl.MeetingMockClass;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -15,7 +15,7 @@ import java.util.GregorianCalendar;
 import static org.junit.Assert.*;
 
 /**
- * Junit test for TDD of src.MeetingImpl
+ * Junit test for TDD of main.java.impl.MeetingImpl
  */
 public class MeetingImplTest {
 

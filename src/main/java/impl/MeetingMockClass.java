@@ -1,10 +1,10 @@
-package src;
+package main.java.impl;
 
 import java.util.Calendar;
 import java.util.Set;
 
 /**
- * MockUp class for src.MeetingImpl.
+ * MockUp class for main.java.impl.MeetingImpl.
  * This class serves for testing purposes.
  */
 public class MeetingMockClass extends MeetingImpl {

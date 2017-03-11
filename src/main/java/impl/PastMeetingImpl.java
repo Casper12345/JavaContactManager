@@ -1,10 +1,12 @@
-package src;
+package main.java.impl;
+
+import main.java.spec.PastMeeting;
 
 import java.util.Calendar;
 import java.util.Set;
 
 /**
- * Implements src.PastMeeting
+ * Implements main.java.spec.PastMeeting
  */
 public class PastMeetingImpl extends MeetingImpl implements PastMeeting {
 

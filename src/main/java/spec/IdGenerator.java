@@ -1,4 +1,4 @@
-package src;
+package main.java.spec;
 import java.util.Set;
 /**
  * Interface for IDGenerator that generates unique id's for contacts, futureMeetings

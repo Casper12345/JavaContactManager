@@ -1,19 +1,19 @@
-package Tests;
+package test.java;
 
 import com.intellij.util.containers.ArrayListSet;
 import org.junit.Before;
 import org.junit.Test;
-import src.Contact;
-import src.ContactImpl;
-import src.PastMeeting;
-import src.PastMeetingImpl;
+import main.java.spec.Contact;
+import main.java.impl.ContactImpl;
+import main.java.spec.PastMeeting;
+import main.java.impl.PastMeetingImpl;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Set;
 import static org.junit.Assert.*;
 
 /**
- * JUnit test for src.PastMeetingImpl
+ * JUnit test for main.java.impl.PastMeetingImpl
  */
 public class PastMeetingImplTest {
     private PastMeeting pastMeetingTestTwo;

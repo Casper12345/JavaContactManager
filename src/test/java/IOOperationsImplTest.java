@@ -1,16 +1,19 @@
-package Tests;
+package test.java;
 
 import com.intellij.util.containers.ArrayListSet;
+import main.java.impl.ContactImpl;
+import main.java.impl.ContactManagerImpl;
+import main.java.impl.IOOperationsImpl;
+import main.java.spec.*;
 import org.junit.Assert;
 import org.junit.Test;
-import src.*;
 
 import java.util.*;
 
 import static org.junit.Assert.*;
 
 /**
- * JUnit test for src.IOOperations.
+ * JUnit test for main.java.spec.IOOperations.
  * The tests are run as a bundle from one methods, as they have to be run in a
  * certain order.
  */
@@ -56,8 +59,8 @@ public class IOOperationsImplTest {
         IOOperations testIO = new IOOperationsImpl();
         List<List<String>> input = testIO.readFromFile();
 
-        assertEquals(input.get(0).get(0), "src.Contact");
-        assertEquals(input.get(1).get(0), "src.Contact");
+        assertEquals(input.get(0).get(0), "main.java.spec.Contact");
+        assertEquals(input.get(1).get(0), "main.java.spec.Contact");
         assertEquals(input.get(0).get(1), "23");
         assertEquals(input.get(1).get(1), "34");
         assertEquals(input.get(0).get(2), "Paolo");

@@ -1,4 +1,4 @@
-package src;
+package main.java.spec;
 
 import java.util.Calendar;
 import java.util.List;

@@ -1,4 +1,9 @@
-package src;
+package main.java.impl;
+
+import main.java.spec.Contact;
+import main.java.spec.FutureMeeting;
+import main.java.spec.IdGenerator;
+import main.java.spec.PastMeeting;
 
 import java.util.Set;
 
@@ -30,7 +35,12 @@ public class IdGeneratorImpl<T> implements IdGenerator<T> {
      *
      */
     private int hashGenerator(Object toGenerate){
-        return Math.abs(toGenerate.hashCode());
+        int generated = toGenerate.hashCode();
+        if (generated < 0){
+           generated = generated * -1;
+        }
+        return generated;
+        //return Math.abs(toGenerate.hashCode());
     }
 
     /**

@@ -1,17 +1,18 @@
-package Tests;
+package test.java;
 
 import com.intellij.util.containers.ArrayListSet;
+import main.java.impl.*;
+import main.java.spec.*;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import src.*;
 
 import java.util.*;
 
 import static org.junit.Assert.*;
 
 /**
- * JUnit test for src.ContactManagerImpl
+ * JUnit test for main.java.impl.ContactManagerImpl
  */
 public class ContactManagerImplTest {
 

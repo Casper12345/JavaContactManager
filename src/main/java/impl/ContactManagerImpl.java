@@ -1,14 +1,19 @@
-package src;
+package main.java.impl;
 
 import com.intellij.util.containers.ArrayListSet;
+import main.java.spec.*;
+
+
 import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * Implements interface src.ContactManager
+ * Implements interface main.java.spec.ContactManager.
  */
 public class ContactManagerImpl implements ContactManager {
-
+    /**
+     *
+     */
     private IOOperations IOHandler = new IOOperationsImpl();
     private Set<Contact> contactSet = new ArrayListSet<>();
     private Set<FutureMeeting> futureMeetingSet = new ArrayListSet<>();
@@ -245,7 +250,7 @@ public class ContactManagerImpl implements ContactManager {
     public PastMeeting addMeetingNotes(int id, String text)
             throws IllegalArgumentException, IllegalStateException{
 
-        //src.Meeting meetingToBeOperatedOn = null;
+        //main.java.spec.Meeting meetingToBeOperatedOn = null;
         PastMeeting meetingToBeReturned = null;
 
         if(text == null){

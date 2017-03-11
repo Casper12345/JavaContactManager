@@ -1,4 +1,4 @@
-package src;
+package main.java.spec;
 
 /**
  * A meeting to be held in the future

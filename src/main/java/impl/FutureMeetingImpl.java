@@ -1,10 +1,12 @@
-package src;
+package main.java.impl;
+
+import main.java.spec.FutureMeeting;
 
 import java.util.Calendar;
 import java.util.Set;
 
 /**
- * Implements src.FutureMeeting and extends src.MeetingImpl
+ * Implements main.java.spec.FutureMeeting and extends main.java.impl.MeetingImpl
  */
 public class FutureMeetingImpl extends MeetingImpl implements FutureMeeting {
 
