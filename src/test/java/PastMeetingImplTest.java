@@ -17,24 +17,24 @@ import static org.junit.Assert.*;
  */
 public class PastMeetingImplTest {
     private PastMeeting pastMeetingTestTwo;
-    private Calendar calendar = new GregorianCalendar(2016,11,30,12,12);
+    private Calendar calendar = new GregorianCalendar(2016, 11, 30, 12, 12);
     private Set<Contact> contacts = new ArrayListSet<>();
     private String notes = "myNotesAreImportant";
     private boolean Throw;
 
     @Before
     public void before(){
-        contacts.add(new ContactImpl(1,"John", "John is cool"));
+        contacts.add(new ContactImpl(1, "John", "John is cool"));
         Throw = false;
-        pastMeetingTestTwo = new PastMeetingImpl(1,calendar, contacts, notes);
+        pastMeetingTestTwo = new PastMeetingImpl(1, calendar, contacts, notes);
     }
 
     @Test
     public void constructorTestOne(){
 
         try{
-            new PastMeetingImpl(1,calendar,contacts,null);
-        }catch (NullPointerException ex){
+            new PastMeetingImpl(1, calendar, contacts, null);
+        } catch (NullPointerException ex){
             Throw = true;
         }
 
@@ -43,8 +43,8 @@ public class PastMeetingImplTest {
         Throw = false;
 
         try{
-           new PastMeetingImpl(1,calendar,contacts,notes);
-        }catch (NullPointerException ex){
+           new PastMeetingImpl(1, calendar, contacts, notes);
+        } catch (NullPointerException ex){
             Throw = true;
         }
         assertFalse(Throw);
@@ -56,6 +56,6 @@ public class PastMeetingImplTest {
         String notesReturned = pastMeetingTestTwo.getNotes();
         String notesForTest = "myNotesAreImportant";
 
-        assertEquals(notesReturned, notesForTest );
+        assertEquals(notesReturned, notesForTest);
     }
 }

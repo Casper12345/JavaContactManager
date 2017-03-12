@@ -18,7 +18,7 @@ import java.util.GregorianCalendar;
 import java.util.Set;
 
 /**
- * JUnit test for main.java.spec.IdGenerator
+ * JUnit test for main.java.spec.IdGenerator.
  */
 public class IdGeneratorImplTest {
 
@@ -44,14 +44,14 @@ public class IdGeneratorImplTest {
 
         int testIdTwo = testGenerator.genId(testContactTwo, contacts);
 
-        assertNotEquals(testIdOne,testIdTwo);
+        assertNotEquals(testIdOne, testIdTwo);
 
     }
 
     @Test
     public void checkIfZero(){
 
-        Calendar calendar = new GregorianCalendar(2020, 2,2,1,11);
+        Calendar calendar = new GregorianCalendar(2020, 2, 2, 1, 11);
         Set<FutureMeeting> testObjects = new ArrayListSet<>();
         FutureMeeting one = new FutureMeetingImpl(2, calendar, contacts);
 
@@ -62,7 +62,7 @@ public class IdGeneratorImplTest {
                             randomStringGenerator(),
                             randomStringGenerator());
 
-            int testIdOne = testGenerator.genId(one,testObjects);
+            int testIdOne = testGenerator.genId(one, testObjects);
             if (testIdOne == 0){
                 isZero = true;
             }
@@ -75,7 +75,7 @@ public class IdGeneratorImplTest {
     public void stressTestIdGenerator(){
         IdGeneratorImplTest n = new IdGeneratorImplTest();
 
-        for (int i=0; i < 20000; i++){
+        for (int i = 0; i < 20000; i++){
             Contact testContactOne =
                     new ContactImpl(1,
                             n.randomStringGenerator(),

@@ -1,7 +1,6 @@
 package main.java.impl;
 
 import main.java.spec.Contact;
-
 import java.util.Calendar;
 import java.util.Set;
 
@@ -9,38 +8,69 @@ import java.util.Set;
  * Abstract class implements meeting.
  */
 public abstract class MeetingImpl {
-
+    /**
+     * Id of meeting.
+     */
     private int id;
+    /**
+     * Calendar date of meeting.
+     */
     private Calendar date;
+    /**
+     * Set of contacts participating in the meeting.
+     */
     private Set contacts;
 
-    public MeetingImpl(int id, Calendar date, Set contacts) throws IllegalArgumentException, NullPointerException{
-        this.id = id;
-        this.date = date;
-        this.contacts = contacts;
+    /**
+     * Constructor method.
+     * @param idToSet of meeting
+     * @param dateToSet of meeting
+     * @param contactsToSet set of participating contacts
+     * @throws IllegalArgumentException thrown if id is negative
+     * @throws NullPointerException if set of contacts is empty
+     */
+    public MeetingImpl(final int idToSet,
+                       final Calendar dateToSet, final Set contactsToSet)
+            throws IllegalArgumentException, NullPointerException {
+        this.id = idToSet;
+        this.date = dateToSet;
+        this.contacts = contactsToSet;
 
-        if(id < 0){
+        if (id < 0) {
             throw new IllegalArgumentException();
         }
 
-        if(contacts.isEmpty()){
+        if (contacts.isEmpty()) {
             throw new IllegalArgumentException();
         }
-        // I only throw if date is null, as null instance of set automatically throws a NullPointException
-        if(date == null){
+        // I only throw if date is null, as null instance
+        // of set automatically throws a NullPointException
+        if (date == null) {
             throw new NullPointerException();
         }
     }
 
-    public int getId(){
+    /**
+     * Accessor for id.
+     * @return id of meeting
+     */
+    public int getId() {
         return id;
     }
 
-    public Calendar getDate(){
+    /**
+     * Accessor for date.
+     * @return date for meeting
+     */
+    public Calendar getDate() {
         return date;
     }
 
-    public Set<Contact> getContacts(){
+    /**
+     * Accessor for contacts.
+     * @return set of contacts
+     */
+    public Set<Contact> getContacts() {
         return contacts;
     }
 }

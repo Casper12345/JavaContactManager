@@ -20,21 +20,23 @@ public class ContactImpl implements Contact {
     private String notes;
 
     /**
-     * Primary class constructor
+     * Primary class constructor.
      * @param idToSet is set by constructor.
      * @param nameToSet is set by constructor
      * @param notesToSet is set by constructor
      * @throws IllegalArgumentException is thrown if id is negative
-     * @throws NullPointerException is thrown if either name or notes is an empty string
+     * @throws NullPointerException is thrown if either name
+     * or notes is an empty string
      */
 
-    public ContactImpl(final int idToSet, final String nameToSet, final String notesToSet)
+    public ContactImpl(final int idToSet, final String nameToSet,
+                       final String notesToSet)
             throws IllegalArgumentException, NullPointerException {
 
-        if (idToSet < 0){
+        if (idToSet < 0) {
             throw new IllegalArgumentException();
         }
-        if (nameToSet == null || notesToSet == null){
+        if (nameToSet == null || notesToSet == null) {
             throw new NullPointerException();
         }
         this.id = idToSet;
@@ -43,15 +45,15 @@ public class ContactImpl implements Contact {
     }
 
     /**
-     * Overloaded class constructor
+     * Overloaded class constructor.
      * @param idToSet is set by constructor
      * @param nameToSet is set by constructor
      */
-    public ContactImpl(final int idToSet, final String nameToSet){
-        if (idToSet < 0){
+    public ContactImpl(final int idToSet, final String nameToSet) {
+        if (idToSet < 0) {
             throw new IllegalArgumentException();
         }
-        if (nameToSet == null){
+        if (nameToSet == null) {
             throw new NullPointerException();
         }
         this.id = idToSet;
@@ -60,40 +62,40 @@ public class ContactImpl implements Contact {
 
 
     /**
-     * Implements getId
+     * Implements getId.
      * Getter for id
      */
     @Override
-    public int getId(){
+    public int getId() {
         return id;
     }
 
     /**
-     * Implements getName
+     * Implements getName.
      * Getter for name
      * @return name
      */
     @Override
-    public String getName(){
+    public String getName() {
         return name;
     }
 
     /**
-     * Implements getNotes
+     * Implements getNotes.
      * Getter for notes
      * @return notes
      */
     @Override
-    public String getNotes(){
+    public String getNotes() {
         return notes;
     }
 
     /**
-     * Implements notesToAdd
+     * Implements notesToAdd.
      * @param noteToAdd is notes that can be added to contact
      */
     @Override
-    public void addNotes(final String noteToAdd){
+    public void addNotes(final String noteToAdd) {
         this.notes += "\n" + noteToAdd;
     }
 }

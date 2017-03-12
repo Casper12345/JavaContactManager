@@ -1,9 +1,10 @@
 package main.java.spec;
 import java.util.Set;
 /**
- * Interface for IDGenerator that generates unique id's for contacts, futureMeetings
+ * Interface for IDGenerator that generates
+ * unique id's for contacts, futureMeetings
  * and pastMeetings.
- *
+ * @param <T> generic type to generate id on
  */
 public interface IdGenerator<T> {
 

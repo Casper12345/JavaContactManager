@@ -8,8 +8,14 @@ import java.util.Set;
  * This class serves for testing purposes.
  */
 public class MeetingMockClass extends MeetingImpl {
-
-    public MeetingMockClass(int id, Calendar date, Set contacts){
+    /**
+     * Constructor.
+     * @param id of meeting
+     * @param date of meeting
+     * @param contacts of participants
+     */
+    public MeetingMockClass(final int id, final Calendar date,
+                            final Set contacts) {
         super(id, date, contacts);
     }
 }
