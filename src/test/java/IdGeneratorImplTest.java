@@ -21,15 +21,32 @@ import java.util.Set;
  * JUnit test for main.java.spec.IdGenerator.
  */
 public class IdGeneratorImplTest {
-
+    /**
+     * Random generator.
+     */
     private SecureRandom random = new SecureRandom();
+    /**
+     * Test id generator.
+     */
     private IdGenerator testGenerator = new IdGeneratorImpl();
+    /**
+     * Contacts for test purpose.
+     */
     private Set<Contact> contacts = new ArrayListSet<>();
+    /**
+     * Contact.
+     */
     private Contact testContactOne;
+    /**
+     * Contact.
+     */
     private Contact testContactTwo;
 
+    /**
+     * Before.
+     */
     @Before
-    public void setup(){
+    public void setup() {
         testContactOne = new ContactImpl(1, "Poul", "goodNotes");
         testContactTwo = new ContactImpl(2, "Eric", "badNotes");
 
@@ -38,6 +55,10 @@ public class IdGeneratorImplTest {
 
     }
 
+    /**
+     * See desc.
+     * @throws Exception ex
+     */
     @Test
     public void genId() throws Exception {
         int testIdOne = testGenerator.genId(testContactOne, contacts);
@@ -48,8 +69,11 @@ public class IdGeneratorImplTest {
 
     }
 
+    /**
+     * See desc.
+     */
     @Test
-    public void checkIfZero(){
+    public void checkIfZero() {
 
         Calendar calendar = new GregorianCalendar(2020, 2, 2, 1, 11);
         Set<FutureMeeting> testObjects = new ArrayListSet<>();
@@ -57,13 +81,13 @@ public class IdGeneratorImplTest {
 
         boolean isZero = false;
 
-        for (int i=0; i < 2000000; i++){
+        for (int i = 0; i < 2000000; i++) {
             new ContactImpl(1,
                             randomStringGenerator(),
                             randomStringGenerator());
 
             int testIdOne = testGenerator.genId(one, testObjects);
-            if (testIdOne == 0){
+            if (testIdOne == 0) {
                 isZero = true;
             }
 
@@ -71,11 +95,14 @@ public class IdGeneratorImplTest {
         assertFalse(isZero);
     }
 
+    /**
+     * See desc.
+     */
     @Test
-    public void stressTestIdGenerator(){
+    public void stressTestIdGenerator() {
         IdGeneratorImplTest n = new IdGeneratorImplTest();
 
-        for (int i = 0; i < 20000; i++){
+        for (int i = 0; i < 20000; i++) {
             Contact testContactOne =
                     new ContactImpl(1,
                             n.randomStringGenerator(),
@@ -89,11 +116,15 @@ public class IdGeneratorImplTest {
             int testIdOne = testGenerator.genId(testContactOne, contacts);
             int testIdTwo = testGenerator.genId(testContactTwo, contacts);
 
-            assertNotEquals(testIdOne,testIdTwo);
+            assertNotEquals(testIdOne, testIdTwo);
 
         }
     }
 
+    /**
+     * Random string generator.
+     * @return random string.
+     */
     private String randomStringGenerator() {
         return new BigInteger(130, random).toString(32);
     }

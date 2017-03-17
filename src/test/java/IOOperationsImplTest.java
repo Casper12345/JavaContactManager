@@ -4,11 +4,18 @@ import com.intellij.util.containers.ArrayListSet;
 import main.java.impl.ContactImpl;
 import main.java.impl.ContactManagerImpl;
 import main.java.impl.IOOperationsImpl;
-import main.java.spec.*;
+import main.java.spec.Contact;
+import main.java.spec.ContactManager;
+import main.java.spec.FutureMeeting;
+import main.java.spec.IOOperations;
+import main.java.spec.PastMeeting;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.*;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.Set;
 
 import static org.junit.Assert.*;
 
@@ -18,12 +25,21 @@ import static org.junit.Assert.*;
  * certain order.
  */
 public class IOOperationsImplTest {
-
+    /**
+     * IO Operations.
+     */
     private IOOperations testIO = new IOOperationsImpl();
+    /**
+     * ContactManager for test purpose.
+     */
     private ContactManager testContactManager = new ContactManagerImpl();
 
+    /**
+     * Main method that generates and runs all the tests together
+     * to achieve specific order of tests.
+     */
     @Test
-    public void testAll(){
+    public void testAll() {
         IOOperationsImplTest i = new IOOperationsImplTest();
         i.writeContactsToFile();
         i.readFromFile();
@@ -35,7 +51,10 @@ public class IOOperationsImplTest {
         i.readPastMeetingFromFile();
     }
 
-    public void writeContactsToFile(){
+    /**
+     * See desc.
+     */
+    public void writeContactsToFile() {
         testIO.overWriteFile();
         Contact first = new ContactImpl(23, "Paolo", "Blah, blah, blah");
         Contact second = new ContactImpl(34, "Erik", "more, more, more");
@@ -44,17 +63,22 @@ public class IOOperationsImplTest {
         testContacts.add(second);
 
         testContactManager.addNewContact("Josh", "Notes, yes");
-        Set<Contact> contactsReturned  = testContactManager.getContacts("Josh");
+        Set<Contact> contactsReturned  =
+                testContactManager.getContacts("Josh");
         Contact returned = (Contact) contactsReturned.toArray()[0];
         returned.addNotes("no");
-        Set<Contact> contactsReturnedTwo  = testContactManager.getContacts("Josh");
+        Set<Contact> contactsReturnedTwo =
+                testContactManager.getContacts("Josh");
         Contact returnedTwo = (Contact) contactsReturnedTwo.toArray()[0];
 
         testContacts.add(returnedTwo);
         testIO.writeContactsToFile(testContacts);
     }
 
-    public void readFromFile(){
+    /**
+     * See desc.
+     */
+    public void readFromFile() {
 
         IOOperations testIO = new IOOperationsImpl();
         List<List<String>> input = testIO.readFromFile();
@@ -70,7 +94,10 @@ public class IOOperationsImplTest {
         assertEquals(input.get(2).get(3), "Notes, yes" + "\n" + "no");
     }
 
-    public void writeFutureMeetingsToFile(){
+    /**
+     * See desc.
+     */
+    public void writeFutureMeetingsToFile() {
 
         testIO.overWriteFile();
         int id1 = testContactManager.addNewContact("Wilson", "Notes, yes");
@@ -79,7 +106,9 @@ public class IOOperationsImplTest {
 
         Calendar testCal = new GregorianCalendar(2019, 2, 21, 11, 12);
 
-        int meetingId = testContactManager.addFutureMeeting(testContactManager.getContacts(id1, id2), testCal);
+        int meetingId = testContactManager
+                .addFutureMeeting(testContactManager
+                        .getContacts(id1, id2), testCal);
 
         Set<FutureMeeting> testMeetingSet = new ArrayListSet<>();
         testMeetingSet.add(testContactManager.getFutureMeeting(meetingId));
@@ -93,14 +122,19 @@ public class IOOperationsImplTest {
         testIO.writeContactsToFile(testContactManager.getContacts(id1, id2));
     }
 
-    public void writePastMeetingsToFile(){
+    /**
+     * See desc.
+     */
+    public void writePastMeetingsToFile() {
 
         int id1 = testContactManager.addNewContact("Miles", "Notes, yes");
         int id2 = testContactManager.addNewContact("Jill", "Hello");
 
         Calendar testCal = new GregorianCalendar(2012, 2, 21, 11, 12);
 
-        int meetingId = testContactManager.addNewPastMeeting(testContactManager.getContacts(id1, id2), testCal, "Notes");
+        int meetingId = testContactManager
+                .addNewPastMeeting(testContactManager
+                        .getContacts(id1, id2), testCal, "Notes");
 
         Set<PastMeeting> testMeetingSet = new ArrayListSet<>();
         testMeetingSet.add(testContactManager.getPastMeeting(meetingId));
@@ -114,10 +148,15 @@ public class IOOperationsImplTest {
 
     }
 
-    public void readContactsFromFile(){
+    /**
+     * See desc.
+     */
+    public void readContactsFromFile() {
 
-        int id1 = testContactManager.addNewContact("Quinn", "Notes from hell");
-        int id2 = testContactManager.addNewContact("Jerry", "Notes from heaven");
+        int id1 = testContactManager
+                .addNewContact("Quinn", "Notes from hell");
+        int id2 = testContactManager
+                .addNewContact("Jerry", "Notes from heaven");
 
         Set<Contact> writeTOFile = testContactManager.getContacts(id1, id2);
 
@@ -132,7 +171,10 @@ public class IOOperationsImplTest {
         Assert.assertEquals(id2, two.getId());
     }
 
-    public void readFutureMeetingFromFile(){
+    /**
+     * See desc.
+     */
+    public void readFutureMeetingFromFile() {
         // creating test future meeting
 
         int id1 = testContactManager.addNewContact("Bill", "Notes, yes");
@@ -140,7 +182,9 @@ public class IOOperationsImplTest {
 
         Calendar testCal = new GregorianCalendar(2020, 2, 21, 11, 12);
 
-        int meetingId = testContactManager.addFutureMeeting(testContactManager.getContacts(id1, id2), testCal);
+        int meetingId = testContactManager
+                .addFutureMeeting(testContactManager
+                        .getContacts(id1, id2), testCal);
 
         Set<FutureMeeting> testMeetingSet = new ArrayListSet<>();
         testMeetingSet.add(testContactManager.getFutureMeeting(meetingId));
@@ -151,23 +195,32 @@ public class IOOperationsImplTest {
 
         testIO.readContactsFromFile();
 
-        Set<FutureMeeting> returnedFutureMeetings = testIO.readFutureMeetingFromFile();
+        Set<FutureMeeting> returnedFutureMeetings =
+                testIO.readFutureMeetingFromFile();
 
-        FutureMeeting testMeetingReturned = (FutureMeeting) returnedFutureMeetings.toArray()[1];
+        FutureMeeting testMeetingReturned =
+                (FutureMeeting) returnedFutureMeetings.toArray()[1];
 
-        Contact testContactReturnedOne = (Contact) testMeetingReturned.getContacts().toArray()[0];
+        Contact testContactReturnedOne =
+                (Contact) testMeetingReturned.getContacts().toArray()[0];
 
-        Contact testContactReturnedTwo = (Contact) testMeetingReturned.getContacts().toArray()[1];
+        Contact testContactReturnedTwo =
+                (Contact) testMeetingReturned.getContacts().toArray()[1];
 
         Assert.assertEquals(testContactReturnedOne.getName(), "Bill");
         Assert.assertEquals(testContactReturnedTwo.getName(), "Monkey");
     }
 
-    public void readPastMeetingFromFile(){
+    /**
+     * See desc.
+     */
+    public void readPastMeetingFromFile() {
 
-        Set<PastMeeting> pastMeetingsReturned = testIO.readPastMeetingFromFile();
+        Set<PastMeeting> pastMeetingsReturned =
+                testIO.readPastMeetingFromFile();
 
-        PastMeeting returnedPastMeeting = (PastMeeting) pastMeetingsReturned.toArray()[0];
+        PastMeeting returnedPastMeeting =
+                (PastMeeting) pastMeetingsReturned.toArray()[0];
 
         Assert.assertEquals(returnedPastMeeting.getNotes(), "Notes");
     }

@@ -71,10 +71,12 @@ public class IdGeneratorImpl<T> implements IdGenerator<T> {
             if (i instanceof Contact && hashCode == ((Contact) i).getId()) {
                 return false;
             }
-            if (i instanceof FutureMeeting && hashCode == ((FutureMeeting) i).getId()) {
+            if (i instanceof FutureMeeting && hashCode
+                    == ((FutureMeeting) i).getId()) {
                 return false;
             }
-            if (i instanceof PastMeeting && hashCode == ((PastMeeting) i).getId()) {
+            if (i instanceof PastMeeting && hashCode
+                    == ((PastMeeting) i).getId()) {
                 return false;
             }
         }
